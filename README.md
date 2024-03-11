@@ -1,4 +1,4 @@
-# freedom-day-frontend
+# freedom-day-frontend 개발 중...
 
 ## Project setup
 ```
