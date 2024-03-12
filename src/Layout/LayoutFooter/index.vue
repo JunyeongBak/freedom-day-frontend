@@ -8,7 +8,7 @@
       replace
       to="/"
       icon="wap-home-o">
-      主页面
+      개발1
     </van-tabbar-item>
     <van-tabbar-item
       v-if="msgNum > 0"
@@ -16,7 +16,7 @@
       to="/mine"
       icon="manager-o"
       :badge="msgNum">
-      个人中心
+      개발2
     </van-tabbar-item>
     <van-tabbar-item
       v-else

@@ -1,12 +1,14 @@
 <template>
-  <div class="header-container">
+  <div
+    class="header-container"
+    id="header-container">
     <div
       v-if="showBtn"
       class="icon-container"
       @click="goLastPage">
       <van-icon name="arrow-left" />
     </div>
-    <span>{{ title }}</span>
+    <div>{{ title }}</div>
   </div>
 </template>
 
@@ -38,23 +40,31 @@ export default {
 
 <style lang="scss" scoped>
 .header-container {
-  height: 60px;
-  background: linear-gradient(45deg, #fc9681, #409EFF);
+  height: 56px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   font-size: 16px;
-  color: #fff;
-  position: relative;
+  color: #1D2532;
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+  transition: background-color 1.1s;
 
   .icon-container {
-    position: absolute;
+    margin-left: 10px;
     height: 100%;
-    left: 10px;
-    font-size: 20px;
+    width: 32px;
     display: flex;
     align-items: center;
 
+    font-family: 'NanumSquare Neo';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24px;
     &:hover,
     &:focus,
     &:active {
