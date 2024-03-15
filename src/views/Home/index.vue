@@ -18,14 +18,16 @@
       </van-grid>
     </div>
   </div>
+  <HelloWorld/>
   <!-- <layout-footer :msg-num="msgNum" /> -->
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import LayoutHeader from "@/Layout/LayoutHeader/index.vue";
-import LayoutFooter from "@/Layout/LayoutFooter/index.vue";
+// import LayoutFooter from "@/Layout/LayoutFooter/index.vue";
 import LoanCardDetails from "@/components/LoanDetails.vue"
+import HelloWorld from "@/components/HelloWorld.vue";
 
 // 반응형 데이터
 const pageTitle = '대출 상세페이지';
