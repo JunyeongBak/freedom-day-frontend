@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://127.0.0.1:8080/api/", // TODO: env로 변경 예정
+  baseURL: "https://www.freedom-day.site/api/test/graph1", // TODO: env로 변경 예정
   timeout: 2000,
   headers: {
     "Content-Type": "application/json",
