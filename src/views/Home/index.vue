@@ -78,8 +78,6 @@
     min-width: 360px;
     min-height: 800px;
     align-items: center;
-    font-size: 20px;
-    font-weight: 800;
     background-color: #F3F3F3;
     
     &-navbar{
@@ -91,6 +89,9 @@
       align-items: center;
       padding-left: 18px;
       background-color: #FFF;
+      font-family: 'NanumSquareNeo_extrabold';
+      font-weight: 800;
+      font-size: 20px;
     }
     
     &-container{
@@ -105,6 +106,9 @@
       font-weight: 700;
       background-color: #FFF;
       border-radius: 16px;
+      font-family: 'NanumSquareNeo_normal';
+      font-weight: 700;
+      font-size: 20px;
 
       div > svg{
         margin-top: 24px;

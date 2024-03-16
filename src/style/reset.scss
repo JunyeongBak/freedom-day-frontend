@@ -45,8 +45,23 @@ a, a:visited {
 }
 
 @font-face{
-    font-family: 'NanumSquareNeo';
+    font-family: 'NanumSquareNeo_normal';
     font-style: normal;
     font-weight: 400;
-    src: '../assets/fonts/NanumSquareNeo-bRg.ttf'
+    src: url('@/assets/fonts/NanumSquareNeo-bRg.ttf') format('truetype')
+
+}
+
+@font-face{
+    font-family: 'NanumSquareNeo_bold';
+    font-style: bold;
+    font-weight: 700;
+    src: url('@/assets/fonts/NanumSquareNeo-cBd.ttf') format('truetype')
+}
+
+@font-face{
+    font-family: 'NanumSquareNeo_extrabold';
+    font-style: extrabold;
+    font-weight: 800;
+    src: url('@/assets/fonts/NanumSquareNeo-dEb.ttf') format('truetype')
 }
