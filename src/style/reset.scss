@@ -65,3 +65,10 @@ a, a:visited {
     font-weight: 800;
     src: url('@/assets/fonts/NanumSquareNeo-dEb.ttf') format('truetype')
 }
+
+@font-face{
+    font-family: 'NanumSquareNeo_heavy';
+    font-style: heavy;
+    font-weight: 900;
+    src: url('@/assets/fonts/NanumSquareNeo-eHv.ttf') format('truetype')
+}
