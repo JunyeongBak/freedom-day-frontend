@@ -68,9 +68,9 @@
 
 <script setup>
   import { ref, onMounted, computed } from 'vue';
-  import loans_tab from '../../components/loans_tab.vue'
-  import loans_tab2 from '../../components/loans_tab copy.vue'
-  import loans_tab3 from '../../components/loans_tab copy 2.vue'
+  import loans_tab from '../Tab/loans_tab.vue'
+  import loans_tab2 from '../Tab/loans_tab copy.vue'
+  import loans_tab3 from '../Tab/loans_tab copy 2.vue'
 
   const vb_empty = ref('empty')
   const vb_emptyNavbar = ref('empty-navbar')
