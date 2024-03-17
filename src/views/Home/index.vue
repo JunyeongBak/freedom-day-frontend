@@ -59,7 +59,7 @@
         <span>계획적인 빚테크 시작해 볼까요?</span>
       </div>
       <button @click="" :class=vb_callToAction>
-        <img src="/home/tory/side/DEMO/freedom-day-frontend/src/assets/call_to_action.svg" alt="Button Icon" />
+        <img src="/src/assets/call_to_action.svg" alt="Button Icon" />
       </button>
     </div>
     <!-- END] Failed to read API data -->
