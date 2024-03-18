@@ -1,6 +1,6 @@
 <template>
   <div class="pichart">
-    <canvas ref="pieChart" width="320" height="320"></canvas>
+    <canvas ref="pieChart" width="200" height="200"></canvas>
     <div class="legend" ref="legendRef"></div>
   </div>
 </template>
@@ -16,7 +16,7 @@
     labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
     datasets: [
       {
-        backgroundColor: ['#3182F6', '#9F33C4', '#FFCE58', '#89D8D8', '#6B7583'],
+        backgroundColor: ['#3182F6', '#9F33C4', '#FFCE58', '#89D8D8', '#6B7583','#6B7583','#6B7583','#6B7583','#6B7583','#6B7583'],
         data: [],
       },
     ],
@@ -62,25 +62,23 @@
     // console.log(colors)
 
     if (legendRef) {
-      legendRef.innerHTML = 'test'; // Clear existing legend items
-      console.log(legendRef.innerHTML)
+      legendRef.innerHTML = ''; // Clear existing legend items
       labels.forEach((label, index) => {
         const legendItem = document.createElement('div');
         legendItem.classList.add('legend-item');
         legendItem.innerHTML = `
-          <span class="legend-color" style="background-color: ${colors[index]};"></span>
-          <span class="legend-label">${label}</span>
+          <span class="legend-color" style="background-color: ${colors[index]};">${label}</span>
         `;
         legendRef.value.appendChild(legendItem);
-        console.log(legendRef.value.innerHTML)
       });
+      console.log(legendRef.value.innerHTML)
     }
   };
   onMounted(async () => {
     try{
-      const response = await fetch('https://www.freedom-day.site/api/test/graph1');
+      const response = await fetch('https://www.freedom-day.site/api/test/loan-statistics');
       const fetchedData = await response.json();
-      const data = fetchedData['response']; // Make sure this path matches your data structure
+      const data = fetchedData['remainingPrincipalList']; // Make sure this path matches your data structure
       chartData.value.labels = data.map((item: any) => item.name);
       // chartData.value.datasets[0].data = data.map((item: any) => item.amount);
       arrPie.data = data.map((item: any) => item.amount);
@@ -99,11 +97,17 @@
     flex-direction: column;
     align-items: center;
     min-width: 360px;
-    min-height: 400px;
+    min-height: 240px;
   }
   .legend{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: 'NanumSquareNeo_bold';
+    font-size: 16px;
     min-width: 360px;
-    min-height: 100px;
-    background-color: orange;
+    min-height: 20px;
+    margin-top: 8px;
+    // background-color: yellowgreen;
   }
 </style>
