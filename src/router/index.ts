@@ -6,14 +6,13 @@ const routes: Array<RouteRecordRaw> = [
     name: "Home",
     meta: {
       title: "해방의날",
-      keepAlive: true
+      keepAlive: true,
     },
-    component: () => import("../views/Home/index.vue"),
-  }
-  
+    component: () => import("../views/Home/HomePage.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 });
 export default router;
