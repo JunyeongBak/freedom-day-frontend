@@ -6,6 +6,7 @@
       :class=vb_hasData>
       <div :class="vb_hasdataNavbar">
         <nav>
+          <nav></nav>
           <button
             :class="{ 'hasdata-navbar__inactivetab': currentTab !== 'home' }"
             @click="setTab('home', 0)">대출</button>
@@ -19,7 +20,7 @@
         <button @click="currentTab = 'settings'" :class=vb_hasdataNavbarSettings>관리</button>
       </div>
       <main>
-        <component :is="currentComponent"></component>
+        <component :is="currentComponent"/></component>
       </main>
     </div>
     <!-- END] API data read successfully -->
