@@ -73,13 +73,13 @@
   import { useStore } from 'vuex';
   import { ref, onMounted, computed } from 'vue';
   import loans_tab from '../Tab/loans_tab.vue';
-  import loans_tab2 from '../Tab/loans_tab copy.vue';
+  import static_tab from '../Tab/static_tab.vue';
   import loans_tab3 from '../Tab/loans_tab copy 2.vue';
 
   const vb_empty = ref('empty');
   const vb_emptyNavbar = ref('empty-navbar');
   const vb_emptyContainer = ref('empty-container');
-  const hasData = computed(() => dataLength.value > 0);
+  const hasData = computed(() => dataLength.value == 0);
   const currentTab = ref('home'); // 탭 기능 구현
   const vb_hasdataNavbar = computed(() => store.state.tabIndex === 1 ? 'hasdata-navbar__blue' : 'hasdata-navbar');
   const vb_hasData = ref('hasdata');
@@ -90,8 +90,8 @@
   // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
   onMounted(async () => {
     try {
-      const response = await fetch('https://www.freedom-day.site/api/test/user-loan-info');
-      // const response = await fetch('');
+      // const response = await fetch('https://www.freedom-day.site/api/test/user-loan-info');
+      const response = await fetch('');
       const fetchedData = await response.json();
       dataLength.value = fetchedData['response']['loanCount']
       console.log(dataLength.value)
@@ -107,7 +107,7 @@
   // 탭 이름과 해당 컴포넌트를 매핑
   const tabToComponentMap = {
     home: loans_tab,
-    statistics: loans_tab2,
+    statistics: static_tab,
     settings: loans_tab3
   }
   const currentComponent = computed(() => tabToComponentMap[currentTab.value]);

@@ -7,8 +7,8 @@ import 'vant/lib/index.css'; // Vant 스타일 전역 임포트
 import './style/common.scss'; // 공통 스타일
 import './rem'; // rem 설정
 import Vant from 'vant'; // Vant UI 라이브러리
-// import { Chart, registerables } from 'chart.js';
-// Chart.register(...registerables);
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 
 // createApp 함수를 사용하여 Vue 애플리케이션 인스턴스를 생성
