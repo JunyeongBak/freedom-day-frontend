@@ -16,7 +16,7 @@
         <span>상환 예정</span>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/home/tory/side/DEMO/freedom-day-frontend/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.svg" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-student">학자금</div>
@@ -31,7 +31,7 @@
         </div>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/home/tory/side/DEMO/freedom-day-frontend/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.svg" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-living">생활비</div>
@@ -51,7 +51,7 @@
         </div>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/home/tory/side/DEMO/freedom-day-frontend/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.svg" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-finish">주택자금</div>
