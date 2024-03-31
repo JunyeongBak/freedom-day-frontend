@@ -8,6 +8,4 @@ async function getGraph() {
   return axios.get("/test/graph1");
 }
 
-async function cicdTest() {}
-
 export { getTest, getGraph };
