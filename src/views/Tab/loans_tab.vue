@@ -1,7 +1,7 @@
 <template>
   <div class="hasdata-container__background1">
     <div class="hasdata-container__total">
-      <span>OOO 님의 지난달 총 납부액</span>
+      <span>JYB 님의 지난달 총 납부액</span>
       <div class="hasdata-container__total__amount">
         <img src="/src/assets/progressicon.svg" alt="Progress Icon"/>
         <span>58,000,000원</span>
