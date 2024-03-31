@@ -1,0 +1,69 @@
+name: Our Workflow
+on:
+  push:
+    branches:
+      - 'main'
+  
+jobs:
+  cicd:
+    runs-on: ubuntu-latest
+    steps:
+
+    # build
+      - name: Checkout brance
+        uses: actions/checkout@v3
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.16.0
+
+      # - uses: actions/cache@v3
+      #   id: npm-cache
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      # - if: steps.npm-cache.outputs.cache-hit == 'true'
+      #   run: echo 'npm cache hit!'
+      # - if: steps.npm-cache.outputs.cache-hit != 'true'
+      #   run: echo 'npm cache missed!'
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Get Github Actions IP
+        id: ip
+        uses: haythem/public-ip@v1.3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Add Github Actions IP to Security group
+        run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+      - name: Deploy to EC2
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+          TARGET: ${{ secrets.EC2_TARGET_DIR }}
+          SOURCE: "dist/"
+          SCRIPT_BEFORE: |
+            sudo su
+            rm -rf /var/www/freedom-day-frontend/dist
+          SCRIPT_AFTER:  |
+            sudo su
+            chmod 777 -R /var/www/freedom-day-frontend/
+            service nginx stop
+            service nginx start
+
+      - name: Remove Github Actions IP From Security Group
+        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
