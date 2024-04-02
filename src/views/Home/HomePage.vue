@@ -1,43 +1,11 @@
 <template>
   <div>
     <!-- START] API data read successfully -->
-    <div v-if="hasData" :class="vb_hasData">
+    <div v-if="true" :class="vb_hasData">
       <div :class="vb_hasdataNavbar">
-        <nav>
-          <nav></nav>
-          <button
-            :class="{ 'hasdata-navbar__inactivetab': currentTab !== 'home' }"
-            @click="setTab('home', 0)"
-          >
-            대출
-          </button>
-          <button
-            :class="{
-              'hasdata-navbar__inactivetab': currentTab !== 'statistics',
-            }"
-            @click="setTab('statistics', 1)"
-          >
-            통계
-          </button>
-          <button
-            :class="{
-              'hasdata-navbar__inactivetab': currentTab !== 'settings',
-            }"
-            @click="setTab('settings', 2)"
-          >
-            설정
-          </button>
-        </nav>
-        <button
-          @click="currentTab = 'settings'"
-          :class="vb_hasdataNavbarSettings"
-        >
-          관리
-        </button>
+        <bar_nav_loan />
       </div>
-      <main>
-        <component :is="currentComponent" />
-      </main>
+      <view_home />
     </div>
     <!-- END] API data read successfully -->
     <!-- START] Failed to read API data -->
@@ -131,24 +99,27 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from "vuex";
-import { ref, onMounted, computed } from "vue";
-import loans_tab from "../Tab/loans_tab.vue";
-import static_tab from "../Tab/static_tab.vue";
-import loans_tab3 from "../Tab/loans_tab copy 2.vue";
+import { useStore } from '@/store/index';
+import { ref, onMounted, computed, defineProps } from "vue";
+import bar_nav_loan from '@/components/bar_navigation.vue';
+import view_home from '@/components/view_home.vue';
+
 
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
 const vb_emptyContainer = ref("empty-container");
-const hasData = computed(() => dataLength.value == 0);
-const currentTab = ref("home"); // 탭 기능 구현
+// const hasData = computed(() => dataLength.value == 0);
+// const currentTab = ref("home"); // 탭 기능 구현
 const vb_hasdataNavbar = computed(() =>
-  store.state.tabIndex === 1 ? "hasdata-navbar__blue" : "hasdata-navbar"
+  store.tabIndex === 1 ? "hasdata-navbar__blue" : "hasdata-navbar"
 );
 const vb_hasData = ref("hasdata");
 const vb_hasdataNavbarSettings = ref("hasdata-navbar__settings");
 const vb_callToAction = ref("call-to-action");
 let dataLength = ref(0); //API 데이터 유무 확인
+const props = defineProps({
+  dataLength: Number,
+});
 
 // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
 onMounted(async () => {
@@ -164,22 +135,7 @@ onMounted(async () => {
   }
 });
 const store = useStore();
-const isStatisticsTab = computed(() => store.state.tabIndex === 1);
-// console.log(count.value)
 
-// 탭 이름과 해당 컴포넌트를 매핑
-const tabToComponentMap = {
-  home: loans_tab,
-  statistics: static_tab,
-  settings: loans_tab3,
-};
-const currentComponent = computed(() => tabToComponentMap[currentTab.value]);
-
-// 탭을 설정하고 해당 인덱스를 스토어에 저장하는 함수
-function setTab(tabName, tabIndex) {
-  currentTab.value = tabName; // 탭 변경
-  store.commit("setTabIndex", tabIndex); // 스토어의 tabIndex 변경
-}
 </script>
 
 <style lang="scss">
@@ -242,6 +198,7 @@ function setTab(tabName, tabIndex) {
 .hasdata-navbar {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   min-width: 348px;
   min-height: 56px;

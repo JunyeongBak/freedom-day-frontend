@@ -9,7 +9,9 @@
     </div>
   </div>
   <div class="hasdata-container__background2">
-    <span>나의 대출 (3개)</span>
+    <div class="hasdata-container__background2__title">
+      <span>나의 대출 (3개)</span>
+    </div>
     <div class="hasdata-container__details">
       <!-- Start] Card -->
       <div>
@@ -177,11 +179,18 @@
       min-width: 330px;
       background-color: #FFF;
       margin-top: 16px;
-      > span:nth-child(1){
-        margin-left: 16px;
-        font-size: 18px;
-        font-family: 'NanumSquareNeo_extrabold';
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // text-align: center;
+      &__title{
+        width: 330px;
+        > span{
+          font-size: 18px;
+          font-family: 'NanumSquareNeo_extrabold';
+        }
       }
+
     }
 
     &-container__details{

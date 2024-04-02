@@ -1,18 +1,15 @@
-import { createStore } from 'vuex'
+// Pinia를 사용하여 스토어 정의
+import { defineStore } from 'pinia'
 
-const store = createStore({
-  state() {
-    return {
-      // 탭 인덱스 상태 추가
-      tabIndex: 0
-    }
-  },
-  mutations: {
-    // 탭 인덱스 변경을 위한 mutation 추가
-    setTabIndex(state, index) {
-      state.tabIndex = index;
+export const useStore = defineStore('main', {
+  state: () => ({
+    // 탭 인덱스 상태
+    tabIndex: 0,
+  }),
+  actions: {
+    // 탭 인덱스 변경을 위한 액션 추가
+    setTabIndex(index) {
+      this.tabIndex = index;
     }
   }
 })
-
-export default store;
