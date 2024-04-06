@@ -1,5 +1,5 @@
 <template>
-  <h1>SignIn test</h1>
+  <h1>SignIn</h1>
 </template>
 
 <script setup></script>
