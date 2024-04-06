@@ -8,7 +8,22 @@ const routes: Array<RouteRecordRaw> = [
       title: "해방의날",
       keepAlive: true,
     },
-    component: () => import("../views/Home/HomePage.vue"),
+    component: () => import("../views/home/HomePage.vue"),
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("../views/member/SignUp.vue"),
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: () => import("../views/member/SignIn.vue"),
+  },
+  {
+    path: "/loan-detail",
+    name: "loan-detail",
+    component: () => import("../views/loan/LoanDetail.vue"),
   },
 ];
 const router = createRouter({
