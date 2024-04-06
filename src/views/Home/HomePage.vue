@@ -99,11 +99,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from '@/store/index';
+import { useStore } from "@/store/index";
 import { ref, onMounted, computed, defineProps } from "vue";
-import bar_nav_loan from '@/components/bar_navigation.vue';
-import view_home from '@/components/view_home.vue';
-
+import bar_nav_loan from "@/components/bar_navigation.vue";
+import view_home from "@/components/view_home.vue";
 
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
@@ -135,7 +134,6 @@ onMounted(async () => {
   }
 });
 const store = useStore();
-
 </script>
 
 <style lang="scss">

@@ -1,14 +1,14 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 // TypeScript에서는 라우트 객체의 배열을 명시적으로 타입화할 필요가 있습니다.
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "HomePage",
     meta: {
       title: "해방의날",
       keepAlive: true,
     },
-    component: () => import("../views/Home/HomePage.vue"),
+    component: () => import("../views/home/HomePage.vue"),
   },
   {
     path: "/signup",
