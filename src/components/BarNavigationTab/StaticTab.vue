@@ -84,8 +84,8 @@
 </template>
 
 <script lang="ts" setup>
-  import vuepiechart from '@/components/vuechart.vue';
-  import vuebarchart from '@/components/vuebarchart.vue';
+  import vuepiechart from '@/components/ChartPie001.vue';
+  import vuebarchart from '@/components/ChartBar001.vue';
   import { ref, onMounted } from 'vue';
   const vb_statisticsDrawers = ref('hasdata-statistics__drawers');
   const vb_statisticsDetails = ref('hasdata-statistics-details')

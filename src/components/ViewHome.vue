@@ -7,9 +7,9 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { useStore } from '@/store/index';
-  import loans_tab from "@/components/bar_navigation_tab/loans_tab.vue";
-  import static_tab from "@/components/bar_navigation_tab/static_tab.vue";
-  import settings_tab from "@/components/bar_navigation_tab/settings_tab.vue";
+  import loans_tab from "@/components/BarNavigationTab/LoansTab.vue";
+  import static_tab from "@/components/BarNavigationTab/StaticTab.vue";
+  import settings_tab from "@/components/BarNavigationTab/SettingsTab.vue";
 
   const store = useStore();
   const tabToComponentMap = [loans_tab, static_tab, settings_tab]; //탭 매핑

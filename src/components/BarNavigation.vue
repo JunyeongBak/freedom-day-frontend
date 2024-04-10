@@ -28,7 +28,7 @@
 <script setup>
   import { useStore } from '@/store/index';
   import { ref } from "vue";
-  import btn_round_settings from '@/components/btn_round_settings.vue';
+  import Btn_round_settings from '@/components/BtnRoundSettings.vue';
   const currentTab = ref('loan'); // 초기화면 대출 탭
   const store = useStore();
 
