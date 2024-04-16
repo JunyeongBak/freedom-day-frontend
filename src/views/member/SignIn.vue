@@ -17,14 +17,16 @@
       <div>
         <input type="password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
       </div>
-      <div>
+      <div class="sign-in__form-convenience">
         <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
         <button>비밀번호 찾기</button>
       </div>
       <button type="submit">로그인</button>
     </form>
-    <span>아직 회원이 아니세요?</span>
-    <button>게스트로 서비스 둘러보기</button>
+    <div class="sign-in__guest">
+      <span>아직 회원이 아니세요?</span>
+      <button>게스트로 서비스 둘러보기</button>
+    </div>
   </div>
 </template>
 
@@ -46,10 +48,11 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    width: 360px;
+    min-width: 360px;
+    width: 100%;
     height: 800px;
     background-color: #FFF;
-    
+
 
     &__card{
       display: flex;
@@ -62,16 +65,24 @@
       font-weight: 800;
 
       > img{
+        margin-top: 24px; 
         width: 104px;
         height: 110px;
       }
+      >div{
+        margin-top: 16px;
+        margin-bottom: 24px;
+      }
     }
     &__form{
+      margin-top: 32px;
       position: relative;
       >div{
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 8px;
+        margin-bottom: 24px;
       }
       > div:nth-child(2) > input {
         width: 152px;
@@ -96,12 +107,32 @@
         position: absolute;
         z-index: 1;
       }
+      &-convenience{
+        > button:nth-child(2){
+          margin-left: 80px;
+          background: #FFF;
+          border: inherit;
+        }
+      }
       > button{
         color: #FFF;
         width: 328px;
         height: 48px;
         background: #2B66F5;
         border-radius: 8px;
+      }
+      > span{
+        font-weight: 800;
+      }
+    }
+    &__guest{
+      display: flex;
+      flex-direction: column;
+      margin-top: 16px;
+      > button{
+        background: #FFF;
+        border: inherit;
+        margin-top: 16px;
       }
     }
   }
