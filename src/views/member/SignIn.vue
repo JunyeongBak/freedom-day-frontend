@@ -21,7 +21,9 @@
         <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
         <button>비밀번호 찾기</button>
       </div>
-      <button type="submit">로그인</button>
+      <div class="sign-in__form-login">
+        <button type="submit">로그인</button>
+      </div>
     </form>
     <div class="sign-in__guest">
       <span>아직 회원이 아니세요?</span>
@@ -77,6 +79,8 @@
     &__form{
       margin-top: 32px;
       position: relative;
+      display: flex;
+      flex-direction: column;
       >div{
         display: flex;
         align-items: center;
@@ -84,12 +88,22 @@
         margin-top: 8px;
         margin-bottom: 24px;
       }
+      
       > div:nth-child(2) > input {
         width: 152px;
         height: 40px;
         border: 1px solid #898F9A;
         border-radius: 8px;
         padding-left: 8px;
+      }
+      &-login{
+        > button{
+          color: #FFF;
+          width: 328px;
+          height: 48px;
+          background: #2B66F5;
+          border-radius: 8px;
+        }
       }
       &-password{
         width: 328px;
@@ -114,13 +128,6 @@
           border: inherit;
         }
       }
-      > button{
-        color: #FFF;
-        width: 328px;
-        height: 48px;
-        background: #2B66F5;
-        border-radius: 8px;
-      }
       > span{
         font-weight: 800;
       }
@@ -129,6 +136,7 @@
       display: flex;
       flex-direction: column;
       margin-top: 16px;
+      text-align: center;
       > button{
         background: #FFF;
         border: inherit;
