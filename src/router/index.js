@@ -3,6 +3,14 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
+    name : "Login",
+    meta:{
+      keepAlive: false,
+    },
+    component: () => import("@/views/member/SignIn.vue"),
+  },
+  {
+    path: "/home/",
     name: "HomePage",
     meta: {
       title: "해방의날",
