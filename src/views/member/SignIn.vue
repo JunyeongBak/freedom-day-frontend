@@ -9,14 +9,16 @@
       <div>
         <input placeholder="이메일"></input>
         <span>@</span>
-        <input placeholder="선택"></input>
+        <input placeholder="선택">
+          <van-icon name="arrow-down" class="sign-in__form-emailicon" />
+        </input>
       </div>
       <span>비밀번호</span>
       <div>
         <input type="password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
       </div>
       <div>
-        <input type="checkbox">이메일 기억하기</input>
+        <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
         <button>비밀번호 찾기</button>
       </div>
       <button type="submit">로그인</button>
@@ -65,6 +67,7 @@
       }
     }
     &__form{
+      position: relative;
       >div{
         display: flex;
         align-items: center;
@@ -72,12 +75,33 @@
       }
       > div:nth-child(2) > input {
         width: 152px;
+        height: 40px;
+        border: 1px solid #898F9A;
+        border-radius: 8px;
+        padding-left: 8px;
       }
       &-password{
         width: 328px;
+        height: 40px;
+        border: 1px solid #898F9A;
+        border-radius: 8px;
+        padding-left: 8px;
+      }
+      &-remember{
+        height: 16px;
+        width: 16px;
+      }
+      &-emailicon{
+        right: 10px;
+        position: absolute;
+        z-index: 1;
       }
       > button{
+        color: #FFF;
         width: 328px;
+        height: 48px;
+        background: #2B66F5;
+        border-radius: 8px;
       }
     }
   }
