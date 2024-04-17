@@ -1,4 +1,7 @@
 <template>
+  <div class="nav-bar">
+    <navbar />
+  </div>
   <div class="sign-in">
     <div class="sign-in__card">
       <img src="@/assets/ic_login.png">
@@ -10,7 +13,7 @@
         <input placeholder="이메일"></input>
         <span>@</span>
         <input placeholder="선택">
-          <van-icon name="arrow-down" class="sign-in__form-emailicon" />
+          <van-icon @click="" name="arrow-down" class="sign-in__form-emailicon" />
         </input>
       </div>
       <span>비밀번호</span>
@@ -33,7 +36,7 @@
 </template>
 
 <script setup>
-   
+   import navbar from "@/components/BarNavigationLogin.vue";
 </script>
 
 <style lang="scss">
@@ -59,7 +62,7 @@
     &__card{
       display: flex;
       flex-direction: column;
-      width: 328px;
+      width: 340px;
       height: 204px;
       justify-content: center;
       align-items: center;
@@ -81,6 +84,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
       >div{
         display: flex;
         align-items: center;
@@ -89,9 +93,18 @@
         margin-bottom: 24px;
       }
       
-      > div:nth-child(2) > input {
+      > div:nth-child(2) > input:nth-child(1) {
         width: 152px;
         height: 40px;
+        margin-right: 4px; 
+        border: 1px solid #898F9A;
+        border-radius: 8px;
+        padding-left: 8px;
+      }
+      > div:nth-child(2) > input:nth-child(3) {
+        width: 152px;
+        height: 40px;
+        margin-left: 4px; 
         border: 1px solid #898F9A;
         border-radius: 8px;
         padding-left: 8px;
@@ -99,14 +112,14 @@
       &-login{
         > button{
           color: #FFF;
-          width: 328px;
+          width: 352px;
           height: 48px;
           background: #2B66F5;
           border-radius: 8px;
         }
       }
       &-password{
-        width: 328px;
+        width: 340px;
         height: 40px;
         border: 1px solid #898F9A;
         border-radius: 8px;
