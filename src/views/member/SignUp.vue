@@ -55,7 +55,7 @@
         v-model="passwordConfirm" @input="validatePasswordConfirm"></input>
       </div>
       <div class="sign-up__form-privacy" id="sign-up__form-privacy">
-        <input type="checkbox" class="sign-up__form-privacy-checkbox"></input>
+        <input v-model="isServiceCheck" @input="validateService" type="checkbox" class="sign-up__form-privacy-checkbox"></input>
         <label>서비스 이용약관 및 개인정보처리방침에 동의합니다.</label>
       </div>
       <div class="sign-up__form-step1">
@@ -75,13 +75,14 @@
   const isEmailCheck = ref(false);
   const isPasswordCheck = ref(false);
   const ispasswordCheckAgain = ref(false);
+  const isServiceCheck = ref(false);
   const password = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
-
+  
   // computed
   const nextButton = computed(() => {
-    return !(isEmailCheck.value && isPasswordCheck.value && ispasswordCheckAgain.value);
+    return !(isEmailCheck.value && isPasswordCheck.value && ispasswordCheckAgain.value &&isServiceCheck.value);
   })
 
   function toggleDropdown() {
@@ -120,7 +121,14 @@
       ispasswordCheckAgain.value = true;
     }
   }
-
+  function validateService(){
+    if (isServiceCheck.value){
+      isServiceCheck.value = false;
+    }
+    else{
+      isServiceCheck.value = true;
+    }
+  }
   function validateAndAlert() {
     if (!emailValidation(email.value)) {
       email.value = '';
