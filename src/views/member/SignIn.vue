@@ -12,9 +12,17 @@
       <div>
         <input placeholder="이메일"></input>
         <span>@</span>
-        <input placeholder="선택">
-          <van-icon @click="" name="arrow-down" class="sign-in__form-emailicon" />
-        </input>
+        <div class="sign-in__form-drop-email">
+          <div @click="toggleDropdown" class="sign-in__form-drop-email-button">
+            {{ selectedOption || '선택' }}
+            <van-icon name="arrow-down" class="sign-in__form-emailicon"/>
+            <div v-show="isOpen" class="sign-in__form-drop-email-content">
+              <div v-for="option in options" :key="option" @click="selectOption(option)">
+                {{ option }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <span>비밀번호</span>
       <div>
@@ -36,7 +44,22 @@
 </template>
 
 <script setup>
-   import navbar from "@/components/BarNavigationLogin.vue";
+  import { ref} from 'vue';
+  import navbar from "@/components/BarNavigationLogin.vue";
+  const isOpen = ref(false);
+  const selectedOption = ref(null);
+  const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
+
+  function toggleDropdown() {
+    isOpen.value = !isOpen.value;
+  }
+
+  function selectOption(option) {
+    selectedOption.value = option;
+    isOpen.value = true;
+  }
+
+
 </script>
 
 <style lang="scss">
@@ -81,7 +104,7 @@
     }
     &__form{
       margin-top: 32px;
-      position: relative;
+      // position: relative;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
@@ -101,14 +124,38 @@
         border-radius: 8px;
         padding-left: 8px;
       }
-      > div:nth-child(2) > input:nth-child(3) {
-        width: 152px;
-        height: 40px;
-        margin-left: 4px; 
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        padding-left: 8px;
+      &-drop-email{
+        position: relative;
+        display: block;
+        
+        &-button{
+          padding: 10px;
+          border: 1px solid #898F9A;
+          border-radius: 8px;
+          margin-left: 4px;
+          cursor: pointer;
+        }
+        &-content {
+          display: block;
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        &-content div{
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        &-content div:hover{
+          background-color: #f1f1f1;
+        }
       }
+
       &-login{
         > button{
           color: #FFF;
@@ -129,11 +176,7 @@
         height: 16px;
         width: 16px;
       }
-      &-emailicon{
-        right: 10px;
-        position: absolute;
-        z-index: 1;
-      }
+
       &-convenience{
         > button:nth-child(2){
           margin-left: 80px;
