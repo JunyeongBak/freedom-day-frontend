@@ -7,7 +7,7 @@
       <img src="@/assets/ic_login.png">
       <div id="sign-up__welcome-div">해방의 날에 오신 걸 환영해요!</div>
     </div>
-    <form method="POST" class="sign-up__form">
+    <form method="POST" class="sign-up__form" @submit.prevent="handleSubmit">
       <h2 class="sign-up__form-email">
         <span class="sign-up__form-red-star">⁕</span>
         <span>이메일</span>
@@ -59,7 +59,8 @@
         <label>서비스 이용약관 및 개인정보처리방침에 동의합니다.</label>
       </div>
       <div class="sign-up__form-step1">
-        <button type="submit" class="sign-up__form-step1-button" :disabled="nextButton">다음</button>
+        <button class="sign-up__form-step1-button" :disabled="nextButton"
+        @click="saveData">다음</button>
       </div>
     </form>
   </div>
@@ -67,7 +68,13 @@
 
 <script setup>
   import { ref, computed } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useStore } from "@/store/index";
   import navbar from "@/components/BarNavigationSignUp.vue";
+
+  const store = useStore();
+  const router = useRouter();
+
   const isOpen = ref(false);
   const selectedOption = ref(null);
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
@@ -79,6 +86,7 @@
   const password = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
+
   
   // computed
   const nextButton = computed(() => {
@@ -143,7 +151,12 @@
     else{
       isEmailCheck.value = false;
     }
-}
+  
+  }
+  function saveData(){
+    store.saveStep1Data(email.value, selectedOption.value, password.value);
+    router.push('/step2');
+  }
 </script>
 
 <style lang="scss">

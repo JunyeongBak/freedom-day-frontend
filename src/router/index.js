@@ -16,22 +16,30 @@ const routes = [
       title: "해방의날",
       keepAlive: true,
     },
-    component: () => import("../views/home/GuestPage.vue"),
+    component: () => import("@/views/home/GuestPage.vue"),
   },
   {
     path: "/signup",
     name: "signup",
-    component: () => import("../views/member/SignUp.vue"),
+    component: () => import("@/views/member/SignUp.vue"),
+  },
+  {
+    path: "/step2",
+    name: "SignUpStep2",
+    meta: {
+      keepAlive: false,
+    },
+    component: () => import("@/views/member/SignUpStep2.vue"),
   },
   {
     path: "/signin",
     name: "signin",
-    component: () => import("../views/member/SignIn.vue"),
+    component: () => import("@/views/member/SignIn.vue"),
   },
   {
     path: "/loan-detail",
     name: "loan-detail",
-    component: () => import("../views/loan/LoanDetail.vue"),
+    component: () => import("@/views/loan/LoanDetail.vue"),
   },
 ];
 const router = createRouter({
