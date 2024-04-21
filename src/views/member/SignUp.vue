@@ -11,7 +11,7 @@
       <h2 class="sign-up__form-email">
         <span class="sign-up__form-red-star">⁕</span>
         <span>이메일</span>
-        <div class="sign-up__form-email-check">
+        <div class="sign-up__form-email-check" :class="{'sign-up__form-email-check-valid' : isEmailCheck}">
           <van-icon name="success" />
         </div>
       </h2>
@@ -34,22 +34,25 @@
       <h2 class="sign-up__form-password">
         <span class="sign-up__form-red-star">⁕</span>
         <span>비밀번호</span>
-        <div class="sign-up__form-password-check">
+        <div class="sign-up__form-password-check" :class="{'sign-up__form-password-check-valid': isPasswordCheck }">
           <van-icon name="success" />
         </div>
       </h2>
       <div>
-        <input type="password" class="sign-up__form-password-txt" placeholder="영문+숫자+특수문자 포함 8~20자리"></input>
+        <input type="password" class="sign-up__form-password-txt" placeholder="영문+숫자+특수문자 포함 8~20자리"
+        v-model="password" @input="validatePassword"></input>
+        <!-- <p v-if="passwordError">{{ passwordError }}</p> -->
       </div>
       <h2 class="sign-up__form-password-again">
         <span class="sign-up__form-red-star">⁕</span>
         <span>비밀번호 확인</span>
-        <div class="sign-up__form-password-again-check">
+        <div class="sign-up__form-password-again-check" :class="{'sign-up__form-password-again-check-valid' : ispasswordCheckAgain }">
           <van-icon name="success" />
         </div>
       </h2>
       <div>
-        <input type="password" class="sign-up__form-password-txt" placeholder="다시 한번 입력해주세요"></input>
+        <input type="password" class="sign-up__form-password-txt-confirm" placeholder="다시 한번 입력해주세요"
+        v-model="passwordConfirm" @input="validatePasswordConfirm"></input>
       </div>
       <div class="sign-up__form-privacy" id="sign-up__form-privacy">
         <input type="checkbox" class="sign-up__form-privacy-checkbox"></input>
@@ -69,6 +72,12 @@
   const selectedOption = ref(null);
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
   const email = ref('');
+  const isEmailCheck = ref(false);
+  const isPasswordCheck = ref(false);
+  const ispasswordCheckAgain = ref(false);
+  const password = ref('');
+  const passwordConfirm = ref('');
+  const passwordError = ref('');
 
   function toggleDropdown() {
     isOpen.value = !isOpen.value;
@@ -77,19 +86,49 @@
   function selectOption(option) {
     selectedOption.value = option;
     isOpen.value = true;
+    validateAndAlert();
   }
 
-  function emptyValidation(){
-
-  }
 
   function emailValidation(input){
     const regex = /^[a-zA-Z0-9]+$/;
     return regex.test(input);
   }
+
+  function validatePassword() {
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}:">?~;,.])[A-Za-z\d!@#$%^&*()_+{}:">?~;,.]{8,20}$/;
+    if (!regex.test(password.value)) {
+      passwordError.value = `Password must be 8-20 characters long, including letters, numbers, and special characters.`;
+      isPasswordCheck.value = false;
+    } else {
+      passwordError.value = '';
+      isPasswordCheck.value = true;
+    }
+  }
+
+  function validatePasswordConfirm() {
+    if (password.value !== passwordConfirm.value) {
+      passwordError.value = 'Passwords do not match.';
+      ispasswordCheckAgain.value = false;
+    } else {
+      passwordError.value = '';
+      ispasswordCheckAgain.value = true;
+    }
+  }
+
   function validateAndAlert() {
     if (!emailValidation(email.value)) {
+      email.value = '';
+      isEmailCheck.value = false;
       alert('영문, 숫자 입력하세요');
+    }
+    
+    if(email.value!='' && selectedOption.value != '선택' && selectedOption.value != '' && selectedOption.value != null) {
+      isEmailCheck.value = true;
+      alert('[개발용] 이메일이 인증되었습니다.')
+    }
+    else{
+      isEmailCheck.value = false;
     }
 }
 </script>
@@ -167,6 +206,12 @@
           top: 0;
           color: #DBDDE2;
         }
+        &-check-valid{
+          position: absolute;
+          right: 8px;
+          top: 0;
+          color: #2B66F5;
+        }
       }
       &-drop-email{
         position: relative;
@@ -225,8 +270,14 @@
           right: 8px;
           color: #DBDDE2;
         }
+        &-check-valid{
+          position: absolute;
+          right: 8px;
+          top: 0;
+          color: #2B66F5;
+        }
       }
-      &-password-txt{
+      &-password-txt {
         width: 328px;
         height: 40px;
         border: 1px solid #898F9A;
@@ -236,6 +287,15 @@
         padding-right: 8px;
 
       }
+      &-password-txt-confirm{
+        width: 328px;
+        height: 40px;
+        border: 1px solid #898F9A;
+        border-radius: 8px;
+        font-size: 12px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
       &-password-again{
         position: relative;
 
@@ -244,6 +304,12 @@
           top: 0;
           right: 8px;
           color: #DBDDE2;
+        }
+        &-check-valid{
+          position: absolute;
+          top: 0;
+          right: 8px;
+          color: #2B66F5;
         }
       }
       label{
