@@ -37,15 +37,17 @@
       </div>
     </form>
     <div class="sign-in__guest">
-      <span>아직 회원이 아니세요?</span>
+      <span class="sign-in__guest-tosignup" @click="goToSignup">아직 회원이 아니세요?</span>
       <button>게스트로 서비스 둘러보기</button>
     </div>
   </div>
 </template>
 
 <script setup>
+  import { useRouter } from 'vue-router'
   import { ref } from 'vue';
   import navbar from "@/components/BarNavigationLogin.vue";
+  const router = useRouter();
   const isOpen = ref(false);
   const selectedOption = ref(null);
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
@@ -57,6 +59,10 @@
   function selectOption(option) {
     selectedOption.value = option;
     isOpen.value = true;
+  }
+
+  function goToSignup(){
+    router.push('/signup');
   }
 
 
