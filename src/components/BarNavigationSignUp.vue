@@ -1,12 +1,16 @@
 <template>
-    <div class="nav-bar">
+    <div class="nav-bar" @click="goBack">
       <van-icon name="arrow-left"/>
       <span>회원가입</span>
     </div>
   </template>
   
   <script lang="ts" setup>
-  
+    import {useRouter} from 'vue-router';
+    const router = useRouter();
+    function goBack(){
+      router.back();
+    }
   </script>
   
   <style lang="scss" scoped>
