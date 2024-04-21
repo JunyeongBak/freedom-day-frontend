@@ -5,16 +5,18 @@
   <div class="sign-up">
     <div class="sign-up__card">
       <img src="@/assets/ic_login.png">
-      <div>해방의 날에 오신 걸 환영해요!</div>
+      <div id="sign-up__welcome-div">해방의 날에 오신 걸 환영해요!</div>
     </div>
     <form method="POST" class="sign-up__form">
       <h2 class="sign-up__form-email">
         <span class="sign-up__form-red-star">⁕</span>
         <span>이메일</span>
-        <!-- <div class="sign-up__form-email-check">v</div> -->
+        <div class="sign-up__form-email-check">
+          <van-icon name="success" />
+        </div>
       </h2>
       <div>
-        <input placeholder="이메일"></input>
+        <input class="sign-up__form-email-txt" placeholder="이메일" v-model="email" @blur="validateAndAlert"></input>
         <span>@</span>
         <div class="sign-up__form-drop-email">
           <div @click="toggleDropdown" class="sign-up__form-drop-email-button">
@@ -29,19 +31,25 @@
         </div>
         <div class="sign-up__form-email-auth">인증</div>
       </div>
-      <h2>
+      <h2 class="sign-up__form-password">
         <span class="sign-up__form-red-star">⁕</span>
         <span>비밀번호</span>
+        <div class="sign-up__form-password-check">
+          <van-icon name="success" />
+        </div>
       </h2>
       <div>
-        <input type="password" class="sign-up__form-password" placeholder="영문+숫자+특수문자 포함 8~20자리"></input>
+        <input type="password" class="sign-up__form-password-txt" placeholder="영문+숫자+특수문자 포함 8~20자리"></input>
       </div>
-      <h2>
+      <h2 class="sign-up__form-password-again">
         <span class="sign-up__form-red-star">⁕</span>
         <span>비밀번호 확인</span>
+        <div class="sign-up__form-password-again-check">
+          <van-icon name="success" />
+        </div>
       </h2>
       <div>
-        <input type="password" class="sign-up__form-password" placeholder="다시 한번 입력해주세요"></input>
+        <input type="password" class="sign-up__form-password-txt" placeholder="다시 한번 입력해주세요"></input>
       </div>
       <div class="sign-up__form-privacy" id="sign-up__form-privacy">
         <input type="checkbox" class="sign-up__form-privacy-checkbox"></input>
@@ -60,7 +68,8 @@
   const isOpen = ref(false);
   const selectedOption = ref(null);
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
-  
+  const email = ref('');
+
   function toggleDropdown() {
     isOpen.value = !isOpen.value;
   }
@@ -69,6 +78,20 @@
     selectedOption.value = option;
     isOpen.value = true;
   }
+
+  function emptyValidation(){
+
+  }
+
+  function emailValidation(input){
+    const regex = /^[a-zA-Z0-9]+$/;
+    return regex.test(input);
+  }
+  function validateAndAlert() {
+    if (!emailValidation(email.value)) {
+      alert('영문, 숫자 입력하세요');
+    }
+}
 </script>
 
 <style lang="scss">
@@ -88,6 +111,8 @@
     width: 100%;
     height: 800px;
     background-color: #FFF;
+
+
 
     &__card{
       display: flex;
@@ -133,6 +158,15 @@
       > div:nth-child(2) > div:nth-child(3) {
         width: 150px;
         height: 40px;
+      }
+      &-email{
+        position: relative;
+        &-check{
+          position: absolute;
+          right: 8px;
+          top: 0;
+          color: #DBDDE2;
+        }
       }
       &-drop-email{
         position: relative;
@@ -183,6 +217,16 @@
         margin-right: 4px;
       }
       &-password{
+        position: relative;
+
+        &-check{
+          position: absolute;
+          top: 0;
+          right: 8px;
+          color: #DBDDE2;
+        }
+      }
+      &-password-txt{
         width: 328px;
         height: 40px;
         border: 1px solid #898F9A;
@@ -190,6 +234,17 @@
         font-size: 12px;
         padding-left: 8px;
         padding-right: 8px;
+
+      }
+      &-password-again{
+        position: relative;
+
+        &-check{
+          position: absolute;
+          top: 0;
+          right: 8px;
+          color: #DBDDE2;
+        }
       }
       label{
         font-size: 12px;
@@ -217,6 +272,9 @@
       margin-left: 8px;
     }
 
-
+    #sign-up__welcome-div{
+      font-size: 20px;
+      font-family: 'NanumSquareNeo_extrabold';
+    }
   }
 </style>
