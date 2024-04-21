@@ -111,7 +111,7 @@
       >div{
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: left;
         margin-top: 8px;
         margin-bottom: 24px;
       }
