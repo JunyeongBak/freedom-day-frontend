@@ -59,14 +59,14 @@
         <label>서비스 이용약관 및 개인정보처리방침에 동의합니다.</label>
       </div>
       <div class="sign-up__form-step1">
-        <button type="submit">다음</button>
+        <button type="submit" class="sign-up__form-step1-button" :disabled="nextButton">다음</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import navbar from "@/components/BarNavigationSignUp.vue";
   const isOpen = ref(false);
   const selectedOption = ref(null);
@@ -78,6 +78,11 @@
   const password = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
+
+  // computed
+  const nextButton = computed(() => {
+    return !(isEmailCheck.value && isPasswordCheck.value && ispasswordCheckAgain.value);
+  })
 
   function toggleDropdown() {
     isOpen.value = !isOpen.value;
@@ -323,12 +328,20 @@
         margin-right: 4px;
       }
       &-step1{
-        > button{
+        &-button{
           color: #FFF;
           width: 352px;
           height: 48px;
           background: #2B66F5;
           border-radius: 8px;
+        }
+        &-button:disabled{
+          color: #FFF;
+          width: 352px;
+          height: 48px;
+          background: gray;
+          border-radius: 8px;
+          cursor: not-allowed;
         }
       }
     }
