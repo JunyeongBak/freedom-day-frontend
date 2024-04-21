@@ -1,7 +1,7 @@
 <template>
     <div class="nav-bar">
       <van-icon name="arrow-left"/>
-      <span>사용자 정보 입력</span>
+      <span>회원가입</span>
     </div>
   </template>
   
@@ -23,5 +23,8 @@
     }
     .nav-bar{
         align-items: center;
+        >span{
+          margin-left: 8px;
+        }
     }
   </style>

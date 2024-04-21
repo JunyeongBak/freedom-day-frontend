@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-  import { ref} from 'vue';
+  import { ref } from 'vue';
   import navbar from "@/components/BarNavigationLogin.vue";
   const isOpen = ref(false);
   const selectedOption = ref(null);

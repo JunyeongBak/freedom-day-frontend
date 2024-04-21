@@ -8,25 +8,67 @@
       <div>해방의 날에 오신 걸 환영해요!</div>
     </div>
     <form method="POST" class="sign-up__form">
-      <span>이메일</span>
+      <h2 class="sign-up__form-email">
+        <span class="sign-up__form-red-star">⁕</span>
+        <span>이메일</span>
+        <!-- <div class="sign-up__form-email-check">v</div> -->
+      </h2>
       <div>
         <input placeholder="이메일"></input>
         <span>@</span>
-        <input placeholder="선택">
-          <van-icon @click="" name="arrow-down" class="sign-up__form-emailicon" />
-        </input>
-        <button>인증하기</button>
+        <div class="sign-up__form-drop-email">
+          <div @click="toggleDropdown" class="sign-up__form-drop-email-button">
+            {{ selectedOption || '선택' }}
+            <van-icon name="arrow-down" class="sign-up__form-emailicon"/>
+            <div v-show="isOpen" class="sign-up__form-drop-email-content">
+              <div v-for="option in options" :key="option" @click="selectOption(option)">
+                {{ option }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sign-up__form-email-auth">인증</div>
       </div>
-      <span>비밀번호</span>
+      <h2>
+        <span class="sign-up__form-red-star">⁕</span>
+        <span>비밀번호</span>
+      </h2>
       <div>
-        <input type="password" class="sign-up__form-password" placeholder="비밀번호를 입력해주세요"></input>
+        <input type="password" class="sign-up__form-password" placeholder="영문+숫자+특수문자 포함 8~20자리"></input>
+      </div>
+      <h2>
+        <span class="sign-up__form-red-star">⁕</span>
+        <span>비밀번호 확인</span>
+      </h2>
+      <div>
+        <input type="password" class="sign-up__form-password" placeholder="다시 한번 입력해주세요"></input>
+      </div>
+      <div class="sign-up__form-privacy" id="sign-up__form-privacy">
+        <input type="checkbox" class="sign-up__form-privacy-checkbox"></input>
+        <label>서비스 이용약관 및 개인정보처리방침에 동의합니다.</label>
+      </div>
+      <div class="sign-up__form-step1">
+        <button type="submit">다음</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
+  import { ref } from 'vue';
   import navbar from "@/components/BarNavigationSignUp.vue";
+  const isOpen = ref(false);
+  const selectedOption = ref(null);
+  const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
+  
+  function toggleDropdown() {
+    isOpen.value = !isOpen.value;
+  }
+
+  function selectOption(option) {
+    selectedOption.value = option;
+    isOpen.value = true;
+  }
 </script>
 
 <style lang="scss">
@@ -88,19 +130,93 @@
         border-radius: 8px;
         padding-left: 8px;
       }
-      > div:nth-child(2) > input:nth-child(3) {
-        width: 128px;
+      > div:nth-child(2) > div:nth-child(3) {
+        width: 150px;
         height: 40px;
-        margin-left: 4px; 
+      }
+      &-drop-email{
+        position: relative;
+        display: block;
+
+        &-button{
+          padding: 10px;
+          border: 1px solid #898F9A;
+          border-radius: 8px;
+          margin-left: 4px;
+          cursor: pointer;
+        }
+        &-content{
+          display: block;
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rbga(0,0,0,0.2);
+          z-index: 1;
+        }
+        &-content div{
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        &-content div:hover{
+          background-color: #f1f1f1;
+        }
+      }
+      &-email-auth{
+        width: 50px;
+        height: 40px;
+        background-color: #BDC0C6;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 40px;
+        margin-left: 2px;
+      }
+
+      &-red-star{
+        color: #FE2525;
+        font-weight: 700;
+        margin-right: 4px;
+      }
+      &-password{
+        width: 328px;
+        height: 40px;
         border: 1px solid #898F9A;
         border-radius: 8px;
+        font-size: 12px;
         padding-left: 8px;
+        padding-right: 8px;
       }
-      &-emailicon{
-        right: 10px;
-        position: absolute;
-        z-index: 1;
+      label{
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      &-privacy-checkbox{
+        width: 24px;
+        height: 24px;
+        margin-right: 4px;
+      }
+      &-step1{
+        > button{
+          color: #FFF;
+          width: 352px;
+          height: 48px;
+          background: #2B66F5;
+          border-radius: 8px;
+        }
       }
     }
+    #sign-up__form-privacy{
+      display: flex;
+      justify-content: left;
+      margin-left: 8px;
+    }
+
+
   }
 </style>
