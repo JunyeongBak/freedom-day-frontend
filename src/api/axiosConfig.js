@@ -30,6 +30,7 @@ instance.interceptors.response.use(
     });
   },
   async (error) => {
+    console.error(error);
     console.error(error.response.data);
     const { code, message, response } = error.response.data;
 
