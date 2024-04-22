@@ -21,12 +21,12 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    const { code, message, response } = response.data;
+    const { code, message, responseData } = response.data;
 
     return Promise.resolve({
       code,
       message,
-      response,
+      responseData,
     });
   },
   async (error) => {
