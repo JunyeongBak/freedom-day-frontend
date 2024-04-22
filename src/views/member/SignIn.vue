@@ -10,7 +10,7 @@
     <form method="POST" class="sign-in__form">
       <span>이메일</span>
       <div>
-        <input placeholder="이메일"></input>
+        <input v-model="signinParam.email" placeholder="이메일"></input>
         <span>@</span>
         <div class="sign-in__form-drop-email">
           <div @click="toggleDropdown" class="sign-in__form-drop-email-button">
@@ -26,19 +26,20 @@
       </div>
       <span>비밀번호</span>
       <div>
-        <input type="password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
+        <input type="password" v-model="signinParam.password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
       </div>
       <div class="sign-in__form-convenience">
         <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
         <button
-          :disabled="true"
+          type="button"
         >
           비밀번호 찾기
         </button>
       </div>
       <div class="sign-in__form-login">
         <button
-          :disabled="true"
+          type="button"
+          @click="handleClickSignIn"
         >
           로그인
         </button>
@@ -58,6 +59,7 @@
   import { useRouter } from 'vue-router'
   import { ref } from 'vue';
   import navbar from "@/components/BarNavigationLogin.vue";
+  import { postSignIn } from "@/api/member.js"
   const router = useRouter();
   const isOpen = ref(false);
   const selectedOption = ref(null);
@@ -74,6 +76,32 @@
 
   function goToSignup(){
     router.push('/signup');
+  }
+
+  /**
+   * 로그인
+   */
+  const signinParam = ref({
+    email: "",
+    password: "",
+  });
+
+  async function handleClickSignIn() {
+    try {
+      await postSignIn(signinParam);
+      router.push("/");
+      // pinia 유저정보 저장
+    } catch (e) {
+      const { code } = e;
+
+      // 유저 이메일 없음
+      if (code === "") {
+        
+        // 비밀번호가 틀림
+      } else if (code === "") {
+
+      }
+    }
   }
 
 
