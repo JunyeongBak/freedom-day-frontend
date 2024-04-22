@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://www.freedom-day.site/api/",
-  // baseURL: "http://localhost:8080/api/",
-  timeout: 2000,
+  // baseURL: "https://www.freedom-day.site/api/",
+  baseURL: "http://localhost:8080/api/",
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -30,7 +30,7 @@ instance.interceptors.response.use(
     });
   },
   async (error) => {
-    console.error(error.response.data);
+    console.error(error);
     const { code, message, response } = error.response.data;
 
     // accessToken 만료 TODO)
