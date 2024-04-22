@@ -30,15 +30,26 @@
       </div>
       <div class="sign-in__form-convenience">
         <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
-        <button>비밀번호 찾기</button>
+        <button
+          :disabled="true"
+        >
+          비밀번호 찾기
+        </button>
       </div>
       <div class="sign-in__form-login">
-        <button type="submit">로그인</button>
+        <button
+          :disabled="true"
+        >
+          로그인
+        </button>
       </div>
     </form>
     <div class="sign-in__guest">
       <span class="sign-in__guest-tosignup" @click="goToSignup">아직 회원이 아니세요?</span>
-      <button>게스트로 서비스 둘러보기</button>
+      <button
+        :disabled="true" 
+      >게스트로 서비스 둘러보기
+      </button>
     </div>
   </div>
 </template>
