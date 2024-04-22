@@ -53,8 +53,12 @@
         </div>
       </h2>
       <div class="sign-up-step2__form-birthyearmonth-div-container">
-        <input class="sign-up-step2__form-birthyearmonth-input-txt" placeholder="YYYY.MM.DD"
-        v-model="birthyearmonth" ></input>
+        <input 
+          class="sign-up-step2__form-birthyearmonth-input-txt"
+          placeholder="YYYY.MM.DD"
+          v-model="formattedBirthData"
+          @input="formatDate">
+        </input>
       </div>
       <!-- End birth day -->
 
@@ -80,6 +84,10 @@
   const birthyearmonth = ref('');
   const isNickCheck = ref(false);
   const gender = ref('');
+  const rawBirthData = ref('');
+  const formattedBirthData = ref('');
+  const isBirthDate = ref(false);
+  const dateError = ref('');
 
   //computed
   const submitButton = computed(()=>{
@@ -113,6 +121,46 @@
     }else{
       isNickCheck.value = false;
     } 
+  }
+  function formatDate(event) {
+    const value = event.target.value;
+    let numbers = value.replace(/[^\d]/g, '');  // 비숫자 제거
+    numbers = numbers.slice(0, 8);  // 최대 8자리 (YYYYMMDD)
+
+    // 자동으로 점 추가
+    if (numbers.length > 4) {
+      numbers = numbers.slice(0, 4) + '.' + numbers.slice(4);
+    }
+    if (numbers.length > 7) {
+      numbers = numbers.slice(0, 7) + '.' + numbers.slice(7);
+    }
+
+    console.log(numbers)
+    // rawBirthData.value = numbers.replace(/\./g, ''); // 원본 숫자 데이터 저장
+    formattedBirthData.value = numbers; // 포맷된 데이터 표시
+    console.log(formattedBirthData.value);
+    validateDate(numbers)
+  }
+  // 실제 날짜 유효성 검증
+  function validateDate(dateStr) {
+    // 점을 제거하고 날짜 객체 생성을 시도
+    const cleanDate = dateStr.replace(/\./g, '');
+    if (cleanDate.length === 8) {
+      const year = parseInt(cleanDate.substring(0, 4), 10);
+      const month = parseInt(cleanDate.substring(4, 6), 10) - 1; // JS는 월이 0부터 시작
+      const day = parseInt(cleanDate.substring(6, 8), 10);
+
+      const dateObj = new Date(year, month, day);
+      if (dateObj.getFullYear() === year && dateObj.getMonth() === month && dateObj.getDate() === day) {
+        dateError.value = '';
+      } else {
+        isBirthDate.value = false;
+        alert('존재하지 않는 날짜!');
+        formattedBirthData.value = '';
+      }
+    } else {
+      isBirthDate.value = true;
+    }
   }
 </script>
 
