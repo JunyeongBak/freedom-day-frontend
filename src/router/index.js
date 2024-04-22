@@ -45,5 +45,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // savedPosition은 popstate 네비게이션(브라우저의 뒤로/앞으로 버튼)에서 사용됩니다.
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  }
 });
 export default router;
