@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL: "https://www.freedom-day.site/api/",
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "https://www.freedom-day.site/api/",
+  // baseURL: "http://localhost:8080/api/",
   timeout: 20000,
   headers: {
     "Content-Type": "application/json",
