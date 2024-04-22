@@ -175,7 +175,7 @@
     flex-direction: column;
     align-items:start;
     width: 360px;
-    height: 800px;
+    height: 600px;
     background-color: #FFF;
     padding-left: 8px;
     padding-right: 8px;
