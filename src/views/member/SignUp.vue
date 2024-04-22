@@ -159,7 +159,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
   body{
     display:flex;
     flex-direction: column;
