@@ -89,16 +89,16 @@
   async function handleClickSignIn() {
     try {
       await postSignIn(signinParam.value);
-      // router.push("/home");
-      // pinia 유저정보 저장
+      router.push("/home");
     } catch (e) {
       const { code } = e;
 
       // 유저 이메일 없음
       if (code === "ACCOUNT-001") {
+        alert("로그인 정보와 일치하지 않습니다");
         // 비밀번호가 틀림
       } else if (code === "ACCOUNT-002") {
-
+        alert("로그인 정보와 일치하지 않습니다");
       }
     }
   }
