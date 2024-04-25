@@ -88,22 +88,28 @@
 
   async function handleClickSignIn() {
     try {
-      await postSignIn(signinParam);
-      router.push("/");
+      await postSignIn(signinParam.value);
+      // router.push("/home");
       // pinia 유저정보 저장
     } catch (e) {
       const { code } = e;
 
       // 유저 이메일 없음
-      if (code === "") {
-        
+      if (code === "ACCOUNT-001") {
         // 비밀번호가 틀림
-      } else if (code === "") {
+      } else if (code === "ACCOUNT-002") {
 
       }
     }
   }
+  
+  /**
+   * 테스트
+   */
+  async function handleClickTest() {
 
+    await getTest();
+  }
 
 </script>
 
