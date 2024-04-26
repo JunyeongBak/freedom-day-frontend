@@ -2,8 +2,7 @@ import axios from "axios";
 import router from "@/router";
 
 const instance = axios.create({
-  // baseURL: "https://www.freedom-day.site/api/",
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "https://www.freedom-day.site/api/",
   timeout: 20000,
   headers: {
     "Content-Type": "application/json",
