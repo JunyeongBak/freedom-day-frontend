@@ -10,7 +10,7 @@
     <form method="POST" class="sign-in__form">
       <span>이메일</span>
       <div>
-        <input v-model="signinParam.email" placeholder="이메일"></input>
+        <input v-model="template.email" placeholder="이메일"></input>
         <span>@</span>
         <div class="sign-in__form-drop-email">
           <div @click="toggleDropdown" class="sign-in__form-drop-email-button">
@@ -26,7 +26,7 @@
       </div>
       <span>비밀번호</span>
       <div>
-        <input type="password" v-model="signinParam.password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
+        <input type="password" v-model="template.password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
       </div>
       <div class="sign-in__form-convenience">
         <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
@@ -81,6 +81,11 @@
   /**
    * 로그인
    */
+  const template = ref({
+    email: "",
+    password: "",
+  });
+
   const signinParam = ref({
     email: "",
     password: "",
@@ -88,6 +93,9 @@
 
   async function handleClickSignIn() {
     try {
+      signinParam.value.password = template.value.password;
+      signinParam.value.email = template.value.email + "@" + selectedOption.value;
+      
       await postSignIn(signinParam.value);
       router.push("/home");
     } catch (e) {
