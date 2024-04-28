@@ -250,6 +250,7 @@
           margin-left: 4px;
           cursor: pointer;
         }
+
         &-content{
           display: block;
           position: absolute;
@@ -269,6 +270,10 @@
         &-content div:hover{
           background-color: #f1f1f1;
         }
+      }
+      &-emailicon{
+        position: absolute;
+        right: 15px;
       }
       &-email-auth{
         width: 50px;
