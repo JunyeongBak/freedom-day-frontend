@@ -66,7 +66,7 @@
   </script>
   <style scoped>
   .principal_ratio{
-    width: 100%;
+    width: 300px;
     height: 100%;
     border-radius: 16px;
     border: 1px solid #DBDDE2;
