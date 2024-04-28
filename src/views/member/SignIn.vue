@@ -185,9 +185,14 @@
       }
       &-drop-email{
         position: relative;
+        width: 164px;
         display: block;
         
         &-button{
+          // position: absolute;
+          // width: 164px;
+          top: 0px;
+          right: 0px;
           padding: 10px;
           border: 1px solid #898F9A;
           border-radius: 8px;
@@ -213,6 +218,10 @@
         &-content div:hover{
           background-color: #f1f1f1;
         }
+      }
+      &-emailicon{
+        position: absolute;
+        right: 15px;
       }
 
       &-login{
