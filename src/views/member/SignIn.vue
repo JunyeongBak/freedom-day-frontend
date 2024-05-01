@@ -92,6 +92,13 @@
   });
 
   async function handleClickSignIn() {
+
+    if (selectedOption.value == undefined) {
+      const message_temp = '이메일 양식을 확인하세요. 도메인 선택!';
+      alert(message_temp)
+      throw new Error(message_temp);
+    }
+
     try {
       signinParam.value.password = template.value.password;
       signinParam.value.email = template.value.email + "@" + selectedOption.value;
