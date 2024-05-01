@@ -95,7 +95,7 @@
 
     if (selectedOption.value == undefined) {
       const message_temp = '이메일 양식을 확인하세요. 도메인 선택!';
-      alert(message_temp)
+      alert(message_temp);
       throw new Error(message_temp);
     }
 
