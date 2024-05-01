@@ -110,6 +110,10 @@
   }
 
   function validatePassword() {
+    if (passwordConfirm.value != ''){
+      passwordConfirm.value = '';
+      ispasswordCheckAgain.value = false;
+    }
     const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}:">?~;,.])[A-Za-z\d!@#$%^&*()_+{}:">?~;,.]{8,20}$/;
     if (!regex.test(password.value)) {
       passwordError.value = `Password must be 8-20 characters long, including letters, numbers, and special characters.`;

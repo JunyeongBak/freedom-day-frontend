@@ -117,14 +117,6 @@
       }
     }
   }
-  
-  /**
-   * 테스트
-   */
-  async function handleClickTest() {
-
-    await getTest();
-  }
 
 </script>
 
