@@ -78,6 +78,7 @@
   import { useStore } from "@/store/index";
   import {useRouter} from "vue-router";
   import navbar from "@/components/BarNavigationSignStep2.vue";
+  import { postSignUp } from "@/api/member.js";
   const store = useStore();
   const router = useRouter();
   const nickname = ref('');
@@ -160,6 +161,22 @@
       }
     } else {
       isBirthDate.value = true;
+    }
+  }
+  const handleSubmit = async() => {
+    try {
+      // 변수들...
+      const tmp = ref({
+        "email" : "newTestTest@naver.com",
+        "password" : "test1234@",
+        "nickName" : "testNickName",
+        "sex" : "M",
+        "birthDate" : "19880101"
+      });
+      await postSignUp(tmp.value);
+      router.push("/signin")
+    } catch(error){
+      alert('회원가입 실패: ' + error);
     }
   }
 </script>
