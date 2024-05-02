@@ -127,7 +127,7 @@
     const value = event.target.value;
     let numbers = value.replace(/[^\d]/g, '');  // 비숫자 제거
     numbers = numbers.slice(0, 8);  // 최대 8자리 (YYYYMMDD)
-
+    rawBirthData.value = numbers;
     // 자동으로 점 추가
     if (numbers.length > 4) {
       numbers = numbers.slice(0, 4) + '.' + numbers.slice(4);
@@ -136,7 +136,6 @@
       numbers = numbers.slice(0, 7) + '.' + numbers.slice(7);
     }
 
-    console.log(numbers)
     // rawBirthData.value = numbers.replace(/\./g, ''); // 원본 숫자 데이터 저장
     formattedBirthData.value = numbers; // 포맷된 데이터 표시
     console.log(formattedBirthData.value);
@@ -164,14 +163,15 @@
     }
   }
   const handleSubmit = async() => {
+    gender.value = gender.value == 'male' ? 'M' : 'F';
+
     try {
-      // 변수들...
       const tmp = ref({
-        "email" : "newTestTest@naver.com",
-        "password" : "test1234@",
-        "nickName" : "testNickName",
-        "sex" : "M",
-        "birthDate" : "19880101"
+        "email" : store.formData.step1.email_beginning + "@" + store.formData.step1.email_back,
+        "password" : store.formData.step1.password,
+        "nickName" : nickname.value,
+        "sex" : gender.value,
+        "birthDate" : rawBirthData.value,
       });
       await postSignUp(tmp.value);
       router.push("/signin")
