@@ -95,13 +95,9 @@
     return !(isNickCheck.value);
   })
 
-  console.log(store.formData.step1.email_beginning)
-  console.log(store.formData.step1.email_back)
-  console.log(store.formData.step1.password)
 
   function setGender(selectedGender){
     gender.value = selectedGender;
-    console.log(gender.value);
   }
 
   function validateNickname(){
@@ -138,7 +134,6 @@
 
     // rawBirthData.value = numbers.replace(/\./g, ''); // 원본 숫자 데이터 저장
     formattedBirthData.value = numbers; // 포맷된 데이터 표시
-    console.log(formattedBirthData.value);
     validateDate(numbers)
   }
   // 실제 날짜 유효성 검증
