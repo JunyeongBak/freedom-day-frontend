@@ -145,7 +145,7 @@
     if (!emailValidation(email.value)) {
       email.value = '';
       isEmailCheck.value = false;
-      alert('영문, 숫자 입력하세요');
+      // alert('영문, 숫자 입력하세요'); // 정기미팅 지적 사항
     }
     
     if(email.value!='' && selectedOption.value != '선택' && selectedOption.value != '' && selectedOption.value != null) {
