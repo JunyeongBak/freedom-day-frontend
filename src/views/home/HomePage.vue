@@ -109,7 +109,7 @@ import { getUserLoanInfo } from "@/api/loan.js";
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
 const vb_emptyContainer = ref("empty-container");
-const hasData = computed(() => dataLength.value == 0);
+const hasData = computed(() => dataLength.value > 0);
 // const currentTab = ref("home"); // 탭 기능 구현
 const vb_hasdataNavbar = computed(() =>
   store.tabIndex === 1 ? "hasdata-navbar__blue" : "hasdata-navbar"
