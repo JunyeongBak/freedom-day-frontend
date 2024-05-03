@@ -95,7 +95,6 @@
   //computed
   const submitButton = computed(()=>{
     if (formattedBirthData.value){
-      console.log(rawBirthData.value.length);
       if (rawBirthData.value.length == 8){
         confirmBirth.value = true;
       }else{
