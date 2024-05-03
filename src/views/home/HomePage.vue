@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- START] API data read successfully -->
-    <div v-if="true" :class="vb_hasData">
+    <div v-if="hasData" :class="vb_hasData">
       <div :class="vb_hasdataNavbar">
         <bar_nav_loan />
       </div>
@@ -100,14 +100,16 @@
 
 <script lang="ts" setup>
 import { useStore } from "@/store/index";
-import { ref, onMounted, computed, defineProps } from "vue";
+import { ref, onMounted, computed } from "vue";
 import bar_nav_loan from "@/components/BarNavigation.vue";
 import view_home from "@/components/ViewHome.vue";
+import { getUserLoanInfo } from "@/api/loan.js";
+
 
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
 const vb_emptyContainer = ref("empty-container");
-// const hasData = computed(() => dataLength.value == 0);
+const hasData = computed(() => dataLength.value == 0);
 // const currentTab = ref("home"); // 탭 기능 구현
 const vb_hasdataNavbar = computed(() =>
   store.tabIndex === 1 ? "hasdata-navbar__blue" : "hasdata-navbar"
@@ -116,21 +118,18 @@ const vb_hasData = ref("hasdata");
 const vb_hasdataNavbarSettings = ref("hasdata-navbar__settings");
 const vb_callToAction = ref("call-to-action");
 let dataLength = ref(0); //API 데이터 유무 확인
-const props = defineProps({
-  dataLength: Number,
-});
+// const props = defineProps({
+//   dataLength: Number,
+// });
 
 // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
 onMounted(async () => {
   try {
-    // const response = await fetch('https://www.freedom-day.site/api/test/user-loan-info');
-    const response = await fetch("");
-    const fetchedData = await response.json();
-    dataLength.value = fetchedData["response"]["loanCount"];
-    console.log(dataLength);
+    await getUserLoanInfo();
+
   } catch (error) {
-    console.error("Error fetching data:", error);
-    dataLength = ref(0);
+
+    console.log(error)
   }
 });
 const store = useStore();

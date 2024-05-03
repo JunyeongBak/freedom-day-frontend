@@ -16,7 +16,7 @@ const routes = [
       title: "해방의날",
       keepAlive: true,
     },
-    component: () => import("@/views/home/GuestPage.vue"),
+    component: () => import("@/views/home/HomePage.vue"),
   },
   {
     path: "/signup",
