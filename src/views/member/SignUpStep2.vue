@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
   import { useStore } from "@/store/index";
   import {useRouter} from "vue-router";
   import navbar from "@/components/BarNavigationSignStep2.vue";
@@ -89,12 +89,23 @@
   const formattedBirthData = ref('');
   const isBirthDate = ref(false);
   const dateError = ref('');
+  const confirmBirth = ref(false);
+
 
   //computed
   const submitButton = computed(()=>{
-    return !(isNickCheck.value);
+    if (formattedBirthData.value){
+      console.log(rawBirthData.value.length);
+      if (rawBirthData.value.length == 8){
+        confirmBirth.value = true;
+      }else{
+        confirmBirth.value = false;
+      }
+    }else {
+      confirmBirth.value = true;
+    }
+    return !(isNickCheck.value && confirmBirth.value);
   })
-
 
   function setGender(selectedGender){
     gender.value = selectedGender;
