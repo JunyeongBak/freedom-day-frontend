@@ -1,122 +1,33 @@
 <template>
   <div class="hasdata-container__background1">
     <div class="hasdata-container__total">
-      <span>JYB 님의 지난달 총 납부액</span>
+      <span><span style="color:#2B66F5;">{{ nickName }}</span> 님의 지난달 총 납부액</span>
       <div class="hasdata-container__total__amount">
         <img src="/src/assets/progressicon.svg" alt="Progress Icon"/>
-        <span>58,000,000원</span>
+        <span>{{ previousMonthPayment }}원</span>
       </div>
     </div>
   </div>
   <div class="hasdata-container__background2">
     <div class="hasdata-container__background2__title">
-      <span>나의 대출 (3개)</span>
+      <span>나의 대출 ({{ loanCount }}개)</span>
     </div>
     <div class="hasdata-container__details">
       <!-- Start] Card -->
-      <div>
-        <div class="hasdata-container__details__handle">
-          <img src="/src/assets/ic_handle.svg" alt="Progress Icon"/>
-        </div>
-        <div class="hasdata-container__details__contents">
-          <div>
-            <div>생활비</div>
-            <div>D-16</div>
-            <img src="/src/assets/close.svg" alt="close"/>
-          </div>
-          <div>
-            <img src="/src/assets/ic_bank.svg" alt="img" />
-            <div>
-              <div>토스뱅크 신용대출</div>
-              <div>2024.12.04.</div>
-              <div>19,886,317원</div>
-              <div>매달 15일</div>
-            </div>
-          </div>
-          <div class="hasdata-container__details__contents__line"></div>
-          <div class="hasdata-container__details__contents__charts">
-            <div>
-              <div></div>
-              <div>정말 반이에요! 거의 다 왔어요!</div>
-            </div>
-            <div>
-              <div class="hasdata-container__details__contents__charts__value">
-                <div class="hasdata-container__details__contents__charts__value__bar" style="width: 80%;"></div>
-              </div>
-              <!-- <img src="/src/assets/ic_loandetails.svg" alt="img" /> -->
-            </div>
-          </div>
-        </div>
-      </div>
+      <loansCard 
+        v-for="(item, index) in loanSimpleDtoList" 
+        :key="item.expirationDate"
+        :index="index"
+        :loandata="item"
+      />      
       <!-- End] Card -->
-      <div>
-        <div class="hasdata-container__details__handle">
-          <img src="/src/assets/ic_handle.svg" alt="Progress Icon"/>
-        </div>
-        <div class="hasdata-container__details__contents">
-          <div>
-            <div>생활비</div>
-            <div>D-16</div>
-            <img src="/src/assets/close.svg" alt="close"/>
-          </div>
-          <div>
-            <img src="/src/assets/ic_bank.svg" alt="img" />
-            <div>
-              <div>토스뱅크 신용대출</div>
-              <div>2024.12.04.</div>
-              <div>19,886,317원</div>
-              <div>매달 15일</div>
-            </div>
-          </div>
-          <div class="hasdata-container__details__contents__line"></div>
-          <div class="hasdata-container__details__contents__charts">
-            <div>
-              <div></div>
-              <div>정말 반이에요! 거의 다 왔어요!</div>
-            </div>
-            <div>
-              <img src="/src/assets/ic_loandetails.svg" alt="img" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="hasdata-container__details__handle">
-          <img src="/src/assets/ic_handle.svg" alt="Progress Icon"/>
-        </div>
-        <div class="hasdata-container__details__contents">
-          <div>
-            <div>생활비</div>
-            <div>D-16</div>
-            <img src="/src/assets/close.svg" alt="close"/>
-          </div>
-          <div>
-            <img src="/src/assets/ic_bank.svg" alt="img" />
-            <div>
-              <div>토스뱅크 신용대출</div>
-              <div>2024.12.04.</div>
-              <div>19,886,317원</div>
-              <div>매달 15일</div>
-            </div>
-          </div>
-          <div class="hasdata-container__details__contents__line"></div>
-          <div class="hasdata-container__details__contents__charts">
-            <div>
-              <div></div>
-              <div>정말 반이에요! 거의 다 왔어요!</div>
-            </div>
-            <div>
-              <img src="/src/assets/ic_loandetails.svg" alt="img" />
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
+
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .hasdata {
     display: flex;
     flex-direction: column;
@@ -189,6 +100,7 @@
           font-size: 18px;
           font-family: 'NanumSquareNeo_extrabold';
         }
+        margin-top: 24px;;
       }
 
     }
@@ -328,3 +240,28 @@
     }
   }
 </style>
+
+<script setup>
+  import { ref, onMounted } from 'vue';
+  import { useStore } from "@/store/index";
+  import loansCard from "@/components/BarNavigationTab/LoansTabCard.vue";
+  const store = useStore();
+  const nickName = ref('freedom');
+  const loanCount = ref(0);
+  const previousMonthPayment = ref(0);
+  const repaymentRate = ref(0);
+  const loanSimpleDtoList = ref(['']);
+
+
+  onMounted(() => {
+    previousMonthPayment.value = store.userData.previousMonthPayment.toLocaleString();
+    repaymentRate.value = store.userData.repaymentRate;
+    nickName.value = store.nickName;
+    loanCount.value = store.userData.loanCount;
+    loanSimpleDtoList.value = store.userData.loanSimpleDtoList;
+
+    // console.log(loanSimpleDtoList.value[0]);
+    // console.log(loanSimpleDtoList.value[1]);
+  })
+
+</script>

@@ -14,7 +14,7 @@ const routes = [
     name: "HomePage",
     meta: {
       title: "해방의날",
-      keepAlive: true,
+      keepAlive: false,
     },
     component: () => import("@/views/home/HomePage.vue"),
   },

@@ -91,7 +91,7 @@
         <span>계획적인 빚테크 시작해 볼까요?</span>
       </div>
       <button @click="" :class="vb_callToAction">
-        <img src="/src/assets/call_to_action.svg" alt="Button Icon" />
+        <img src="/src/assets/call_to_action.svg" alt="Button Icon" @click = "" />
       </button>
     </div>
     <!-- END] Failed to read API data -->
@@ -103,13 +103,14 @@ import { useStore } from "@/store/index";
 import { ref, onMounted, computed } from "vue";
 import bar_nav_loan from "@/components/BarNavigation.vue";
 import view_home from "@/components/ViewHome.vue";
-import { getUserLoanInfo } from "@/api/loan.js";
-
+// import { getUserLoanInfo } from "@/api/loan.js";
+import { useRouter } from 'vue-router'
+const router = useRouter();
 
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
 const vb_emptyContainer = ref("empty-container");
-const hasData = computed(() => dataLength.value > 0);
+const hasData = computed(() => loanCount.value > 0);
 // const currentTab = ref("home"); // 탭 기능 구현
 const vb_hasdataNavbar = computed(() =>
   store.tabIndex === 1 ? "hasdata-navbar__blue" : "hasdata-navbar"
@@ -117,7 +118,8 @@ const vb_hasdataNavbar = computed(() =>
 const vb_hasData = ref("hasdata");
 const vb_hasdataNavbarSettings = ref("hasdata-navbar__settings");
 const vb_callToAction = ref("call-to-action");
-let dataLength = ref(0); //API 데이터 유무 확인
+let loanCount = ref(0); //API 데이터 유무 확인
+const store = useStore();
 // const props = defineProps({
 //   dataLength: Number,
 // });
@@ -125,14 +127,12 @@ let dataLength = ref(0); //API 데이터 유무 확인
 // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
 onMounted(async () => {
   try {
-    await getUserLoanInfo();
-
+    loanCount.value = store.userData.loanCount; //대출개수
   } catch (error) {
 
-    console.log(error)
+    console.log(error);
   }
 });
-const store = useStore();
 </script>
 
 <style lang="scss">

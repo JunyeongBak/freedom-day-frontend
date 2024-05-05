@@ -60,10 +60,14 @@
   import { ref } from 'vue';
   import navbar from "@/components/BarNavigationLogin.vue";
   import { postSignIn } from "@/api/member.js"
+  import { getUserLoanInfo } from "@/api/loan.js";
+  import { useStore } from "@/store/index";
+
   const router = useRouter();
   const isOpen = ref(false);
   const selectedOption = ref(null);
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
+  const store = useStore();
 
   function toggleDropdown() {
     isOpen.value = !isOpen.value;
@@ -103,7 +107,11 @@
       signinParam.value.password = template.value.password;
       signinParam.value.email = template.value.email + "@" + selectedOption.value;
       
-      await postSignIn(signinParam.value);
+      const response = await postSignIn(signinParam.value);
+      store.saveNickName(String(response.response.nickName));
+      const userData = await getUserLoanInfo();
+      console.log(userData.response);
+      store.saveUserHome(userData.response);
       router.push("/home");
     } catch (e) {
       const { code } = e;

@@ -14,7 +14,14 @@ export const useStore = defineStore('main', {
       step2:{
         nickname:''
       }
-    }
+    },
+    nickName: '',
+    userData: {
+      previousMonthPayment: 0,
+      repaymentRate: 0,
+      loanCount: 0,
+      loanSimpleDtoList: []
+    },
   }),
   actions: {
     // 탭 인덱스 변경을 위한 액션 추가
@@ -25,6 +32,15 @@ export const useStore = defineStore('main', {
       this.formData.step1.email_beginning = email_beginning;
       this.formData.step1.email_back = email_back;
       this.formData.step1.password = password;
-    }
+    },
+    saveNickName(nickName){
+      this.nickName = nickName;
+    },
+    saveUserHome(userData){
+      this.userData.previousMonthPayment = userData.previousMonthPayment;
+      this.userData.repaymentRate = userData.repaymentRate;
+      this.userData.loanCount = userData.loanCount;
+      this.userData.loanSimpleDtoList = userData.loanSimpleDtoList;
+    },
   }
 })
