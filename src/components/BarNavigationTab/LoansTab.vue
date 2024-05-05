@@ -104,7 +104,7 @@
       }
 
     }
-
+// hasdata-container__details__handle-image
     &-container__details{
       display:flex;
       flex-direction: column;
@@ -123,13 +123,17 @@
         border-radius: 16px;
         background-color: #FFF;
       }
+      &__handle{ // 대출카드 핸들
+        opacity: 0.0;
+      }
 
       &__contents{
         min-width: 274px;
         background-color: #FFFFFF;//여기
         > div:nth-child(1){
           display: flex;
-          > img{
+          > img{ // 대출카드 'x' 아이콘
+            opacity: 0.0;
             position: absolute;
             right: 16px;
             top: 12px;
@@ -207,7 +211,6 @@
           > div:first-child{
             display:flex;
             align-items: center;
-            
             > div:first-child{
               width: 24px;
               height: 24px;
