@@ -110,7 +110,7 @@
       const response = await postSignIn(signinParam.value);
       store.saveNickName(String(response.response.nickName));
       const userData = await getUserLoanInfo();
-      console.log(userData.response);
+      // console.log(userData.response);
       store.saveUserHome(userData.response);
       router.push("/home");
     } catch (e) {

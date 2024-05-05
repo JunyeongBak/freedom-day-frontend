@@ -60,8 +60,8 @@
 
   onMounted(() => {
     try{
-      console.log('******************')
-      console.log(props.loandata.paymentPercentage);
+      // console.log('******************')
+      // console.log(props.loandata.paymentPercentage);
       width.value = props.loandata.paymentPercentage + '%';
     }catch (error){
       console.error('에러발생', error);
