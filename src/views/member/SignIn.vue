@@ -66,7 +66,7 @@
    * 기본 필수 라이브러리
    */
   import { useRouter } from 'vue-router'
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   import { postSignIn } from "@/api/member.js"
   import { getUserLoanInfo } from "@/api/loan.js";
   import { useStore } from "@/store/index";
@@ -80,10 +80,10 @@
   /**
    * onMounted
    */
-  onMounted(() => {
-    token.access = localStorage.getItem('accessToken');
-    token.refresh = localStorage.getItem('refreshToken');
-  });
+  // onMounted(() => {
+  //   token.access = localStorage.getItem('accessToken');
+  //   token.refresh = localStorage.getItem('refreshToken');
+  // });
 
   /**
    * 로그인
@@ -111,14 +111,12 @@
     try {
       signinParam.value.password = template.value.password;
       signinParam.value.email = template.value.email + "@" + selectedOption.value;
-      // console.log(signinParam.value);
+
       const response = await postSignIn(signinParam.value);
       store.saveNickName(String(response.response.nickName));
-      const userData = await getUserLoanInfo();
-      console.log(userData.response);
-      store.saveUserHome(userData.response);
       store.setNavBarFlag('1_0');
-      console.log(store.navBarFlag)
+      console.log(store.navBarFlag);
+
       router.push("/home");
     } catch (e) {
       const { code } = e;

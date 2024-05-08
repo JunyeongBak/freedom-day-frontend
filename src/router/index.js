@@ -5,7 +5,7 @@ const routes = [
     path: "/",
     name : "Login",
     meta:{
-      keepAlive: false,
+      keepAlive: true,
     },
     component: () => import("@/views/member/SignIn.vue"),
   },
@@ -14,7 +14,7 @@ const routes = [
     name: "HomePage",
     meta: {
       title: "해방의날",
-      keepAlive: false,
+      keepAlive: true,
     },
     component: () => import("@/views/home/HomePage.vue"),
   },
@@ -23,24 +23,24 @@ const routes = [
     name: "signup",
     component: () => import("@/views/member/SignUp.vue"),
   },
-  // {
-  //   path: "/step2",
-  //   name: "SignUpStep2",
-  //   meta: {
-  //     keepAlive: false,
-  //   },
-  //   component: () => import("@/views/member/SignUpStep2.vue"),
-  // },
-  // {
-  //   path: "/signin",
-  //   name: "signin",
-  //   component: () => import("@/views/member/SignIn.vue"),
-  // },
-  // {
-  //   path: "/loan-detail",
-  //   name: "loan-detail",
-  //   component: () => import("@/views/loan/LoanDetail.vue"),
-  // },
+  {
+    path: "/step2",
+    name: "SignUpStep2",
+    meta: {
+      keepAlive: false,
+    },
+    component: () => import("@/views/member/SignUpStep2.vue"),
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: () => import("@/views/member/SignIn.vue"),
+  },
+  {
+    path: "/loan-detail",
+    name: "loan-detail",
+    component: () => import("@/views/loan/LoanDetail.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

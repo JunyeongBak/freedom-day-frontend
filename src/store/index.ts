@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('main', {
   state: () => ({
     // 탭 인덱스 상태
+    tabIndex: 0,
     navBarFlag: '',
     formData:{
       step1:{
@@ -24,6 +25,9 @@ export const useStore = defineStore('main', {
     },
   }),
   actions: {
+    setTabIndex(index) {
+      this.tabIndex = index;
+    },
     // 탭 인덱스 변경을 위한 액션 추가
     setNavBarFlag(flag) {
       this.navBarFlag = flag;
