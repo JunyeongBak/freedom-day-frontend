@@ -1,81 +1,84 @@
 @charset "UTF-8";
-
-/* stylelint-enable */
-/* 重置样式 */
+$main-input: #BDC0C6;
+$main-font: #1D2532;
 * {
-    -webkit-tap-highlight-color: transparent;
-    outline: 0;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0;
 }
 
 button{
-    all: unset;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; 
-    text-align: center;
+  all: unset;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; 
+  text-align: center;
 }
 
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
 }
-body{
+body {
+  display: flex;
+  justify-content: center;
+  // width: 100vw;
   background-color: #F3F3F3;
+  margin: 0 auto;
+  }
+@media screen and (min-width: 360px) {
+  html{
+      height: 100vh;
+      // width: 600px;
+      margin: 0 auto;
+  }
+  body {
+    background-color: #F3F3F3;
+  //   width: 360px;
+    height: 100vh;
+    margin: 0 auto;
+  }
 }
 
 img {
-    border: 0 none;
-    vertical-align: top;
+  border: 0 none;
+  vertical-align: top;
 }
 
 i, em {
-    font-style: normal;
+  font-style: normal;
 }
 
 ol, ul {
-    list-style: none;
+  list-style: none;
 }
 
-input, select, button, h1, h2, h3, h4, h5, h6 {
-    font-size: 20px;
-    font-family: inherit;
+select, button, h1, h2, h3, h4, h5, h6 {
+  font-size: 20px;
+  font-family: inherit;
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 a, a:visited {
-    text-decoration: none;
-    color: #333;
+  text-decoration: none;
+  color: #333;
 }
 
-@font-face{
-    font-family: 'NanumSquareNeo_normal';
-    font-style: normal;
-    font-weight: 400;
-    src: url('@/assets/fonts/NanumSquareNeo-bRg.ttf') format('truetype')
-
+input, select{
+  width: 152px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #898F9A;
+  border-radius: 8px;
+  color: $main-input;
+  padding: 0 8px;
 }
 
-@font-face{
-    font-family: 'NanumSquareNeo_bold';
-    font-style: bold;
-    font-weight: 700;
-    src: url('@/assets/fonts/NanumSquareNeo-cBd.ttf') format('truetype')
+select{
+  color: $main-font;
+  font-size: 14px;
 }
 
-@font-face{
-    font-family: 'NanumSquareNeo_extrabold';
-    font-style: extrabold;
-    font-weight: 800;
-    src: url('@/assets/fonts/NanumSquareNeo-dEb.ttf') format('truetype')
-}
-
-@font-face{
-    font-family: 'NanumSquareNeo_heavy';
-    font-style: heavy;
-    font-weight: 900;
-    src: url('@/assets/fonts/NanumSquareNeo-eHv.ttf') format('truetype')
-}

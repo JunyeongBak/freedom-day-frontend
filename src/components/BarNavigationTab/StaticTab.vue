@@ -16,7 +16,7 @@
         <span>상환 예정</span>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.png" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-student">학자금</div>
@@ -31,7 +31,7 @@
         </div>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.png" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-living">생활비</div>
@@ -51,7 +51,7 @@
         </div>
         <div class="hasdata-statistics-details__main">
           <div>
-            <img src="/src/assets/ic_bank.svg" alt="icon" />
+            <img src="/src/assets/ic_bank.png" alt="icon" />
             <div>
               <div>
                 <div class="hasdata-statistics-details__main__loan-purpose-finish">주택자금</div>
@@ -111,8 +111,10 @@
       const response = await fetch('https://www.freedom-day.site/api/test/loan-statistics');
       const fetchedData = await response.json();
       console.log(fetchedData);
-      vb_drawersTotalLoan.value = fetchedData['totalBalance'].toLocaleString() + "원";
-      vb_drawersTotalRepayment.value = fetchedData['totalPrincipalRepayment'].toLocaleString() + "원";
+      // vb_drawersTotalLoan.value = fetchedData['totalBalance'].toLocaleString() + "원";
+      vb_drawersTotalLoan.value = fetchedData['totalBalance'] + "원";
+      // vb_drawersTotalRepayment.value = fetchedData['totalPrincipalRepayment'].toLocaleString() + "원";
+      vb_drawersTotalRepayment.value = fetchedData['totalPrincipalRepayment'] + "원";
       checkLoanPurpose();
     } catch (error) {
       console.error("Failed to fetch data: ", error);

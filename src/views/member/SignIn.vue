@@ -1,90 +1,96 @@
 <template>
-  <div class="nav-bar">
-    <navbar />
-  </div>
   <div class="sign-in">
-    <div class="sign-in__card">
-      <img src="@/assets/ic_login.png">
+    <!-- START sign-in__card -->
+    <div class="sign-in__img-card">
+      <img src="@/assets/ic_login001.png">
       <div>해방의 날</div>
     </div>
-    <form method="POST" class="sign-in__form">
-      <span>이메일</span>
-      <div>
-        <input v-model="template.email" placeholder="이메일"></input>
-        <span>@</span>
-        <div class="sign-in__form-drop-email">
-          <div @click="toggleDropdown" class="sign-in__form-drop-email-button">
-            {{ selectedOption || '선택' }}
-            <van-icon name="arrow-down" class="sign-in__form-emailicon"/>
-            <div v-show="isOpen" class="sign-in__form-drop-email-content">
-              <div v-for="option in options" :key="option" @click="selectOption(option)">
-                {{ option }}
-              </div>
-            </div>
-          </div>
+    <!-- END sign-in__card  -->
+
+    <!-- START FORM -->
+    <form method="POST" class="sign-in-form">
+      <!-- START sign-in__email -->
+      <p class="input_label">이메일</p>
+      <div class="sign-in-form__email">
+        <input v-model="template.email" type="text" class="sign-in-form__email__front" placeholder="이메일">
+        <p>@</p>
+        <select v-model="selectedOption ">
+          <option disabled value="선택">선택</option>
+          <option value="gmail.com">gmail.com</option>
+          <option value="naver.com">naver.com</option>
+          <option value="nate.com">nate.com</option>
+          <option value="daum.net">daum.net</option>
+          <option value="hanmail.net">hanmail.net</option>
+          <option value="kakao.com">kakao.com</option>
+        </select>
+      </div>
+      <!-- END sign-in__email -->
+  
+      <!-- START sign-in__password -->
+      <div class="sign-in-form__password">
+        <p class="input_label">비밀번호</p>
+        <input v-model="template.password" type="password" placeholder="비밀번호를 입력해주세요">
+      </div>
+      <!-- END sign-in__password -->
+
+      <!-- START sign-in__rememberID -->
+      <div class="sign-in-form__remember-id">
+        <input type="checkbox" id="check_box" v-model="isChecked" :style="{ opacity: isChecked ? 1 : 0 }">
+        <img v-if="!isChecked" id="check_box_img" class="sign-in-form__remember-id__img" src="@/assets/ic_check.png" >
+        <label for="check_box" >이메일 기억하기</label>
+        <div class="sign-in-form__find-password">
+          <router-link to="">비밀번호 찾기</router-link>
         </div>
       </div>
-      <span>비밀번호</span>
-      <div>
-        <input type="password" v-model="template.password" class="sign-in__form-password" placeholder="비밀번호를 입력해주세요"></input>
-      </div>
-      <div class="sign-in__form-convenience">
-        <input type="checkbox" class="sign-in__form-remember">이메일 기억하기</input>
-        <button
-          type="button"
-        >
-          비밀번호 찾기
-        </button>
-      </div>
-      <div class="sign-in__form-login">
-        <button
-          type="button"
-          @click="handleClickSignIn"
-        >
-          로그인
-        </button>
-      </div>
+      <!-- END sign-in__rememberID -->
+      <button type="button" class="blue_button" @click="handleClickSignIn">로그인</button>
     </form>
-    <div class="sign-in__guest">
-      <span class="sign-in__guest-tosignup" @click="goToSignup">아직 회원이 아니세요?</span>
-      <button
-        :disabled="true" 
-      >게스트로 서비스 둘러보기
-      </button>
+    <!-- END FORM -->
+
+    <!-- START sign-up -->
+    <div class="line-text">
+      <router-link to="/signup"> 아직 회원이 아니세요?</router-link>
     </div>
+    <!-- END sign-up -->
+
+    <!-- START Guest -->
+    <div class="line-text">
+      <router-link to="">게스트로 서비스 둘러보기</router-link>
+    </div>
+    <!-- END Guest -->
   </div>
 </template>
 
 <script setup>
+  /**
+   * 기본 필수 라이브러리
+   */
   import { useRouter } from 'vue-router'
-  import { ref } from 'vue';
-  import navbar from "@/components/BarNavigationLogin.vue";
+  import { ref, onMounted } from 'vue';
   import { postSignIn } from "@/api/member.js"
   import { getUserLoanInfo } from "@/api/loan.js";
   import { useStore } from "@/store/index";
-
   const router = useRouter();
-  const isOpen = ref(false);
-  const selectedOption = ref(null);
-  const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
   const store = useStore();
+  const token =ref({
+    access : null,
+    refresh : null
+  });
 
-  function toggleDropdown() {
-    isOpen.value = !isOpen.value;
-  }
-
-  function selectOption(option) {
-    selectedOption.value = option;
-    isOpen.value = true;
-  }
-
-  function goToSignup(){
-    router.push('/signup');
-  }
+  /**
+   * onMounted
+   */
+  onMounted(() => {
+    token.access = localStorage.getItem('accessToken');
+    token.refresh = localStorage.getItem('refreshToken');
+  });
 
   /**
    * 로그인
    */
+  const isChecked = ref(false);
+  const selectedOption  = ref('선택');
+
   const template = ref({
     email: "",
     password: "",
@@ -96,7 +102,6 @@
   });
 
   async function handleClickSignIn() {
-
     if (selectedOption.value == undefined) {
       const message_temp = '이메일 양식을 확인하세요. 도메인 선택!';
       alert(message_temp);
@@ -106,173 +111,102 @@
     try {
       signinParam.value.password = template.value.password;
       signinParam.value.email = template.value.email + "@" + selectedOption.value;
-      
+      // console.log(signinParam.value);
       const response = await postSignIn(signinParam.value);
       store.saveNickName(String(response.response.nickName));
       const userData = await getUserLoanInfo();
-      // console.log(userData.response);
+      console.log(userData.response);
       store.saveUserHome(userData.response);
+      store.setNavBarFlag('1_0');
+      console.log(store.navBarFlag)
       router.push("/home");
     } catch (e) {
       const { code } = e;
 
       // 유저 이메일 없음
       if (code === "ACCOUNT-001") {
-        alert("로그인 정보와 일치하지 않습니다");
+        alert("로그인 정보와 일치하지 않습니다(001)");
         // 비밀번호가 틀림
       } else if (code === "ACCOUNT-002") {
-        alert("로그인 정보와 일치하지 않습니다");
+        alert("로그인 정보와 일치하지 않습니다(002)");
       }
     }
   }
 
 </script>
 
-<style lang="scss">
-  body{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 400;
-    font-size: 18px;
-  }
-
+<style lang="scss" scoped>
   .sign-in{
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 360px;
-    width: 100%;
-    height: 800px;
-    background-color: #FFF;
-
-
-    &__card{
-      display: flex;
-      flex-direction: column;
-      width: 340px;
-      height: 204px;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-      font-weight: 800;
-
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    &__img-card{
+      margin-top: 80px;
       > img{
-        margin-top: 24px; 
         width: 104px;
         height: 110px;
       }
-      >div{
+      > div{
+        font-size: 20px;
+        font-family: "NanumSquareNeo_extrabold";
         margin-top: 16px;
-        margin-bottom: 24px;
       }
-    }
-    &__form{
-      margin-top: 32px;
-      // position: relative;
       display: flex;
       flex-direction: column;
-      box-sizing: border-box;
-      >div{
+      width: 328px;
+      height: 204px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-form{
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      &__email{
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: left;
-        margin-top: 8px;
-        margin-bottom: 24px;
+        > p {
+          // font-size: 18px;
+          margin-left: 8px;
+          margin-right: 8px;
+        }
       }
-      
-      > div:nth-child(2) > input:nth-child(1) {
-        width: 152px;
-        height: 40px;
-        margin-right: 4px; 
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        padding-left: 8px;
+      &__password{
+        margin-top: 24px;
+        > input {
+          width: 334px;
+        }
       }
-      &-drop-email{
+
+      &__remember-id{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 18px;
         position: relative;
-        width: 164px;
-        display: block;
-        
-        &-button{
-          // position: absolute;
-          // width: 164px;
-          top: 0px;
-          right: 0px;
-          padding: 10px;
-          border: 1px solid #898F9A;
-          border-radius: 8px;
-          margin-left: 4px;
-          cursor: pointer;
-        }
-        &-content {
-          display: block;
-          position: absolute;
-          top: 50px;
-          right: 0;
-          background-color: #f9f9f9;
-          min-width: 160px;
-          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-          z-index: 1;
-        }
-        &-content div{
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-        &-content div:hover{
-          background-color: #f1f1f1;
+        font-size: 12px;
+        font-family: 'NanumSquareNeo_bold';
+        > input{
+          margin-right: 6px;
         }
       }
-      &-emailicon{
+      &__find-password{
         position: absolute;
-        right: 15px;
-      }
-
-      &-login{
-        > button{
-          color: #FFF;
-          width: 352px;
-          height: 48px;
-          background: #2B66F5;
-          border-radius: 8px;
-        }
-      }
-      &-password{
-        width: 340px;
-        height: 40px;
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        padding-left: 8px;
-      }
-      &-remember{
-        height: 16px;
-        width: 16px;
-      }
-
-      &-convenience{
-        > button:nth-child(2){
-          margin-left: 80px;
-          background: #FFF;
-          border: inherit;
-        }
-      }
-      > span{
-        font-weight: 800;
+        right: 0;
       }
     }
-    &__guest{
-      display: flex;
-      flex-direction: column;
+    
+    .line-text{
+      font-size: 12px;
+      color: #565D69;
+      font-family: 'NanumSquareNeo_bold';
+      border-bottom: 1px solid #565D69;
       margin-top: 16px;
-      text-align: center;
-      > button{
-        background: #FFF;
-        border: inherit;
-        margin-top: 16px;
-      }
     }
   }
 </style>

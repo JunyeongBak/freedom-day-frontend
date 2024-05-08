@@ -1,168 +1,68 @@
-$color--black: #000;
-$color--white: #fff;
-
-// 0.5px 세로 선
-/* 하단 테두리 */
-.b-border {
-  position: relative;
-}
-.b-border:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: #d9d9d9;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-/* 상단 테두리 */
-.t-border {
-  position: relative;
-}
-.t-border:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 1px;
-  background: #d9d9d9;
-  -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-/* 우측 테두리 */
-.r-border {
-  position: relative;
-}
-.r-border:before {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 1px;
-  height: 100%;
-  background: #d9d9d9;
-  -webkit-transform: scaleX(0.5);
-  transform: scaleX(0.5);
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-/* 좌측 테두리 */
-.l-border {
-  position: relative;
-}
-.l-border:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 1px;
-  height: 100%;
-  background: #d9d9d9;
-  -webkit-transform: scaleX(0.5);
-  transform: scaleX(0.5);
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-
-/* 네 변 모두 테두리 설정 */
-.setBorderAll {
-  position: relative;
-  &:after {
-    content: ' ';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    transform: scale(0.5);
-    transform-origin: left top;
-    box-sizing: border-box;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
-  }
-}
-
-// 리스트 컨테이너 높이
-.list-container {
-  height: calc(100vh - 105px);
-  overflow-y: auto;
-}
-// body{
-//   position: relative;
-//   font-family: 'NanumSquareNeo', sans-serif;
-//   font-size:20px;
-//   line-height: 24px;
-//   font-style: normal;
-//   font-weight: 800;
-//   padding: 0 15px;
-// }
-
-img{
-  background-color: transparent;
-}
-
-.layout{
-  display: flex;
-  flex-direction: column;
-}
-
-// button{
-//   background-color: #fff;
-//   width: 57px;
-//   height: 32px;
-//   border: solid 1px #d0d3dd;
-//   border-radius: 40px;
-//   box-sizing: border-box;
-//   font-style: normal;
-//   font-weight: 700;
-//   font-size: 14px;
-//   line-height: 24px;
-// }
-
-.bar-chart {
-  width: 80%;
-  margin: 50px auto;
-  background-color: #fff;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.base-bar{
-  height: 30px;
-  background-color: #F3F3F3;
-  border-radius: 999px;
-}
-
-.bar {
-  height: 30px;
-  background: linear-gradient(270deg, #2B66F5 0%, #4BA6FE 100%);
-  transition: width 0.5s ease;
-  border-radius: 999px;
-}
-
-.bar span {
-  display: block;
-  height: 100%;
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
-}
-
-.bar-1 { width: 20%; }
-.bar-2 { width: 40%; }
-.bar-3 { width: 60%; }
-.bar-4 { width: 80%; }
-.bar-5 { width: 90%; }
+$main-font: #1D2532;
 
 #app {
   font-family: 'NanumSquareNeo_normal', 'sans-serif';
+  font-size: 14px;
+  color: $main-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face{
+  font-family: 'NanumSquareNeo_normal';
+  font-style: normal;
+  font-weight: 400;
+  src: url('@/assets/fonts/NanumSquareNeo-bRg.ttf') format('truetype')
+
+}
+
+@font-face{
+  font-family: 'NanumSquareNeo_bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('@/assets/fonts/NanumSquareNeo-cBd.ttf') format('truetype')
+}
+
+@font-face{
+  font-family: 'NanumSquareNeo_extrabold';
+  font-style: normal;
+  font-weight: 800;
+  src: url('@/assets/fonts/NanumSquareNeo-dEb.ttf') format('truetype')
+}
+
+@font-face{
+  font-family: 'NanumSquareNeo_heavy';
+  font-style: normal;
+  font-weight: 900;
+  src: url('@/assets/fonts/NanumSquareNeo-eHv.ttf') format('truetype')
+}
+// 입력창 위에 사용하는 라벨 전용
+.input_label{
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-family: 'NanumSquareNeo_bold', 'sans-serif';
+}
+// 이미지 사용하는 체크박스 전용
+#check_box{
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+}
+#check_box_img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.blue_button{
+  width: 334px;
+  height: 48px;
+  background: #2B66F5;
+  border-radius: 8px;
+  margin-top: 32px;
+  font-size: 16px;
+  font-family: 'NanumSquareNeo_extrabold';
+  color: #FFF;
 }

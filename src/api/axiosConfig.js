@@ -23,7 +23,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (apiResponse) => {
     const { code, message, response } = apiResponse.data;
-
     return Promise.resolve({
       code,
       message,

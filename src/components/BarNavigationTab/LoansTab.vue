@@ -3,7 +3,7 @@
     <div class="hasdata-container__total">
       <span><span style="color:#2B66F5;">{{ nickName }}</span> 님의 지난달 총 납부액</span>
       <div class="hasdata-container__total__amount">
-        <img src="/src/assets/progressicon.svg" alt="Progress Icon"/>
+        <img src="/src/assets/loan001.png" alt="Progress Icon"/>
         <span>{{ previousMonthPayment }}원</span>
       </div>
     </div>
@@ -27,7 +27,7 @@
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .hasdata {
     display: flex;
     flex-direction: column;
@@ -257,7 +257,11 @@
 
 
   onMounted(() => {
-    previousMonthPayment.value = store.userData.previousMonthPayment.toLocaleString();
+    if (typeof(store.userData.previousMonthPayment) === 'number'){
+      previousMonthPayment.value = store.userData.previousMonthPayment.toLocaleString();
+    }else{
+      previousMonthPayment.value = 0;
+    }
     repaymentRate.value = store.userData.repaymentRate;
     nickName.value = store.nickName;
     loanCount.value = store.userData.loanCount;

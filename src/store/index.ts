@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('main', {
   state: () => ({
     // 탭 인덱스 상태
-    tabIndex: 0,
+    navBarFlag: '',
     formData:{
       step1:{
         email_beginning: '',
@@ -25,8 +25,8 @@ export const useStore = defineStore('main', {
   }),
   actions: {
     // 탭 인덱스 변경을 위한 액션 추가
-    setTabIndex(index) {
-      this.tabIndex = index;
+    setNavBarFlag(flag) {
+      this.navBarFlag = flag;
     },
     saveStep1Data(email_beginning, email_back, password){
       this.formData.step1.email_beginning = email_beginning;
