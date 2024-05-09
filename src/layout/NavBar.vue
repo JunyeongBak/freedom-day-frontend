@@ -90,6 +90,7 @@
 <style lang="scss" scoped>
   @media screen and (min-width: 1500px){
     .nav-bar{
+      z-index: 200;
       position: fixed;
       display: flex;
       align-items: center;
@@ -132,6 +133,7 @@
   .nav-bar{
     position: fixed;
     display: flex;
+    z-index: 200;
     align-items: center;
     top: 0;
     width: 100vw;
