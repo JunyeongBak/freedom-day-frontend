@@ -121,7 +121,7 @@
             cursor: pointer;
             font-size: 20px;
             font-family: 'NanumSquareNeo_extrabold';
-            color: #BDC0C6;
+            // color: #BDC0C6;
           }
         }
         > div:nth-child(3){
@@ -130,7 +130,7 @@
             cursor: pointer;
             font-size: 20px;
             font-family: 'NanumSquareNeo_extrabold';
-            color: #BDC0C6;
+            // color: #BDC0C6;
           }
         }
       }
