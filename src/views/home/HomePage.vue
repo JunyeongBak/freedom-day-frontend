@@ -90,9 +90,10 @@ onMounted(async () => {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  z-index: 1;
+  position: relative;
 
   &-container{
-    z-index: 1;
     position: relative;
     display: flex;
     flex-direction: column;
