@@ -6,11 +6,13 @@
     <div class="loan-card-delete">
       <img src="/src/assets/ic_x.png" alt="close"/>
     </div>
-    <div :class="cssInfoPurpose">
-      <p>{{loandata.purpose}}</p>
-    </div>
-    <div :class="cssPaymentDday">
-      <p>D-{{ loandata.paymentDDay }}</p>
+    <div class="loan-card-info-container">
+      <div :class="cssInfoPurpose">
+        <p>{{loandata.purpose}}</p>
+      </div>
+      <div :class="cssPaymentDday">
+        <p>D-{{ loandata.paymentDDay }}</p>
+      </div>
     </div>
     <div class="loan-card-contents">
       <img class="loan-card-contents__img" src="/src/assets/ic_bank.png" alt="img" />
@@ -119,10 +121,9 @@
     }
     &-info{
       &__purpose{
-        position: absolute;
-        top: 23px;
-        left: 38px;
         display: inline-block;
+        text-align: center;
+        margin-left: 27px;
         background-color: #9F33C4;
         font-size: 12px;
         font-family: 'NanumSquareNeo_bold';
@@ -131,10 +132,10 @@
         padding:4px;
       }
       &__paymentDDay{
-        position: absolute;
-        top: 23px;
-        left: 90px;
         display: inline-block;
+        min-width: 41px;
+        text-align: center;
+        margin-left: 4px;
         background-color: #2B66F5;
         font-size: 12px;
         font-family: 'NanumSquareNeo_bold';
@@ -221,6 +222,9 @@
         left: 0px;
       }
     }
-
+    .loan-card-info-container{
+      position: relative;
+      top: 23px;
+    }
   }
 </style>
