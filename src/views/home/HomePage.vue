@@ -91,12 +91,13 @@ onMounted(async () => {
   width: 100vw;
   height: 100vh;
   &-container{
-    position: relative;
+    position: absolute;
+    top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;
+    // margin-top: 80px;
     background-color: #FFF;
     width: 330px;
     height: 380px;

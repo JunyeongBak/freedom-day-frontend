@@ -138,8 +138,6 @@
     height: 56px;
     background-color: #fff;
     &-1_0{
-      position:fixed;
-      top:0;
       z-index: 1;
       font-size: 20px;
       font-family: "NanumSquareNeo_extrabold";
