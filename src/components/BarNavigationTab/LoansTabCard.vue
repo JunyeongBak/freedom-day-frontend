@@ -26,8 +26,8 @@
         <div class="loan-card-contents__label"><p>정말 반이에요! 거의 다 왔어요!</p></div>
       </div>
       <div class="loan-card-contents__chart">
-        <img class="ic-loantab" src="@/assets/ic_loantab.png">
-        <p class="chart-percent">{{ width }}</p>
+        <img class="ic-loantab" src="@/assets/ic_loantab.png" :style="{left: left}">
+        <p class="chart-percent" :style="{left: left}">{{ width }}</p>
         <div class="progress-bar" :style="{ width: width }"></div>
       </div>
 
@@ -40,7 +40,8 @@
 
 <script setup>
   import { defineProps, computed, ref, onMounted, h  } from 'vue';
-  const width = ref('10%');
+  const width = ref('0%');
+  const left = ref('0%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
   const cssPaymentDday = ref('loan-card-info__paymentDDay');
   // loan-card-contents__prooutdat
@@ -67,6 +68,12 @@
 
       console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
+      left.value = (props.loandata.paymentPercentage -15);
+      if (left.value < 0){
+        left.value = 0 + '%';
+      }else{
+        left.value = left.value + '%';
+      }
     }catch (error){
       console.error('에러발생', error);
     }
@@ -275,12 +282,13 @@
       bottom: 18px;
       width: 36px;
       height: 36px;
+      left: 0px;
     }
     .chart-percent{
       color: #FFF;
       position: absolute;
       bottom: 0;
-      left: 10px;
+      left: 0px;
       z-index: 1;
     }
   }
