@@ -68,9 +68,11 @@
 
       console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
-      left.value = (props.loandata.paymentPercentage -15);
+      left.value = (props.loandata.paymentPercentage + 55);
       if (left.value < 0){
         left.value = 0 + '%';
+      }else if (left.value > 100){
+        left.value = 88 + '%';
       }else{
         left.value = left.value + '%';
       }
