@@ -4,7 +4,7 @@
   </div>
   <div class="sign-up">
     <div class="sign-up__card">
-      <!-- <img src="@/assets/ic_login.png"> -->
+      <img src="@/assets/ic_login001.png">
       <div id="sign-up__welcome-div">해방의 날에 오신 걸 환영해요!</div>
     </div>
     <form method="POST" class="sign-up__form" @submit.prevent="handleSubmit">
