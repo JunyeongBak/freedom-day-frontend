@@ -92,6 +92,7 @@ onMounted(async () => {
   height: 100vh;
 
   &-container{
+    z-index: 1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -110,12 +111,12 @@ onMounted(async () => {
     }
     &-call-to-action__label{
       position: fixed;
-      bottom: 150px;
+      bottom: 100px;
       right: 30px;
     }
     &-call-to-action__button{
       position: fixed;
-      bottom: 100px;
+      bottom: 50px;
       right: 30px;
     }
   }
