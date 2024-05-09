@@ -16,7 +16,7 @@
       <img class="loan-card-contents__img" src="/src/assets/ic_bank.png" alt="img" />
       <div class="loan-card-contents__name">{{ loandata.name }}</div>
       <div class="loan-card-contents__exdata">{{ proExData }}</div>
-      <div class="loan-card-contents__prooutdat">{{ proOutData }}원</div>
+      <div :class="cssProOutDat">{{ proOutData }}원</div>
       <div class="loan-card-contents__paymentday">매달 {{ loandata.paymentDate }}일</div>
       <div class="loan-card-contents__line"></div>
       <div class="loan-card-contents__label"><p>정말 반이에요! 거의 다 왔어요!</p></div>
@@ -34,6 +34,8 @@
   const width = ref('10%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
   const cssPaymentDday = ref('loan-card-info__paymentDDay');
+  // loan-card-contents__prooutdat
+  const cssProOutDat = ref('loan-card-contents__prooutdat');
   const props = defineProps({
     // loandata: {
     //   type: Object,
@@ -55,6 +57,7 @@
     try{
       // console.log('******************')
       // console.log(props.loandata.paymentPercentage);
+      console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
     }catch (error){
       console.error('에러발생', error);
@@ -75,6 +78,11 @@
   const proOutData = computed(() => {
     try{
       if (typeof(props.loandata.outstandingPrincipal) === 'number'){
+        if (props.loandata.outstandingPrincipal >= 100000000) {
+          cssProOutDat.value = 'loan-card-contents__prooutdat_fontsize_16';
+        } else {
+          cssProOutDat.value = 'loan-card-contents__prooutdat';
+        }
         return props.loandata.outstandingPrincipal.toLocaleString();
       }
     }catch(error){
@@ -173,6 +181,14 @@
         top: 22px;
         left: 64px;
         font-size: 24px;
+        font-family: 'NanumSquareNeo_heavy';
+        color: #101113;
+      }
+      &__prooutdat_fontsize_16{
+        position: absolute;
+        top: 25px;
+        left: 64px;
+        font-size: 16px;
         font-family: 'NanumSquareNeo_heavy';
         color: #101113;
       }
