@@ -101,14 +101,10 @@
       &-1_0{
         font-size: 20px;
         font-family: "NanumSquareNeo_extrabold";
-        // > p{
-        //   margin-left: 18px;
-        // }
       }
       &-2_1{
         display: flex;
         > div:nth-child(1){
-          // margin-left: 16px;
           > p{
             cursor:pointer ;
             font-size: 20px;
@@ -116,21 +112,17 @@
           }
         }
         > div:nth-child(2){
-          // margin-left: 16px;
           > p{
             cursor: pointer;
             font-size: 20px;
             font-family: 'NanumSquareNeo_extrabold';
-            // color: #BDC0C6;
           }
         }
         > div:nth-child(3){
-          // margin-left: 16px;
           > p{
             cursor: pointer;
             font-size: 20px;
             font-family: 'NanumSquareNeo_extrabold';
-            // color: #BDC0C6;
           }
         }
       }
@@ -146,6 +138,9 @@
     height: 56px;
     background-color: #fff;
     &-1_0{
+      position:fixed;
+      top:0;
+      z-index: 1;
       font-size: 20px;
       font-family: "NanumSquareNeo_extrabold";
       > p{
