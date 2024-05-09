@@ -21,9 +21,16 @@
       <div :class="cssProOutDat">{{ proOutData }}원</div>
       <div class="loan-card-contents__paymentday">매달 {{ loandata.paymentDate }}일</div>
       <div class="loan-card-contents__line"></div>
-      <div class="loan-card-contents__label"><p>정말 반이에요! 거의 다 왔어요!</p></div>
-      <div class="loan-card-contents__chart" :style="{ width: width }"></div>
-      <img class="loan-card-contents__what" src="@/assets/ic_loan.png" alt="img" />
+      <div class="loan-card-info2-container">
+        <img class="loan-card-contents__what" src="@/assets/ic_loan.png" alt="img" />
+        <div class="loan-card-contents__label"><p>정말 반이에요! 거의 다 왔어요!</p></div>
+      </div>
+      <div class="loan-card-contents__chart">
+        <img class="ic-loantab" src="@/assets/ic_loantab.png">
+        <p class="chart-percent">{{ width }}</p>
+        <div class="progress-bar" :style="{ width: width }"></div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -32,7 +39,7 @@
 </style>
 
 <script setup>
-  import { defineProps, computed, ref, onMounted  } from 'vue';
+  import { defineProps, computed, ref, onMounted, h  } from 'vue';
   const width = ref('10%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
   const cssPaymentDday = ref('loan-card-info__paymentDDay');
@@ -57,8 +64,7 @@
 
   onMounted(() => {
     try{
-      // console.log('******************')
-      // console.log(props.loandata.paymentPercentage);
+
       console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
     }catch (error){
@@ -82,7 +88,10 @@
       if (typeof(props.loandata.outstandingPrincipal) === 'number'){
         if (props.loandata.outstandingPrincipal >= 100000000) {
           cssProOutDat.value = 'loan-card-contents__prooutdat_fontsize_16';
-        } else {
+        }else if(props.loandata.outstandingPrincipal >= 10000000){
+          cssProOutDat.value = 'loan-card-contents__prooutdat_fontsize_20';
+        } 
+        else {
           cssProOutDat.value = 'loan-card-contents__prooutdat';
         }
         return props.loandata.outstandingPrincipal.toLocaleString();
@@ -146,7 +155,7 @@
     }
     &-contents{
       position: relative;
-      top: 56px;
+      top: 38px;
       left: 38px;
       width: 274px;
       height: 162px;
@@ -185,6 +194,14 @@
         font-family: 'NanumSquareNeo_heavy';
         color: #101113;
       }
+      &__prooutdat_fontsize_20{
+        position: absolute;
+        top: 25px;
+        left: 64px;
+        font-size: 20px;
+        font-family: 'NanumSquareNeo_heavy';
+        color: #101113;
+      }
       &__prooutdat_fontsize_16{
         position: absolute;
         top: 25px;
@@ -203,28 +220,68 @@
       }
       &__line{
         position: absolute;
-        top: 76px;
+        top: 70px;
         width: 272.15px;
         height: 0px;
         border: 1px solid #F3F3F3;
       }
       &__label{
-        position: absolute;
-        top: 88px;
-        left: 28px;
+        // top: 0px;
+        // left: 28px;
+        margin-left: 4px;
         font-size: 12px;
         font-family: 'NanumSquareNeo_bold';
         color: #1D2532;
       }
       &__what{
+        width: 22px;
+        height: 24px;
+        // position: absolute;
+        // top: 0;
+        // top: 83px;
+        // left: 0px;
+      }
+      &__chart{
         position: absolute;
-        top: 83px;
-        left: 0px;
+        width: 100%;
+        height: 16px;
+        background: #DBDDE2;
+        border-radius: 999px;
+        bottom: 0;
+        left: 0;
       }
     }
     .loan-card-info-container{
       position: relative;
       top: 23px;
+    }
+    .loan-card-info2-container{
+      display: flex;
+      align-items: center;
+      position: relative;
+      top: 80px;
+    }
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 16px;
+      width: 1000px;
+      background: linear-gradient(270deg, #2B66F5 0%, #4BA6FE 100%);
+      border-radius: 999px;
+    }
+    .ic-loantab{
+      position: absolute;
+      bottom: 18px;
+      width: 36px;
+      height: 36px;
+    }
+    .chart-percent{
+      color: #FFF;
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      z-index: 1;
     }
   }
 </style>
