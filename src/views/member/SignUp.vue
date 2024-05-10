@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="sign-up__form-email-auth">인증</div>
+        <div class="sign-up__form-email-auth" @click="authentication">인증</div>
       </div>
       <h2 class="sign-up__form-password">
         <span class="sign-up__form-red-star">⁕</span>
@@ -86,6 +86,17 @@
   const password = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
+
+  function authentication(){
+    // router.push(`/email/authenticate?email=${email.value}&domain=${selectedOption.value}`);
+    router.push({
+      path: '/email/authenticate',
+      query: {
+      email: email.value,
+      domain: selectedOption.value
+      },
+    });
+  } 
 
   
   // computed
@@ -150,7 +161,7 @@
     
     if(email.value!='' && selectedOption.value != '선택' && selectedOption.value != '' && selectedOption.value != null) {
       isEmailCheck.value = true;
-      alert('[개발용] 이메일이 인증되었습니다.')
+      // alert('[개발용] 이메일이 인증되었습니다.')
     }
     else{
       isEmailCheck.value = false;
