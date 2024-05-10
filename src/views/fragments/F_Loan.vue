@@ -15,14 +15,15 @@
         나의 대출 <span>({{ response.loanCount }}개)</span>
         <!-- {{ msg }} -->
       </p>
-      <div class="loan-card__container">
+      <div class="loan-card__container" >
         <!-- Start] Card -->
         <loansCard 
           v-for="(item, index) in response.loanSimpleDtoList" 
           :key="item.expirationDate"
           :index="index"
           :loandata="item"
-        />      
+          @click="handleLoanCardClick(item)"
+        />
         <!-- End] Card -->
 
       </div>
@@ -46,6 +47,10 @@
   const props = defineProps({
     msg: Number,
   });
+
+  function handleLoanCardClick(item){
+    console.log(item);
+  }
 
   onMounted(() => {
     try{
