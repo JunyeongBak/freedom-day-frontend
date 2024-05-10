@@ -37,6 +37,8 @@
   import loansCard from '@/components/BarNavigationTab/LoansTabCard.vue';
   import { get } from 'vant/lib/utils';
   import { useStore } from '@/store';
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
   const store = useStore();
   const response = ref({
     nickName: '홍길동',
@@ -48,8 +50,17 @@
     msg: Number,
   });
 
+  // props를 가지고 '/loan-detail' 상세페이지 이동.
   function handleLoanCardClick(item){
     console.log(item);
+    // Redirect to '/loan-detail' page with props data
+    router.push({
+      path: '/loan-detail',
+      query: {
+      msg: props.msg,
+      loanData: item
+      }
+    });
   }
 
   onMounted(() => {
