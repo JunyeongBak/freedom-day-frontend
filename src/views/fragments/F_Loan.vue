@@ -53,6 +53,7 @@
   // props를 가지고 '/loan-detail' 상세페이지 이동.
   function handleLoanCardClick(item){
     console.log(item);
+    store.setNavBarFlag('1_1');
     // Redirect to '/loan-detail' page with props data
     router.push({
       path: '/loan-detail',

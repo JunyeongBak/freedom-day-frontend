@@ -103,6 +103,10 @@
         font-size: 20px;
         font-family: "NanumSquareNeo_extrabold";
       }
+      &-1_1{
+        font-size: 20px;
+        font-family: "NanumSquareNeo_extrabold";
+      }
       &-2_1{
         display: flex;
         > div:nth-child(1){
@@ -148,6 +152,10 @@
         margin-left: 18px;
       }
     }
+    &-1_1{
+        font-size: 20px;
+        font-family: "NanumSquareNeo_extrabold";
+      }
     &-2_1{
       display: flex;
       > div:nth-child(1){

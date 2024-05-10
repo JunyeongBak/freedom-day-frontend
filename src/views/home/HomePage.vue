@@ -5,6 +5,7 @@
         <nav_bar @response="(msg) => tabIndex = msg"/>
       </div>
       <div class="has-data-view">
+        <!-- TODO: 대출 통계 설정탭 -->
         <div v-if="true" class="has-data-view-fragment">
           <f_loan :msg="tabIndex" />
           <!-- {{ tabIndex }} -->
