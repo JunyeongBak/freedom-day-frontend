@@ -81,7 +81,9 @@ onMounted(async () => {
   });
 
 </script>
-
+<!-- TODO: 대출목적별 컬러구분, 대출카드 클릭 이벤트, 폰트사이즈 18px 및 금액사이즈 조정, 
+            1%라도 있는 경우 progress bar 15% 기본 유지            
+-->
 <style lang="scss" scoped>
 // 데이터가 없는 경우.
 .empty {
