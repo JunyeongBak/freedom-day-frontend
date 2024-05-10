@@ -26,8 +26,8 @@
       <div class="empty-container-call-to-action__label">
         <img src="/src/assets/call_to_action_label.png" alt="라벨" @click = "" />
       </div>
-      <button @click="" class="empty-container-call-to-action__button">
-        <img src="/src/assets/ic_call_to_action.png" alt="대출추가" @click = "" />
+      <button @click="insertLoan" class="empty-container-call-to-action__button">
+        <img src="/src/assets/ic_call_to_action.png" alt="대출추가" />
       </button>
     </div>
     
@@ -38,12 +38,12 @@
 <script setup>
 import { useStore } from "@/store/index";
 import { ref, onMounted, computed, watch} from "vue";
-import bar_nav_loan from "@/components/BarNavigation.vue";
-import view_home from "@/components/ViewHome.vue";
 import { getUserLoanInfo } from "@/api/loan.js";
-import nav_bar from "@/layout/NavBar.vue";
 import { useRouter } from 'vue-router'
+import nav_bar from "@/layout/NavBar.vue";
 import f_loan from '@/views/fragments/F_Loan.vue';
+// import view_home from "@/components/ViewHome.vue";
+// import bar_nav_loan from "@/components/BarNavigation.vue";
 
 const router = useRouter();
 const store = useStore();
@@ -79,8 +79,10 @@ onMounted(async () => {
 
       console.log(error);
     }
-  });
-
+});
+  function insertLoan(){
+    router.push('/loan/create');
+  } 
 </script>
 <!-- TODO: 대출목적별 컬러구분, 대출카드 클릭 이벤트, 폰트사이즈 18px 및 금액사이즈 조정, 
             1%라도 있는 경우 progress bar 15% 기본 유지            

@@ -46,6 +46,11 @@ const routes = [
     name: "loan-detail",
     component: () => import("@/views/loan/LoanDetail.vue"),
   },
+  {
+    path: "/loan/create",
+    name: "loan-create",
+    component: () => import("@/views/loan/LoanCreate.vue"),
+  }
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
