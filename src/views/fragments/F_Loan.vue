@@ -46,9 +46,12 @@
     loanCount: 0,
     loanSimpleDtoList: [],
   });  
-  const props = defineProps({
-    msg: Number,
-  });
+  const props = {
+  msg: {
+    type: Number,
+    default: 0
+  }
+};
 
   // props를 가지고 '/loan-detail' 상세페이지 이동.
   function handleLoanCardClick(item){
