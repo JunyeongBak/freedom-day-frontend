@@ -21,7 +21,7 @@
     div{
       display: flex;
       justify-content: left;
-      width: 360px;
+      width: 100vw;
       height: 56px;
       background-color: #fff;
     }

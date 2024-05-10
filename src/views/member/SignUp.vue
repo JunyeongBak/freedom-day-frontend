@@ -176,8 +176,7 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    min-width: 360px;
-    width: 100%;
+    width: 100vw;
     height: 800px;
     background-color: #FFF;
 
