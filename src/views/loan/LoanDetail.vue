@@ -3,6 +3,13 @@
     <div class="loan-details-navbar">
       <nav_bar />
     </div>
+    {{ $route.query.id }}
+    {{ $route.query.name }}
+    {{ $route.query.purpose }}
+    {{ $route.query.expirationDate }}
+    {{ $route.query.outstandingPrincipal }}
+    {{ $route.query.paymentDDay }}
+    {{ $route.query.paymentPercentage }}
     <f_loanDetails />
   </div>
 </template>
@@ -21,7 +28,8 @@
     width: 100vw;
     min-height: 100vh;
     height: auto;
-    background-color: blue;
+    margin-top: 56px;
+    background-color: #FFF;
     &-navbar{
       background-color: orange;
     }

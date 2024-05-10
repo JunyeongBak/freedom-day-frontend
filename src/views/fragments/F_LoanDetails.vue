@@ -1,6 +1,5 @@
 <template>
   <div class="loan-details__fragment">
-    <p>대출 상세</p>
   </div>
 </template>
 

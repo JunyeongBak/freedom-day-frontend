@@ -62,7 +62,13 @@
       path: '/loan-detail',
       query: {
       msg: props.msg,
-      loanData: item
+      id: item.id,
+      name: item.name,
+      purpose: item.purpose,
+      expiarationDate: item.expirationDate,
+      outstandingPrincipal: item.outstandingPrincipal,
+      paymentDDay: item.paymentDDay,
+      paymentPercentage: item.paymentPercentage
       }
     });
   }
