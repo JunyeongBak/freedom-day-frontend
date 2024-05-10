@@ -34,7 +34,7 @@
   <!-- <button type="button" v-on:click="clickTest()">test</button> -->
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { useStore } from "@/store/index";
 import { ref, onMounted, computed, watch} from "vue";
 import bar_nav_loan from "@/components/BarNavigation.vue";
@@ -91,7 +91,7 @@ onMounted(async () => {
   width: 100vw;
   height: 100vh;
   &-container{
-    position: absolute;
+    position: fixed;
     top: 80px;
     display: flex;
     flex-direction: column;

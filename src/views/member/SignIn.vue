@@ -139,7 +139,7 @@
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height:auto;
+    height: 100vh;
     background-color: #ffffff;
     &__img-card{
       margin-top: 80px;
