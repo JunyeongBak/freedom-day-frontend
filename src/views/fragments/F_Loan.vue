@@ -79,7 +79,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background-color: #fff;
     &-total{
       font-size: 18px;
