@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="navbar">
     <navbar />
   </div>
   <div class="sign-up">
@@ -174,7 +174,7 @@
   }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
   body{
     display:flex;
     flex-direction: column;
