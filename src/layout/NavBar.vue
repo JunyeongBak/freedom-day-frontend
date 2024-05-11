@@ -95,18 +95,21 @@
     if (tabIndex.value === 0){
       navBarDisabled.value = true;
       isExpanded.value = false;
+      document.body.style.overflow = '';
       console.log('navBarFlag: 2_1 입니다.');
       return 'nav-bar-2_1';
     }
     else if (tabIndex.value === 1){
       navBarDisabled.value = false;
       isExpanded.value = true; // 통계 탭은 확장된 상태로 시작
+      document.body.style.overflow = '';
       console.log('navBarFlag: 2_2 입니다.');
       return 'nav-bar-2_2';
     }
     else if (tabIndex.value === 2){
       navBarDisabled.value = true;
       isExpanded.value = false;
+      document.body.style.overflow = '';
       console.log('navBarFlag: 2_3 입니다.');
       return 'nav-bar-2_3';
     }
