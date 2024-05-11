@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-  import { useStore } from '@/store/index';
+  import { useStore } from '@/store/index.ts';
   import { ref } from "vue";
   import Btn_round_settings from '@/components/BtnRoundSettings.vue';
   const currentTab = ref('loan'); // 초기화면 대출 탭

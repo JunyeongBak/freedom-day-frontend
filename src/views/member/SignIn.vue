@@ -69,7 +69,7 @@
   import { ref } from 'vue';
   import { postSignIn } from "@/api/member.js"
   import { getUserLoanInfo } from "@/api/loan.js";
-  import { useStore } from "@/store/index";
+  import { useStore } from "@/store/index.ts";
   const router = useRouter();
   const store = useStore();
   const token =ref({

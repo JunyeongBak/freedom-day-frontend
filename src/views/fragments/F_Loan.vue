@@ -36,7 +36,7 @@
   import { getUserLoanInfo } from '@/api/loan.js';
   import loansCard from '@/components/BarNavigationTab/LoansTabCard.vue';
   import { get } from 'vant/lib/utils';
-  import { useStore } from '@/store';
+  import { useStore } from '@/store/index.ts';
   import { useRouter } from 'vue-router'
   const router = useRouter();
   const store = useStore();

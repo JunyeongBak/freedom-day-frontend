@@ -10,10 +10,10 @@
           <f_loan :msg="tabIndex" />
         </div>
         <div v-if="isStatisticstabActivate">
-          <p>대출 통계</p>
+          <f_loanStatistics :msg="tabIndex"/>
         </div>
         <div v-if="isSettingstabActivate">
-          <p>대출 설정</p>
+          <f_settings :msg="tabIndex"/>
         </div>
       </div>
     </div>
@@ -47,6 +47,8 @@ import { getUserLoanInfo } from "@/api/loan.js";
 import { useRouter } from 'vue-router'
 import nav_bar from "@/layout/NavBar.vue";
 import f_loan from '@/views/fragments/F_Loan.vue';
+import f_loanStatistics from '@/views/fragments/F_LoanStatistics.vue';
+import f_settings from '@/views/fragments/F_Settings.vue';
 // import view_home from "@/components/ViewHome.vue";
 // import bar_nav_loan from "@/components/BarNavigation.vue";
 
@@ -64,33 +66,29 @@ let loanCount = ref(0); //API 데이터 유무 확인
 const allTab = ref(["loan", "statistics", "settings"]);
 const tabIndex = ref(0);
 
-const isLoantabActivate = ref(false); //대출탭 활성화
+const isLoantabActivate = ref(true); //대출탭 활성화(기본값)
 const isStatisticstabActivate = ref(false); //통계탭 활성화
 const isSettingstabActivate = ref(false); //설정탭 활성화
+// const isBlueNavActivate = ref(true); //네비게이션바 활성화(기본값)
 
 watch(tabIndex, (newValue) => {
-  console.log('New tab index:', newValue);
-  if (newValue === 0) {
-    isLoantabActivate.value = true;
-    isStatisticstabActivate.value = false;
-    isSettingstabActivate.value = false;
-  } else if (newValue === 1) {
-    isLoantabActivate.value = false;
-    isStatisticstabActivate.value = true;
-    isSettingstabActivate.value = false;
-  } else if (newValue === 2) {
-    isLoantabActivate.value = false;
-    isStatisticstabActivate.value = false;
-    isSettingstabActivate.value = true;
-  }
+  // 각 탭의 활성화 상태를 배열로 관리
+  const tabActivation = [isLoantabActivate, isStatisticstabActivate, isSettingstabActivate];
+
+  // 모든 탭을 비활성화
+  tabActivation.forEach(tab => tab.value = false);
+
+  // 선택된 탭만 활성화
+  tabActivation[newValue].value = true;
+
   // Perform any actions based on the new tab index value
 });
-// const whichTab = computed(() => tabIndex.value);
+
 // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
 onMounted(async () => {
   try {
     const response = await getUserLoanInfo();
-    console.log('****************', response.response.loanCount);
+    // console.log('****************', response.response.loanCount);
     loanCount.value = response.response.loanCount;
 
     if (hasData.value) {

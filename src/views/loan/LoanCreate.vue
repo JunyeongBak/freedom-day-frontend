@@ -77,6 +77,7 @@
       "paymentDate" : 1,
       "periodUnit" : "M"
     }
+    console.log(hard.value);
     const response = await postLoanCreate(hard.value);
     console.log(response);
   
