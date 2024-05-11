@@ -41,12 +41,12 @@
           <div class="statistics-hidden-card">
             <div class="statistics-hidden-card__total">
               <p>전체 대출 잔액</p>
-              <p>28,000,000원</p>
+              <p>{{totalPrincipal}}원</p>
             </div>
             <div class="vertical-lines"></div>
             <div class="statistics-hidden-card__total-repay">
               <p>총 상환 원금</p>
-              <p>28,000,000원</p>
+              <p>{{totalPrincipalRepayment}}원</p>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted, computed, watchEffect, watch } from 'vue';
+  import { ref, onMounted, computed, watchEffect, watch, defineProps } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index.ts";
   const router = useRouter();
@@ -75,6 +75,11 @@
   let touchStartY = 0;
   const navBarDisabled = ref(false);  // nav-bar 비활성화 상태
   const themeColor = ref("#ffffff");
+
+  defineProps({
+    totalPrincipal: String,
+    totalPrincipalRepayment: String,
+  });
 
   watchEffect(() => {
     emit('response', {_tabIndex: tabIndex.value, _isExpanded: isExpanded.value}); //HomePage.vue에 tabIndex 전달

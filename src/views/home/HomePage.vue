@@ -2,7 +2,7 @@
   <div>
     <div v-if="hasData" :class="hasData">
       <div class="has-data-navbar">
-        <nav_bar @response="handleResponse" />
+        <nav_bar @response="handleResponse" :totalPrincipal="totalPrincipal" :totalPrincipalRepayment="totalPrincipalRepayment"/>
       </div>
       <div class="has-data-view">
         <!-- TODO: 대출 통계 설정탭 -->
@@ -10,7 +10,7 @@
           <f_loan :msg="tabIndex" />
         </div>
         <div v-if="isStatisticstabActivate">
-          <f_loanStatistics :msg="tabIndex" :isExpanded="isExpanded"/>
+          <f_loanStatistics @response="handleResponseStatistics" :msg="tabIndex" :isExpanded="isExpanded"/>
         </div>
         <div v-if="isSettingstabActivate">
           <f_settings :msg="tabIndex"/>
@@ -66,12 +66,20 @@ let loanCount = ref(0); //API 데이터 유무 확인
 const allTab = ref(["loan", "statistics", "settings"]);
 const tabIndex = ref(0);
 const isExpanded = ref(false);
+const totalPrincipal = ref('');
+const totalPrincipalRepayment = ref('');
 
 // navBar에서 emit으로 받음
 const handleResponse = ({ _tabIndex, _isExpanded }) => {
   console.log(_tabIndex, _isExpanded);
   tabIndex.value = _tabIndex;
   isExpanded.value = _isExpanded;
+};
+
+const handleResponseStatistics = ({ _totalPrincipal, _totalPrincipalRepayment }) => {
+  console.log('totalPrincipal: ',_totalPrincipal, 'total repay',_totalPrincipalRepayment);
+  totalPrincipal.value = _totalPrincipal.toLocaleString();
+  totalPrincipalRepayment.value = _totalPrincipalRepayment.toLocaleString();
 };
 
 const isLoantabActivate = ref(true); //대출탭 활성화(기본값)

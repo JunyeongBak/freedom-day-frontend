@@ -27,6 +27,8 @@
     try{
       getLoanStatistics().then((res) => {
         response.value = res.response;
+        totalPrincipal.value = res.response.totalPrincipal;
+        totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
         console.log(res.response);
         // if (res.response.previousMonthPayment !== null) {
         //   response.value.previousMonthPayment = res.response.previousMonthPayment.toLocaleString();
