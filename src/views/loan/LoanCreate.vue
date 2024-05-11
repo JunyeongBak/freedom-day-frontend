@@ -50,7 +50,7 @@
       <label for="loan-create__expiration-date" class="input_label">만료일</label>
       <input id="loan-create__expiration-date" class="loan-create__expiration-date" type="text" placeholder="해당 대출의 만료일을 입력해주세요" />
 
-      <button class="loan-create__button blue_button">저장하기</button>
+      <button class="loan-create__button blue_button" @click="handleClickSave">저장하기</button>
     </div>
   </div>
 </template>
@@ -59,6 +59,28 @@
   import { useStore } from "@/store/index";
   import { ref, onMounted, computed, watch} from "vue";
   import nav_bar from '@/layout/NavBar.vue';
+  import { postLoanCreate } from '@/api/loan.js';
+  const hard = ref('');
+
+  async function handleClickSave(){
+    hard.value = {
+      "name" : "카카오 청년전월세",
+      "purpose" : "주택자금",
+      "bankCode" : "",
+      "totalPrincipal" : 100000000,
+      "repaymentAmount" : 0,
+      "interestRate" : 4.5,
+      "variableRate" : false,
+      "loanPeriod" : 24,
+      "originationDate" : "2024-01-01",
+      "expirationDate" : "2025-12-31",
+      "paymentDate" : 1,
+      "periodUnit" : "M"
+    }
+    const response = await postLoanCreate(hard.value);
+    console.log(response);
+  
+  }
 
 </script>
 
