@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="hasData" :class="hasData">
-      <div class="has-data-navbar">
+      <div class="has-data-navbar" :class=" isExpanded ? nav_bar_height : none ">
         <nav_bar @response="handleResponse" :totalPrincipal="totalPrincipal" :totalPrincipalRepayment="totalPrincipalRepayment"/>
       </div>
       <div class="has-data-view">
@@ -44,7 +44,7 @@
 import { useStore } from "@/store/index";
 import { ref, onMounted, computed, watch} from "vue";
 import { getUserLoanInfo } from "@/api/loan.js";
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import nav_bar from "@/layout/NavBar.vue";
 import f_loan from '@/views/fragments/F_Loan.vue';
 import f_loanStatistics from '@/views/fragments/F_LoanStatistics.vue';
@@ -55,6 +55,7 @@ import f_settings from '@/views/fragments/F_Settings.vue';
 const router = useRouter();
 const store = useStore();
 
+const nav_bar_height = ref('has-data-navbar-height');
 const vb_empty = ref("empty");
 const vb_emptyNavbar = ref("empty-navbar");
 const vb_emptyContainer = ref("empty-container");
@@ -165,7 +166,11 @@ onMounted(async () => {
 .has-data-navbar{
   width: 100vw;
   height: 56px;
+  &-height{
+    height: 200px;
+  }
 }
+
 // hsdata
 .has-data{
   // margin-top: 100px;

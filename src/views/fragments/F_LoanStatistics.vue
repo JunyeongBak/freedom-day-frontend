@@ -1,5 +1,5 @@
 <template>
-  <div class="loan-statistics" :style="{ 'margin-top': isExpanded ? '220px' : '56px' }">
+  <div class="loan-statistics" >
     <!-- <p>test: {{  msg }}</p> -->
     <p>스와이프 여부: {{ isExpanded }}</p>
     <p>전체 대출 잔액: {{ response.totalPrincipal }}</p>
