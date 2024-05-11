@@ -2,7 +2,7 @@
   <div>
     <div v-if="hasData" :class="hasData">
       <div class="has-data-navbar">
-        <nav_bar @response="(msg) => tabIndex = msg"/>
+        <nav_bar @response="handleResponse" />
       </div>
       <div class="has-data-view">
         <!-- TODO: 대출 통계 설정탭 -->
@@ -10,7 +10,7 @@
           <f_loan :msg="tabIndex" />
         </div>
         <div v-if="isStatisticstabActivate">
-          <f_loanStatistics :msg="tabIndex"/>
+          <f_loanStatistics :msg="tabIndex" :isExpanded="isExpanded"/>
         </div>
         <div v-if="isSettingstabActivate">
           <f_settings :msg="tabIndex"/>
@@ -65,6 +65,14 @@ const vb_hasdataNavbarSettings = ref("hasdata-navbar__settings");
 let loanCount = ref(0); //API 데이터 유무 확인
 const allTab = ref(["loan", "statistics", "settings"]);
 const tabIndex = ref(0);
+const isExpanded = ref(false);
+
+// navBar에서 emit으로 받음
+const handleResponse = ({ _tabIndex, _isExpanded }) => {
+  console.log(_tabIndex, _isExpanded);
+  tabIndex.value = _tabIndex;
+  isExpanded.value = _isExpanded;
+};
 
 const isLoantabActivate = ref(true); //대출탭 활성화(기본값)
 const isStatisticstabActivate = ref(false); //통계탭 활성화
