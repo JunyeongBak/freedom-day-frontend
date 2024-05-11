@@ -162,12 +162,16 @@ onMounted(async () => {
     }
   }
 }
+.has-data-navbar{
+  width: 100vw;
+  height: 56px;
+}
 // hsdata
 .has-data{
   // margin-top: 100px;
   &-view{
     width: 100vw;
-    margin-top: 54px;
+    height: 100%;
   }
 }
 </style>
