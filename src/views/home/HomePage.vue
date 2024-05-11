@@ -6,9 +6,14 @@
       </div>
       <div class="has-data-view">
         <!-- TODO: 대출 통계 설정탭 -->
-        <div v-if="true" class="has-data-view-fragment">
+        <div v-if="isLoantabActivate" class="has-data-view-fragment">
           <f_loan :msg="tabIndex" />
-          <!-- {{ tabIndex }} -->
+        </div>
+        <div v-if="isStatisticstabActivate">
+          <p>대출 통계</p>
+        </div>
+        <div v-if="isSettingstabActivate">
+          <p>대출 설정</p>
         </div>
       </div>
     </div>
@@ -58,8 +63,26 @@ const vb_hasdataNavbarSettings = ref("hasdata-navbar__settings");
 let loanCount = ref(0); //API 데이터 유무 확인
 const allTab = ref(["loan", "statistics", "settings"]);
 const tabIndex = ref(0);
+
+const isLoantabActivate = ref(false); //대출탭 활성화
+const isStatisticstabActivate = ref(false); //통계탭 활성화
+const isSettingstabActivate = ref(false); //설정탭 활성화
+
 watch(tabIndex, (newValue) => {
   console.log('New tab index:', newValue);
+  if (newValue === 0) {
+    isLoantabActivate.value = true;
+    isStatisticstabActivate.value = false;
+    isSettingstabActivate.value = false;
+  } else if (newValue === 1) {
+    isLoantabActivate.value = false;
+    isStatisticstabActivate.value = true;
+    isSettingstabActivate.value = false;
+  } else if (newValue === 2) {
+    isLoantabActivate.value = false;
+    isStatisticstabActivate.value = false;
+    isSettingstabActivate.value = true;
+  }
   // Perform any actions based on the new tab index value
 });
 // const whichTab = computed(() => tabIndex.value);
