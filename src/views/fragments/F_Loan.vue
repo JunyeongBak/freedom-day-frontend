@@ -106,7 +106,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    height: auto;
+    height: 100%;
     background-color: #fff;
     &-total{
       font-size: 18px;
