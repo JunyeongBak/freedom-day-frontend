@@ -9,11 +9,19 @@
 
 <script setup>
   import { useStore } from '@/store/index.ts';
-  import { ref, onMounted, computed, watch, defineProps} from "vue";
+  import { ref, onMounted, computed, watch, defineProps, watchEffect} from "vue";
   import { getLoanStatistics } from '@/api/loan.js';
 
   const store = useStore();
   const response = ref('');
+  const totalPrincipal = ref(0);
+  const totalPrincipalRepayment = ref(0);
+  const emit = defineEmits(['response']);
+
+  watchEffect(() => {
+    emit('response', {_totalPrincipal: totalPrincipal.value, _totalPrincipalRepayment: totalPrincipalRepayment.value}); //HomePage.vue에 전달
+  });
+
   onMounted(() => {
     store.setNavBarFlag('2_2');
     try{

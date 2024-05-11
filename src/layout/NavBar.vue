@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted, computed, watchEffect } from 'vue';
+  import { ref, onMounted, computed, watchEffect, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index.ts";
   const router = useRouter();
@@ -74,8 +74,23 @@
   const isExpanded = ref(false);
   let touchStartY = 0;
   const navBarDisabled = ref(false);  // nav-bar 비활성화 상태
+  const themeColor = ref("#ffffff");
+
   watchEffect(() => {
     emit('response', {_tabIndex: tabIndex.value, _isExpanded: isExpanded.value}); //HomePage.vue에 tabIndex 전달
+  });
+
+    // 테마 색상이 변경될 때마다 메타 태그 업데이트
+  watch(themeColor, (newColor) => {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute('content', newColor);
+    } else {
+      const metaTag = document.createElement('meta');
+      metaTag.name = "theme-color";
+      metaTag.content = newColor;
+      document.getElementsByTagName('head')[0].appendChild(metaTag);
+    }
   });
   /**
    * onMounted
@@ -93,6 +108,7 @@
    */
   const navComputed = computed(() => {
     if (tabIndex.value === 0){
+      themeColor.value = '#ffffff';
       navBarDisabled.value = true;
       isExpanded.value = false;
       document.body.style.overflow = '';
@@ -100,6 +116,7 @@
       return 'nav-bar-2_1';
     }
     else if (tabIndex.value === 1){
+      themeColor.value = '#3C86FA';
       navBarDisabled.value = false;
       isExpanded.value = true; // 통계 탭은 확장된 상태로 시작
       document.body.style.overflow = '';
@@ -107,6 +124,7 @@
       return 'nav-bar-2_2';
     }
     else if (tabIndex.value === 2){
+      themeColor.value = '#ffffff';
       navBarDisabled.value = true;
       isExpanded.value = false;
       document.body.style.overflow = '';
