@@ -31,13 +31,13 @@
         </div>
       </div>
     </div>
-    <div class=loan-statistics-barchart>
-      <p>월별 총 상환 그래프</p>
+    <div style="background-color: #F7F8FA; width:100%; height:16px; margin:24px auto 32px;"></div>
+    <div class="loan-statistics-barchart">
+      <p class="loan-statistics-barchart__label">월별 총 상환 그래프</p>
 
     </div>
     <div class="loan-statistics-piechart">
-      <p>대출 원금 비중</p>
-
+      <p class="loan-statistics-piechart__label">대출 원금 비중</p>
     </div>
   </div>
 </template>
@@ -175,14 +175,11 @@
       &__container{
         display: flex;
         justify-content: space-between;
-        margin-left: 16px;
-        margin-right: 16px;
-        margin-bottom: 16px;
+        margin : 0 16px 16px;
       }
       &__container__label{
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
-        margin-left: 16px;
       }
       &__container__amount{
         font-size: 16px;
@@ -192,6 +189,7 @@
         position: relative;
         width: 100vw;
         height: 48px;
+        margin: 16px 0;
       }
       &-card__bankimg{
         position: absolute;
@@ -232,6 +230,23 @@
         font-size:14px;
         font-family: 'NanumSquareNeo_normal';
         color: $gray-common;
+      }
+    }
+
+    &-barchart{
+      &__label{
+        font-size: 16px;
+        font-family: 'NanumSquareNeo_bold';
+        margin-left: 16px;
+        margin-bottom: 16px;
+      }
+    }
+    &-piechart{
+      &__label{
+        font-size: 16px;
+        font-family: 'NanumSquareNeo_bold';
+        margin-left: 16px;
+        margin-bottom: 16px;
       }
     }
   }

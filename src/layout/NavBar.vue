@@ -116,6 +116,7 @@
       themeColor.value = '#ffffff';
       navBarDisabled.value = true;
       isExpanded.value = false;
+      document.body.style.backgroundColor = '#F3F3F3';
       document.body.style.overflow = '';
       console.log('navBarFlag: 2_1 입니다.');
       return 'nav-bar-2_1';
@@ -124,6 +125,7 @@
       themeColor.value = '#3C86FA';
       navBarDisabled.value = false;
       isExpanded.value = true; // 통계 탭은 확장된 상태로 시작
+      document.body.style.backgroundColor = '#FFF';
       document.body.style.overflow = '';
       console.log('navBarFlag: 2_2 입니다.');
       return 'nav-bar-2_2';
@@ -132,6 +134,7 @@
       themeColor.value = '#ffffff';
       navBarDisabled.value = true;
       isExpanded.value = false;
+      document.body.style.backgroundColor = '#F3F3F3';
       document.body.style.overflow = '';
       console.log('navBarFlag: 2_3 입니다.');
       return 'nav-bar-2_3';
@@ -341,13 +344,13 @@
   // TODO: 대출, 설정 글꼴 색상 #2C62B8
   .nav-bar.collapsed {
     height: 56px;
-    transition: height 0.2s ease;
+    transition: height 0.2s ease, background-color 0.2s linear;
   }
   // 확장된 상태
   .nav-bar.expanded {
     width: 100%;
     height: 200px;
-    transition: height 0.2s ease;
+    transition: height 0.2s ease, background-color 0.2s linear;
     background-color: #3C86FA;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0px 0px 16px 16px;
