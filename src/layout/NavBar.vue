@@ -173,10 +173,10 @@
     } else {  // 위로 스와이프
       isExpanded.value = false;
     }
-    // 0.2초 후에 스크롤 잠금 해제
+    // 0.3초 후에 스크롤 잠금 해제
     setTimeout(() => {
       document.body.style.overflow = '';  // 스크롤 잠금 해제
-    }, 340);
+    }, 300);
   };
 
   const handleTouchEnd = () => {

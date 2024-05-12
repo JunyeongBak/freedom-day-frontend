@@ -323,9 +323,9 @@
     </div>
     <p class="loan-statistics-piechart__label">대출 원금 비중</p>
     <div class="loan-statistics-piechart">
-      <div>
-        <p>남은 총 원금</p>
-        <p>198,000,000원</p>
+      <div class="loan-statistics-piechart__total-principal">
+        <p class="loan-statistics-piechart__total-principal__label">남은 총 원금</p>
+        <p class="loan-statistics-piechart__total-principal__amount">198,000,000원</p>
       </div>
       <div class="loan-statistics-piechart__chart">
         <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #9F33C4; height: 20%;"></div> -->
@@ -337,9 +337,9 @@
       <!-- angle은 1% * 3.6 -->
       <div class="loan-statistics-piechart__legend">
         <!-- (5 * 3.6) / 2  - 90 -->
-        <div class="legend-item" style="--angle: -90deg">
+        <div class="legend-item" style="--angle: -100deg">
           <!-- <span class="legend-color" style="background-color: #9F33C4;"></span> -->
-          <p class="legend-label" style="transform: rotate(90deg)">생활비 5%</p>
+          <p class="legend-label" style="transform: rotate(100deg)">생활비 5%</p>
         </div>
         <!-- 18 + (10 * 3.6 / 2) -90 -->
         <div class="legend-item" style="--angle: -54deg">
@@ -643,7 +643,6 @@
           #89D8D8 15% 20%, /* 자동차 */
           #6B7583 20% 50%, /* 기타 */
           #3182F6 50% 100%, /* 주택자금 */
-
         );
       }
       &__legend{
@@ -658,6 +657,16 @@
         // justify-content: space-around;
         // padding: 10px 0;
       }
+      &__total-principal{
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        &__amount{
+          font-size: 16px;
+          font-family: 'NanumSquareNeo_extrabold';
+          color: #565D69;
+        }
+      }
     }
     .legend-item {
       position: absolute;
@@ -665,7 +674,7 @@
       left: 50%;
       width: 50%;
       height: 20px;
-      transform: translate(-50%, 50%) rotate(var(--angle)) translateX(64%) ;
+      transform: translate(-60%, 50%) rotate(var(--angle)) translateX(66%) ;
       text-align: right;
       // transform-origin: 50% 50%;
     }
