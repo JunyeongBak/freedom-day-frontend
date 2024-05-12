@@ -16,15 +16,19 @@
           </div>
         </li>
       </ul>
-      <div>-----------------가로 구분선---------------</div>
-      <div>
-        <!-- style absolute -->
-        <p>상환 완료</p>
-        <p>500,000원</p>
-        <img src="@/assets/ic_bank.png" alt="">
-        <p>생활금</p>
-        <p>하나은행 전세자금 대출</p>
-        <p>500,000원</p>        
+      <div style="width: 328px; height: 0px; border: 1px solid #F3F3F3; margin: 24px auto 16px "></div>
+      
+      <div class="loan-statistics-finish">
+        <div class="loan-statistics-finish__container">
+          <p class="loan-statistics-finish__container__label">상환 완료</p>
+          <p class="loan-statistics-finish__conainer__amount">500,000원</p>
+        </div>
+        <div class="loan-statistics-finish-card">
+          <img class="loan-statistics-finish-card__bankimg" src="@/assets/ic_bank.png" alt="">
+          <p class="loan-statistics-finish-card__purpose">주택자금</p>
+          <p class="loan-statistics-finish-card__name">하나은행 전세자금 대출</p>
+          <p class="loan-statistics-finish-card__amount">500,000원</p>        
+        </div>
       </div>
     </div>
     <div class=loan-statistics-barchart>
@@ -84,6 +88,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/style/common.scss";
   .loan-statistics {
     width: 100%;
     height: 100vh;
@@ -108,7 +113,8 @@
         // background-color: orange;
         position: relative;
         width: 100vw;
-        height: 50px;
+        height: 48px;
+        margin-bottom: 8px;
         &__bankimg{
           position: absolute;
           top: 0;
@@ -134,7 +140,7 @@
           margin-right: 4px;
           font-size:12px;
           font-family: 'NanumSquareNeo_bold';
-          color: #FFF
+          color: #FFF;
         }
         &-info__dday{
           display: inline-block;
@@ -146,7 +152,7 @@
           border-radius: 999px;
           font-size:12px;
           font-family: 'NanumSquareNeo_bold';
-          color: #FFF
+          color: #FFF;
         }
         &__name{
           position: absolute;
@@ -162,6 +168,70 @@
           font-size:14px;
           font-family: 'NanumSquareNeo_normal';
         }
+      }
+    }
+
+    &-finish{
+      &__container{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 16px;
+      }
+      &__container__label{
+        font-size: 16px;
+        font-family: 'NanumSquareNeo_bold';
+        margin-left: 16px;
+      }
+      &__container__amount{
+        font-size: 16px;
+        font-family: 'NanumSquareNeo_bold';
+      }
+      &-card{
+        position: relative;
+        width: 100vw;
+        height: 48px;
+      }
+      &-card__bankimg{
+        position: absolute;
+        top: 0;
+        left: 16px;
+        width: 48px;
+        height: 48px;
+      }
+      &-card__purpose{
+        position: absolute;
+        top: 3.5px;
+        left: 72px;
+        display: inline-block;
+        text-align: center;
+        line-height: 19px;
+        min-width: 50px;
+        height: 19px;
+        background: #FFCE58;
+        border-radius: 999px;
+        margin-right: 4px;
+        font-size:12px;
+        font-family: 'NanumSquareNeo_bold';
+        color: #FFF;
+        box-sizing: border-box;
+      }
+      &-card__name{
+        position: absolute;
+        bottom: 3.5px;
+        left: 72px;
+        font-size:16px;
+        font-family: 'NanumSquareNeo_bold';
+        color:#898F9A;
+      }
+      &-card__amount{
+        position: absolute;
+        bottom: 3.5px;
+        right: 16px;
+        font-size:14px;
+        font-family: 'NanumSquareNeo_normal';
+        color: $gray-common;
       }
     }
   }
