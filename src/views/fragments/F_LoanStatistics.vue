@@ -44,13 +44,14 @@
         <!-- 아래 v-for -->
         <div class="loan-statistics-barchart__chart-container">
           <ul class="loan-statistics-barchart__chart-ul">
+            <!-- 최대 10억, 1만원 당 1px -->
             <li v-for="month in monthlyRepaymentList" :id="month.id" class="loan-statistics-barchart__chart-li">
               <div>
                 <div class="loan-statistics-barchart__chart-total">{{ (month.repaymentAmount1 + month.repaymentAmount2 + month.repaymentAmount3) / 1000 }}</div>
                 <div class="loan-statistics-barchart__chart-graph">
-                  <div class="loan-statistics-barchart__chart-graph__midterm">{{ month.repaymentAmount3 / 1000 }}</div>
-                  <div class="loan-statistics-barchart__chart-graph__interest">{{ month.repaymentAmount2 / 1000 }}</div>
-                  <div class="loan-statistics-barchart__chart-graph__principal">{{ month.repaymentAmount1 / 1000}}</div>
+                  <div class="loan-statistics-barchart__chart-graph__midterm" :style="{'height':  (month.repaymentAmount3 / 1000) + 'px' }" ></div>
+                  <div class="loan-statistics-barchart__chart-graph__interest" :style="{'height': (month.repaymentAmount2 / 1000) + 'px'}"></div>
+                  <div class="loan-statistics-barchart__chart-graph__principal" :style="{'height': (month.repaymentAmount1 / 1000) + 'px'}"></div>
                 </div>
                 <!-- month.historyDate는 YYYY-MM 포맷인데, YY.MM으로 변경 -->
                 <div class="loan-statistics-barchart__chart-date">{{ month.historyDate.slice(2).replace('-', '.') }}</div>
@@ -342,22 +343,25 @@
         font-family: 'NanumSquareNeo_bold';
       }
       &__chart-graph{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         width: 20px;
         height: 100px;
-        background: #D9D9D9;
-        border-radius: 4px 4px 0px 0px;
-        z-index: 100;
+        // background: #FFF;
+        // border-radius: 4px 4px 0px 0px;
+        // z-index: 100;
         &__principal{
           background: #031F84;
-          height: 50px;
+          height: 10px;
         }
         &__interest{
           background: #367BF9;
-          height: 30px;
+          height: 10px;
         }
         &__midterm{
           background: #FFAC08;
-          height: 20px;
+          height: 10px;
         }
       }
       &__chart-date{
