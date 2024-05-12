@@ -1,7 +1,7 @@
 <template>
   <div class="loan-statistics" >
     <div class="loan-statistics-remind">
-      <p class="loan-statistics-remind__currentDate">{{ currentDate }}</p>
+      <p class="loan-statistics-remind__currentDate" style="font-family:'NanumSquareNeo_extrabold'; font-size: 18px;">{{ currentDate }}</p>
       <p class="loan-statistics-remind__due">상환 예정</p>
       <ul>
         <li v-for="loan in loanList" :key="loan.id">
@@ -21,20 +21,24 @@
       <div class="loan-statistics-finish">
         <div class="loan-statistics-finish__container">
           <p class="loan-statistics-finish__container__label">상환 완료</p>
-          <p class="loan-statistics-finish__conainer__amount">500,000원</p>
+          <p class="loan-statistics-finish__conainer__amount">{{finishRepayment}}원</p>
         </div>
-        <div class="loan-statistics-finish-card">
-          <img class="loan-statistics-finish-card__bankimg" src="@/assets/ic_bank.png" alt="">
-          <p class="loan-statistics-finish-card__purpose">주택자금</p>
-          <p class="loan-statistics-finish-card__name">하나은행 전세자금 대출</p>
-          <p class="loan-statistics-finish-card__amount">500,000원</p>        
-        </div>
+        <ul>
+          <li v-for="finish in loanFinishList" :key="finish.id">
+            <div class="loan-statistics-finish-card">
+              <img class="loan-statistics-finish-card__bankimg" src="@/assets/ic_bank.png" alt="">
+              <p class="loan-statistics-finish-card__purpose">{{ finish.purpose }}</p>
+              <p class="loan-statistics-finish-card__name">{{ finish.name }}</p>
+              <p class="loan-statistics-finish-card__amount">{{ finish.repaymentAmount }}원</p>        
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     <div style="background-color: #F7F8FA; width:100%; height:16px; margin:24px auto 32px; box-sizing: border-box;"></div>
     <!-- loan-statistics-barchart 클래스 내에서만 스크롤이 되어야하고 화면 전체는 가로축 스크롤이 되면 안된다. -->
     <div class="loan-statistics-barchart" >
-      <p class="loan-statistics-barchart__label">월별 총 상환 그래프</p>
+      <p class="loan-statistics-barchart__label" style="font-family:'NanumSquareNeo_extrabold'; font-size: 18px;">월별 총 상환 그래프</p>
       <div class="loan-statistics-barchart__chart" style="overflow:auto;border: 1px solid #DBDDE2;border-radius: 16px; width:95%; height:230px; margin:0 auto;" ref="barchartRef">
         <div class="loan-statistics-barchart__chart-label">(단위:천원)</div>
         <!-- 아래 v-for -->
@@ -321,7 +325,7 @@
         </div>
       </div>
     </div>
-    <p class="loan-statistics-piechart__label">대출 원금 비중</p>
+    <p class="loan-statistics-piechart__label" style="font-family:'NanumSquareNeo_extrabold'; font-size: 18px;">대출 원금 비중</p>
     <div class="loan-statistics-piechart">
       <div class="loan-statistics-piechart__total-principal">
         <p class="loan-statistics-piechart__total-principal__label">남은 총 원금</p>
@@ -377,6 +381,8 @@
   const emit = defineEmits(['response']);
   const currentDate = ref('');
   const barchartRef = ref(null);
+  const finishRepayment = ref(0);
+  const loanFinishList = ref([]);
 
 
   watchEffect(() => {
@@ -391,11 +397,21 @@
         totalPrincipal.value = res.response.totalPrincipal;
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
         loanList.value = res.response.loanList;
+        loanFinishList.value = res.response.repaidLoanList;
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
         currentDate.value = `${year}년 ${month}월`;
         console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
+
+        // 상환완료 총액 계산
+        for (let i = 0; i < res.response.repaidLoanList.length; i++){
+          finishRepayment.value += res.response.repaidLoanList[i].repaymentAmount;
+          res.response.repaidLoanList[i].repaymentAmount = res.response.repaidLoanList[i].repaymentAmount.toLocaleString();
+        }
+        finishRepayment.value = finishRepayment.value.toLocaleString();
+        console.log('%c✨loanFinishList: ', 'color:#e34034;font-weight: bold;',loanFinishList.value);
+        console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
         barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
