@@ -31,12 +31,294 @@
         </div>
       </div>
     </div>
-    <div style="background-color: #F7F8FA; width:100%; height:16px; margin:24px auto 32px;"></div>
+    <div style="background-color: #F7F8FA; width:100%; height:16px; margin:24px auto 32px; box-sizing: border-box;"></div>
     <!-- loan-statistics-barchart 클래스 내에서만 스크롤이 되어야하고 화면 전체는 가로축 스크롤이 되면 안된다. -->
     <div class="loan-statistics-barchart" >
       <p class="loan-statistics-barchart__label">월별 총 상환 그래프</p>
-      <div style="overflow:auto;border: 1px solid #DBDDE2;border-radius: 16px; height:200px;">
-        <!-- <div style="width:1000px; height: 1000px; background-color: orange;">test</div> -->
+      <div class="loan-statistics-barchart__chart" style="overflow:auto;border: 1px solid #DBDDE2;border-radius: 16px; width:95%; height:230px; margin:0 auto;" ref="barchartRef">
+        <div class="loan-statistics-barchart__chart-label">(단위:천원)</div>
+        <!-- 아래 v-for -->
+        <div class="loan-statistics-barchart__chart-container">
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.05</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.06</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.07</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.08</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.09</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.10</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.11</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">22.12</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.01</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.02</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.03</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.04</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.05</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.06</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.07</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.08</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.09</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.10</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.11</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">23.12</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.01</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.02</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.03</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.04</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.05</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.06</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.07</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">250</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.08</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.09</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.10</div>
+          </div>
+          <div>
+            <div class="loan-statistics-barchart__chart-total">700</div>
+            <div class="loan-statistics-barchart__chart-graph">
+              <div class="loan-statistics-barchart__chart-graph__midterm"></div>
+              <div class="loan-statistics-barchart__chart-graph__interest"></div>
+              <div class="loan-statistics-barchart__chart-graph__principal"></div>
+            </div>
+            <div class="loan-statistics-barchart__chart-date">24.11</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="loan-statistics-piechart">
@@ -57,6 +339,7 @@
   const loanList = ref([]);
   const emit = defineEmits(['response']);
   const currentDate = ref('');
+  const barchartRef = ref(null);
 
   watchEffect(() => {
     emit('response', {_totalPrincipal: totalPrincipal.value, _totalPrincipalRepayment: totalPrincipalRepayment.value}); //HomePage.vue에 전달
@@ -75,6 +358,7 @@
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
         currentDate.value = `${year}년 ${month}월`;
         console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
+        barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
       console.log('에러발생', error);
@@ -237,12 +521,67 @@
     }
 
     &-barchart{
+      position: relative;
       // overflow: auto;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      // &__chart{
+      //   position: relative;
+      // }
       &__label{
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
         margin-left: 16px;
         margin-bottom: 16px;
+      }
+      &__chart-container{
+        display: flex;
+        align-items: center;
+        margin-top: 36px;
+        > div{
+          margin-left: 38px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        > div:last-child{
+          margin-right: 50px;
+        }
+        // justify-content:space-between;
+      }
+      &__chart-label{
+        position: absolute;
+        top: 48px;
+        right: 12px;
+        font-size: 12px;
+        font-family: 'NanumSquareNeo_bold';
+      }
+      &__chart-graph{
+        width: 20px;
+        height: 100px;
+        background: #D9D9D9;
+        border-radius: 4px 4px 0px 0px;
+        z-index: 100;
+        &__principal{
+          background: #031F84;
+          height: 50px;
+        }
+        &__interest{
+          background: #367BF9;
+          height: 30px;
+        }
+        &__midterm{
+          background: #FFAC08;
+          height: 20px;
+        }
+      }
+      &__chart-date{
+        font-size: 12px;
+        font-family: 'NanumSquareNeo_normal';
+        margin-top: 8px;
+        // margin-right: 22px;
       }
     }
     &-piechart{
