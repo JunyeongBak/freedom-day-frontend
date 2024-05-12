@@ -65,7 +65,7 @@
     <div class="loan-statistics-piechart">
       <div class="loan-statistics-piechart__total-principal">
         <p class="loan-statistics-piechart__total-principal__label">남은 총 원금</p>
-        <p class="loan-statistics-piechart__total-principal__amount">198,000,000원</p>
+        <p class="loan-statistics-piechart__total-principal__amount">{{totalRemainingPrincipal}}원</p>
       </div>
       <div class="loan-statistics-piechart__chart">
         <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #9F33C4; height: 20%;"></div> -->
@@ -105,9 +105,13 @@
 </template>
 
 <script setup>
+// pichart 공식 (5 * 3.6) / 2  - 90deg
+// 5% 미만이 3개 정도 나온다 가정 하, 20% 이상되는 값들에서 조정
   import { useStore } from '@/store/index.ts';
   import { ref, onMounted, computed, watch, defineProps, watchEffect} from "vue";
   import { getLoanStatistics } from '@/api/loan.js';
+
+
 
   const store = useStore();
   const response = ref('');
@@ -120,7 +124,10 @@
   const finishRepayment = ref(0);
   const loanFinishList = ref([]);
   const monthlyRepaymentList = ref([]);
-  const monthlyRepaymentAmountList = ref([]);
+  const totalRemainingPrincipal = ref(0);
+  const remainingPrincipalList = ref([]);
+  const originalPercentList = ref([]); // 대출 원금 비중 계산용
+  const adjustedValueList = ref([]);
 
 
   watchEffect(() => {
@@ -137,6 +144,8 @@
         loanList.value = res.response.loanList;
         loanFinishList.value = res.response.repaidLoanList;
         monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
+        totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();
+        remainingPrincipalList.value = res.response.remainingPrincipalList;
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
@@ -150,8 +159,13 @@
         }
 
         finishRepayment.value = finishRepayment.value.toLocaleString();
-        console.log('%c✨loanFinishList: ', 'color:#e34034;font-weight: bold;',loanFinishList.value);
-        console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
+        // console.log('%c✨loanFinishList: ', 'color:#e34034;font-weight: bold;',loanFinishList.value);
+        // console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
+        // pichart(res.response.remainingPrincipalList);
+        originalPercentList.value = getPercentList(res.response.remainingPrincipalList);
+        console.log('✨originalPercentList:', originalPercentList.value);
+        adjustedValueList.value = getAdjustPercentList(originalPercentList.value);
+        console.log('✨adjustedValueList:', adjustedValueList.value);
         barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
@@ -165,7 +179,52 @@
     isExpanded: Boolean
   });
 
+  function getPercentList(remainingList){
+    const percentList = [];
+    let _totalRemainingPrincipal = remainingList.reduce((total, loan) => total + loan.remainingPrincipal, 0);
 
+    for (let i = 0; i < remainingList.length; i++){
+      let per = (remainingList[i].remainingPrincipal / _totalRemainingPrincipal) * 100;
+      percentList.push(per);
+    }
+    return percentList;    
+  }
+
+  function getAdjustPercentList(originalPercentList){
+    const minThreshold = 5.0 // 최소 표현 비율
+    const increaseTo = 5.0
+    const total = originalPercentList.reduce((sum, val) => sum + val, 0);
+    console.log('✨total:', total);
+    // 5% 미만 값을 5%로 상향 조정
+    const adjustedValues = originalPercentList.map(value =>{
+      return(value / total * 100 < minThreshold ) ? (increaseTo * total / 100) : value;
+    });
+    // 상향 조정된 총합 계산
+    const adjustedTotal = adjustedValues.reduce((sum, val) => sum + val, 0);
+    const scaleDownFactor = total / adjustedTotal;
+    // 모든 값 비례 축소
+    return adjustedValues.map(value => value * scaleDownFactor);
+  }
+
+
+  //input: remainingPrincipalList
+  //output: degreeList e.g. [-81deg, -54deg, -27deg, 36deg, 180deg]
+  function pichart(remainingList){
+    console.log(remainingList);
+    // remainingList.remainingPrincipalList[i].remainingPrincipal를 합산한 값
+    let totalRemainingPrincipal = remainingList.reduce((total, loan) => total + loan.remainingPrincipal, 0);
+    console.log(totalRemainingPrincipal);
+    //totalRemainingPrincipal 값에서 5 미만은 5로 만들고 조정하는 알고리즘 추천해줘.
+    
+    const angleList = [];
+    for (let i = 0; i < remainingList.length; i++){
+      let per = remainingList[i].remainingPrincipal / totalRemainingPrincipal * 100
+      console.log('✨percent:',i, per);
+      let angle = ((per * 3.6) / 2 - 90) + 'deg';
+      angleList.push(angle);
+    }
+    console.log(angleList);
+  }
 
 </script>
 
