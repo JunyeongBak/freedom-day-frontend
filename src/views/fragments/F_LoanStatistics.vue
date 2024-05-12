@@ -3,24 +3,19 @@
     <div class="loan-statistics-remind">
       <p class="loan-statistics-remind__currentDate">{{ currentDate }}</p>
       <p class="loan-statistics-remind__due">상환 예정</p>
-      <div class="loan-statistics-remind-card">
-        <img class="loan-statistics-remind-card__bankimg" src="@/assets/ic_bank.png" alt="">
-        <div class="loan-statistics-remind-card-info">
-          <p class="loan-statistics-remind-card-info__purpose">학자금</p>
-          <p class="loan-statistics-remind-card-info__dday">D-16</p>
-        </div>
-        <p class="loan-statistics-remind-card__name">카카오 학자금대출</p>
-        <p class="loan-statistics-remind-card__duedate">2024.12.18</p>
-      </div>
-      <div class="loan-statistics-remind-card">
-        <img class="loan-statistics-remind-card__bankimg" src="@/assets/ic_bank.png" alt="">
-        <div class="loan-statistics-remind-card-info">
-          <p class="loan-statistics-remind-card-info__purpose">생활비</p>
-          <p class="loan-statistics-remind-card-info__dday">D-16</p>
-        </div>
-        <p class="loan-statistics-remind-card__name">토스뱅크 신용대출</p>
-        <p class="loan-statistics-remind-card__duedate">2024.12.18</p>
-      </div>
+      <ul>
+        <li v-for="loan in loanList" :key="loan.id">
+          <div class="loan-statistics-remind-card">
+            <img class="loan-statistics-remind-card__bankimg" src="@/assets/ic_bank.png" alt="">
+            <div class="loan-statistics-remind-card-info">
+              <p class="loan-statistics-remind-card-info__purpose">{{ loan.purpose }}</p>
+              <p class="loan-statistics-remind-card-info__dday">D-{{ loan.paymentDDay }}</p>
+            </div>
+            <p class="loan-statistics-remind-card__name">{{ loan.name }}</p>
+            <p class="loan-statistics-remind-card__duedate">{{ loan.paymentDate }}</p>
+          </div>
+        </li>
+      </ul>
       <div>-----------------가로 구분선---------------</div>
       <div>
         <!-- style absolute -->
@@ -52,6 +47,7 @@
   const response = ref('');
   const totalPrincipal = ref(0);
   const totalPrincipalRepayment = ref(0);
+  const loanList = ref([]);
   const emit = defineEmits(['response']);
   const currentDate = ref('');
 
@@ -66,6 +62,7 @@
         response.value = res.response;
         totalPrincipal.value = res.response.totalPrincipal;
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
+        loanList.value = res.response.loanList;
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
