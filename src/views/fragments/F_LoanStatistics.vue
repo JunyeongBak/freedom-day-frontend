@@ -52,7 +52,8 @@
                   <div class="loan-statistics-barchart__chart-graph__interest">{{ month.repaymentAmount2 / 1000 }}</div>
                   <div class="loan-statistics-barchart__chart-graph__principal">{{ month.repaymentAmount1 / 1000}}</div>
                 </div>
-                <div class="loan-statistics-barchart__chart-date">{{month.historyDate.replace('-', '.')}}</div>
+                <!-- month.historyDate는 YYYY-MM 포맷인데, YY.MM으로 변경 -->
+                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate.slice(2).replace('-', '.') }}</div>
               </div>
             </li>
           </ul>
