@@ -23,7 +23,7 @@
       email.value = router.query.email;
       domain.value = router.query.domain;
       const response = await postAuthenticateEmail(email.value.trim() + '@' + domain.value.trim());
-      console.log(response);
+      console.log('%c✨postAuthenticateEmail: ', 'color:#e34034;font-weight: bold;', response);
     } catch (error) {
       console.error(error);
     }
