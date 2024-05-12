@@ -67,7 +67,7 @@
         <p class="loan-statistics-piechart__total-principal__label">남은 총 원금</p>
         <p class="loan-statistics-piechart__total-principal__amount">{{totalRemainingPrincipal}}원</p>
       </div>
-      <div class="loan-statistics-piechart__chart">
+      <div class="loan-statistics-piechart__chart"  :style="pieChart">
         <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #9F33C4; height: 20%;"></div> -->
         <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #FFCE58; height: 20%;"></div> -->
         <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #89D8D8; height: 20%;"></div> -->
@@ -111,7 +111,11 @@
   import { ref, onMounted, computed, watch, defineProps, watchEffect} from "vue";
   import { getLoanStatistics } from '@/api/loan.js';
 
-
+  // #9F33C4 0% 5%,  /* 생활비 */
+  // #FFCE58 5% 15%, /* 학자금 */
+  // #89D8D8 15% 20%, /* 자동차 */
+  // #6B7583 20% 50%, /* 기타 */
+  // #3182F6 50% 100%, /* 주택자금 */
 
   const store = useStore();
   const response = ref('');
@@ -127,7 +131,33 @@
   const totalRemainingPrincipal = ref(0);
   const remainingPrincipalList = ref([]);
   const originalPercentList = ref([]); // 대출 원금 비중 계산용
-  const adjustedValueList = ref([]);
+  const adjustedPercentList = ref([]);
+  const appendingList = ref([]); // listAppending Function 전용
+  const colors = {
+    '생활비': '#9F33C4',
+    '학자금': '#FFCE58',
+    '자동차': '#89D8D8',
+    '주택자금': '#3182F6',
+    '기타': '#6B7583',
+  };
+  const pieChart = computed(() => {
+    let gradient = 'conic-gradient(';
+    let accumulatedPercent = 0;
+    for (let i = 0; i < appendingList.value.length; i++){
+      const startPercent = accumulatedPercent;
+      const endPercent = accumulatedPercent + appendingList.value[i].adjustPercent;
+      gradient += `${colors[appendingList.value[i].purpose]} ${startPercent}% ${endPercent}%`;
+      if (i < appendingList.value.length - 1){
+        gradient += ',';
+      }
+      accumulatedPercent = endPercent;
+    }
+    gradient += ')';
+    return {background: gradient};
+  });
+  
+
+
 
 
   watchEffect(() => {
@@ -164,8 +194,14 @@
         // pichart(res.response.remainingPrincipalList);
         originalPercentList.value = getPercentList(res.response.remainingPrincipalList);
         console.log('✨originalPercentList:', originalPercentList.value);
-        adjustedValueList.value = getAdjustPercentList(originalPercentList.value);
-        console.log('✨adjustedValueList:', adjustedValueList.value);
+        adjustedPercentList.value = getAdjustPercentList(originalPercentList.value);
+        console.log('✨adjustedPercentList:', adjustedPercentList.value);
+        
+        appendingList.value = listAppending(remainingPrincipalList.value, adjustedPercentList.value);
+        console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
+        console.log('👌appendingList', appendingList.value);
+        // getDeg(adjustedPercentList.value);
+
         barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
@@ -191,8 +227,8 @@
   }
 
   function getAdjustPercentList(originalPercentList){
-    const minThreshold = 5.0 // 최소 표현 비율
-    const increaseTo = 5.0
+    const minThreshold = 5.0; // 최소 표현 비율
+    const increaseTo = 5.0;
     const total = originalPercentList.reduce((sum, val) => sum + val, 0);
     console.log('✨total:', total);
     // 5% 미만 값을 5%로 상향 조정
@@ -204,6 +240,24 @@
     const scaleDownFactor = total / adjustedTotal;
     // 모든 값 비례 축소
     return adjustedValues.map(value => value * scaleDownFactor);
+  }
+
+  // input: remainingPrincipalList
+  function listAppending(list, adjustedPercentList){
+    const appendingList = list;
+    const adjPercentList = adjustedPercentList;
+
+    for ( let [index, item] of list.entries()){
+        appendingList[index]['adjustPercent'] = adjPercentList[index];
+    }
+    return appendingList;
+  }
+
+  function getDeg(adjustedPercentList){
+    for (let i = 0; i < adjustedPercentList.length; i++){
+      let angle = ((adjustedPercentList[i] * 3.6) / 2 - 90) + 'deg';
+      console.log('✨angle:',i, angle);
+    }
   }
 
 
@@ -449,13 +503,13 @@
         width: 200px;
         height: 200px;
         border-radius: 50%;
-        background: conic-gradient(
-          #9F33C4 0% 5%,  /* 생활비 */
-          #FFCE58 5% 15%, /* 학자금 */
-          #89D8D8 15% 20%, /* 자동차 */
-          #6B7583 20% 50%, /* 기타 */
-          #3182F6 50% 100%, /* 주택자금 */
-        );
+        // background: conic-gradient(
+        //   #9F33C4 0% 5%,  /* 생활비 */
+        //   #FFCE58 5% 15%, /* 학자금 */
+        //   #89D8D8 15% 20%, /* 자동차 */
+        //   #6B7583 20% 50%, /* 기타 */
+        //   #3182F6 50% 100%, /* 주택자금 */
+        // );
       }
       &__legend{
         margin: 0 auto;
