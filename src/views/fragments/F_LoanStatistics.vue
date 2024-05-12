@@ -321,8 +321,45 @@
         </div>
       </div>
     </div>
+    <p class="loan-statistics-piechart__label">대출 원금 비중</p>
     <div class="loan-statistics-piechart">
-      <p class="loan-statistics-piechart__label">대출 원금 비중</p>
+      <div>
+        <p>남은 총 원금</p>
+        <p>198,000,000원</p>
+      </div>
+      <div class="loan-statistics-piechart__chart">
+        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #9F33C4; height: 20%;"></div> -->
+        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #FFCE58; height: 20%;"></div> -->
+        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #89D8D8; height: 20%;"></div> -->
+        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #6B7583; height: 20%;"></div> -->
+        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #3182F6; height: 20%;"></div> -->
+      </div>
+      <!-- angle은 1% * 3.6 -->
+      <div class="loan-statistics-piechart__legend">
+        <!-- (5 * 3.6) / 2  - 90 -->
+        <div class="legend-item" style="--angle: -90deg">
+          <!-- <span class="legend-color" style="background-color: #9F33C4;"></span> -->
+          <p class="legend-label" style="transform: rotate(90deg)">생활비 5%</p>
+        </div>
+        <!-- 18 + (10 * 3.6 / 2) -90 -->
+        <div class="legend-item" style="--angle: -54deg">
+          <!-- <span class="legend-color" style="background-color: #FFCE58;"></span> -->
+          <p class="legend-label" style="transform: rotate(54deg)">학자금 10%</p>
+        </div>
+        <!-- 54 + (5 * 3.6 / 2) -90 -->
+        <div class="legend-item" style="--angle: -27deg">
+          <p class="legend-label" style="transform: rotate(27deg)">학자금 5%</p>
+        </div>
+        <!-- 72 + (30 * 3.6 / 2) -90 -->
+        <div class="legend-item" style="--angle: 36deg">
+          <p class="legend-label" style="transform: rotate(-36deg)">기타 30%</p>
+        </div>
+        <!-- 180 + (50 * 3.6 / 2) -90 -->
+        <div class="legend-item" style="--angle: 180deg">
+          <p class="legend-label" style="transform: rotate(-180deg)">주택자금 50%</p>
+        </div>
+        <!-- 추가적인 범례 아이템 -->
+      </div>
     </div>
   </div>
 </template>
@@ -340,6 +377,7 @@
   const emit = defineEmits(['response']);
   const currentDate = ref('');
   const barchartRef = ref(null);
+
 
   watchEffect(() => {
     emit('response', {_totalPrincipal: totalPrincipal.value, _totalPrincipalRepayment: totalPrincipalRepayment.value}); //HomePage.vue에 전달
@@ -364,6 +402,7 @@
       console.log('에러발생', error);
     }
   });
+
 
   const props = defineProps({
     msg: Number,
@@ -522,13 +561,7 @@
 
     &-barchart{
       position: relative;
-      // overflow: auto;
-      // display: flex;
-      // align-items: center;
-      // justify-content: center;
-      // &__chart{
-      //   position: relative;
-      // }
+      margin-bottom: 24px;
       &__label{
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
@@ -585,12 +618,69 @@
       }
     }
     &-piechart{
+      margin: 0 auto;
+      width: 95%;
+      height: 274px;
+      border: 1px solid #DBDDE2;
+      border-radius: 16px;
+      position: relative;
       &__label{
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
         margin-left: 16px;
         margin-bottom: 16px;
       }
+      &__chart{
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #9F33C4 0% 5%,  /* 생활비 */
+          #FFCE58 5% 15%, /* 학자금 */
+          #89D8D8 15% 20%, /* 자동차 */
+          #6B7583 20% 50%, /* 기타 */
+          #3182F6 50% 100%, /* 주택자금 */
+
+        );
+      }
+      &__legend{
+        margin: 0 auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 95%;
+        height: 274px;
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-around;
+        // padding: 10px 0;
+      }
+    }
+    .legend-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      height: 20px;
+      transform: translate(-50%, 50%) rotate(var(--angle)) translateX(64%) ;
+      text-align: right;
+      // transform-origin: 50% 50%;
+    }
+
+    .legend-color {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    .legend-label {
+      color: #565D69;
+      font-family: 'NanumSquareNeo_extrabold';
+      font-size: 14px;
     }
   }
 </style>
