@@ -32,9 +32,12 @@
       </div>
     </div>
     <div style="background-color: #F7F8FA; width:100%; height:16px; margin:24px auto 32px;"></div>
-    <div class="loan-statistics-barchart">
+    <!-- loan-statistics-barchart 클래스 내에서만 스크롤이 되어야하고 화면 전체는 가로축 스크롤이 되면 안된다. -->
+    <div class="loan-statistics-barchart" >
       <p class="loan-statistics-barchart__label">월별 총 상환 그래프</p>
-
+      <div style="overflow:auto;border: 1px solid #DBDDE2;border-radius: 16px; height:200px;">
+        <!-- <div style="width:1000px; height: 1000px; background-color: orange;">test</div> -->
+      </div>
     </div>
     <div class="loan-statistics-piechart">
       <p class="loan-statistics-piechart__label">대출 원금 비중</p>
@@ -234,6 +237,7 @@
     }
 
     &-barchart{
+      // overflow: auto;
       &__label{
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
