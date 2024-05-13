@@ -68,38 +68,13 @@
         <p class="loan-statistics-piechart__total-principal__amount">{{totalRemainingPrincipal}}원</p>
       </div>
       <div class="loan-statistics-piechart__chart"  :style="pieChart">
-        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #9F33C4; height: 20%;"></div> -->
-        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #FFCE58; height: 20%;"></div> -->
-        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #89D8D8; height: 20%;"></div> -->
-        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #6B7583; height: 20%;"></div> -->
-        <!-- <div class="loan-statistics-piechart__chart__item" style="background-color: #3182F6; height: 20%;"></div> -->
       </div>
       <!-- angle은 1% * 3.6 -->
-      <div class="loan-statistics-piechart__legend">
-        <!-- (5 * 3.6) / 2  - 90 -->
-        <div class="legend-item" style="--angle: -100deg">
-          <!-- <span class="legend-color" style="background-color: #9F33C4;"></span> -->
-          <p class="legend-label" style="transform: rotate(100deg)">생활비 5%</p>
-        </div>
-        <!-- 18 + (10 * 3.6 / 2) -90 -->
-        <div class="legend-item" style="--angle: -54deg">
-          <!-- <span class="legend-color" style="background-color: #FFCE58;"></span> -->
-          <p class="legend-label" style="transform: rotate(54deg)">학자금 10%</p>
-        </div>
-        <!-- 54 + (5 * 3.6 / 2) -90 -->
-        <div class="legend-item" style="--angle: -27deg">
-          <p class="legend-label" style="transform: rotate(27deg)">학자금 5%</p>
-        </div>
-        <!-- 72 + (30 * 3.6 / 2) -90 -->
-        <div class="legend-item" style="--angle: 36deg">
-          <p class="legend-label" style="transform: rotate(-36deg)">기타 30%</p>
-        </div>
-        <!-- 180 + (50 * 3.6 / 2) -90 -->
-        <div class="legend-item" style="--angle: 180deg">
-          <p class="legend-label" style="transform: rotate(-180deg)">주택자금 50%</p>
-        </div>
-        <!-- 추가적인 범례 아이템 -->
-      </div>
+      <ul class="loan-statistics-piechart__legend" v-for="purpose in resultPieChartList">
+        <li class="legend-item" :style="{ '--angle': purpose.deg  }" >
+          <p class="legend-label" :style="{transform: 'rotate(' + (-1 * purpose.deg) + ')' }">{{ purpose.purpose + purpose.percentage}}</p>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -110,6 +85,7 @@
   import { useStore } from '@/store/index.ts';
   import { ref, onMounted, computed, watch, defineProps, watchEffect} from "vue";
   import { getLoanStatistics } from '@/api/loan.js';
+import { routeLocationKey } from 'vue-router';
 
   // #9F33C4 0% 5%,  /* 생활비 */
   // #FFCE58 5% 15%, /* 학자금 */
@@ -133,6 +109,7 @@
   const originalPercentList = ref([]); // 대출 원금 비중 계산용
   const adjustedPercentList = ref([]);
   const appendingList = ref([]); // listAppending Function 전용
+  const resultPieChartList = ref([]); // getDeg Function 전용
   const colors = {
     '생활비': '#9F33C4',
     '학자금': '#FFCE58',
@@ -200,8 +177,8 @@
         appendingList.value = listAppending(remainingPrincipalList.value, adjustedPercentList.value);
         console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
         console.log('👌appendingList', appendingList.value);
-        // getDeg(adjustedPercentList.value);
-
+        resultPieChartList.value = getDeg(appendingList.value); //deg까지 완료!
+        console.log('👌resultPieChartList', resultPieChartList.value);
         barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
@@ -253,11 +230,16 @@
     return appendingList;
   }
 
-  function getDeg(adjustedPercentList){
-    for (let i = 0; i < adjustedPercentList.length; i++){
-      let angle = ((adjustedPercentList[i] * 3.6) / 2 - 90) + 'deg';
-      console.log('✨angle:',i, angle);
+  // input: appendingList
+  // pichart 공식 (5 * 3.6) / 2  - 90deg
+  function getDeg(appendingList){
+    const apdList = appendingList;
+    for (let [index, item] of apdList.entries()){
+      console.log('👌',index, item.adjustPercent);
+      let deg = (((item.adjustPercent * 3.6) / 2) - 90) + 'deg';
+      apdList[index]['deg'] = deg;
     }
+    return apdList;
   }
 
 
@@ -540,7 +522,7 @@
       left: 50%;
       width: 50%;
       height: 20px;
-      transform: translate(-60%, 50%) rotate(var(--angle)) translateX(66%) ;
+      transform: translate(-60%, 50%) rotate(var(--angle)) translateX(30%) ;
       text-align: right;
       // transform-origin: 50% 50%;
     }
