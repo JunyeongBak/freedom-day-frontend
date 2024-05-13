@@ -149,8 +149,15 @@
         totalPrincipal.value = res.response.totalPrincipal;
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
         loanList.value = res.response.loanList;
+
+        for (let [index, item] of loanList.value.entries() ){
+          if (item.paymentDate != null || item.paymentDate != ''){
+            loanList.value[index].paymentDate = item.paymentDate.replace('-', '.').replace('-','.');
+          }
+        }
+
         loanFinishList.value = res.response.repaidLoanList;
-        console.log(res.response.repaymentHistoryMonthList);
+        // console.log(res.response.repaymentHistoryMonthList);
         for (let [index, item] of res.response.repaymentHistoryMonthList.entries()){
           if( item.historyDate == null || item.historyDate == ''){
             monthlyRepaymentList.value.push(0);
@@ -166,7 +173,7 @@
         currentDate.value = `${year}년 ${month}월`;
         const year2 = year.toString().substring(2, 4);
         const month2 = formatMonth(date);
-        console.log(year2, month2);
+        // console.log(year2, month2);
         isNullDate.value = `${year2}.${month2}`;
         // console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
 

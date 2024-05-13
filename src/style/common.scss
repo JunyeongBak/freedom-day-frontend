@@ -1,3 +1,10 @@
+// Libraries
+$grey00: #FFFFFF;
+$grey20: #DBDDE2;
+$grey40: #BDC0C6;
+$grey60: #898F9A;
+$grey100: #1D2532;
+
 $main-font: #1D2532;
 $gray-common: #898F9A;
 
@@ -67,4 +74,10 @@ $gray-common: #898F9A;
   font-size: 16px;
   font-family: 'NanumSquareNeo_extrabold';
   color: #FFF;
+}
+
+.select-style {
+  appearance: none;
+  background: url('@/assets/arrow_down.png') no-repeat right 10px center;
+  padding-right: 30px; /* 화살표 아이콘의 너비 + 여백 */
 }

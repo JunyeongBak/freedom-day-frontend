@@ -1,83 +1,60 @@
 <template>
-  <div class="navbar">
-    <nav_bar />
-  </div>
   <div class="sign-up">
-    <div class="sign-up__card">
-      <img src="@/assets/ic_login001.png">
-      <div id="sign-up__welcome-div">해방의 날에 오신 걸 환영해요!</div>
+    <div class="sign-up__navbar">
+      <nav_bar />
     </div>
-    <form method="POST" class="sign-up__form" @submit.prevent="handleSubmit">
-      <h2 class="sign-up__form-email">
-        <span class="sign-up__form-red-star">⁕</span>
-        <span>이메일</span>
-        <div class="sign-up__form-email-check" :class="{'sign-up__form-email-check-valid' : isEmailCheck}">
-          <van-icon name="success" />
+    <div class="sign-up-body">
+      <div class="sign-up-body__welcome-container">
+        <div style="width:104px; height:110px;">
+          <img src="@/assets/ic_haebang_56.svg" alt="해방이 로고" />
         </div>
-      </h2>
-      <div>
-        <input class="sign-up__form-email-txt" placeholder="이메일" v-model="email" @blur="validateAndAlert"></input>
-        <span>@</span>
-        <div class="sign-up__form-drop-email">
-          <div @click="toggleDropdown" class="sign-up__form-drop-email-button">
-            {{ selectedOption || '선택' }}
-            <van-icon name="arrow-down" class="sign-up__form-emailicon"/>
-            <div v-show="isOpen" class="sign-up__form-drop-email-content">
-              <div v-for="option in options" :key="option" @click="selectOption(option)">
-                {{ option }}
-              </div>
-            </div>
-          </div>
+        <p class="sign-up-body__welcome-words">해방의 날에 오신 걸 환영해요!</p>
+      </div>
+      <form method="POST" @submit.prevent="handleSubmit">
+        <div class="sign-up-body__email-label">
+          <img src="@/assets/ic_star.svg" alt="필수" />
+          <p>이메일</p>
+          <van-icon name="success" class="sign-up-body__email-label__check"/>
         </div>
-        <div class="sign-up__form-email-auth" @click="authentication">인증</div>
-      </div>
-      <h2 class="sign-up__form-password">
-        <span class="sign-up__form-red-star">⁕</span>
-        <span>비밀번호</span>
-        <div class="sign-up__form-password-check" :class="{'sign-up__form-password-check-valid': isPasswordCheck }">
-          <van-icon name="success" />
+        <div class="sign-up-body__email-contents">
+          <input type="text" v-model="email" @blur="validateAndAlert" @input="validateAndAlert" placeholder="이메일" />
+          <span>@</span>
+          <!-- disabled 인 경우에만 ##BDC0C6 color -->
+          <select class="select-style" :style="{color: selectedOption =='' ? '#BDC0C6' : '#1D2532'}" v-model="selectedOption">
+            <option value="" disabled selected hidden >선택</option>
+            <option value="gmail.com" >gmail.com</option>
+            <option value="naver.com">naver.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="daum.net">daum.net</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="kakao.com">kakao.com</option>
+          </select>
+          <div class="sign-up-body__email-contents__authentication">인증</div>
         </div>
-      </h2>
-      <div>
-        <input type="password" class="sign-up__form-password-txt" placeholder="영문+숫자+특수문자 포함 8~20자리"
-        v-model="password" @input="validatePassword"></input>
-        <!-- <p v-if="passwordError">{{ passwordError }}</p> -->
-      </div>
-      <h2 class="sign-up__form-password-again">
-        <span class="sign-up__form-red-star">⁕</span>
-        <span>비밀번호 확인</span>
-        <div class="sign-up__form-password-again-check" :class="{'sign-up__form-password-again-check-valid' : ispasswordCheckAgain }">
-          <van-icon name="success" />
-        </div>
-      </h2>
-      <div>
-        <input type="password" class="sign-up__form-password-txt-confirm" placeholder="다시 한번 입력해주세요"
-        v-model="passwordConfirm" @input="validatePasswordConfirm"></input>
-      </div>
-      <div class="sign-up__form-privacy" id="sign-up__form-privacy">
-        <input v-model="isServiceCheck" @input="validateService" type="checkbox" class="sign-up__form-privacy-checkbox"></input>
-        <label>서비스 이용약관 및 개인정보처리방침에 동의합니다.</label>
-      </div>
-      <div class="sign-up__form-step1">
-        <button class="sign-up__form-step1-button" :disabled="nextButton"
-        @click="saveData">다음</button>
-      </div>
-    </form>
+
+      </form>
+    </div>
   </div>
+
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index";
   import nav_bar from '@/layout/NavBar.vue';
-  // import navbar from "@/components/BarNavigationSignUp.vue";
+
 
   const store = useStore();
   const router = useRouter();
 
   const isOpen = ref(false);
-  const selectedOption = ref(null);
+  const selectedOption = ref('');
+
+  watch(selectedOption, (newValue, oldValue) => {
+    // selectedOption이 변경될 때 실행할 코드를 여기에 작성합니다.
+    console.log(`selectedOption이 ${oldValue}에서 ${newValue}로 변경되었습니다.`);
+  });
   const options = ref(['선택', 'gmail.com', 'naver.com', 'nate.com', 'daum.net', 'hanmail.net', 'kakao.com']);
   const email = ref('');
   const isEmailCheck = ref(false);
@@ -176,219 +153,86 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/style/common.scss";
 
   .sign-up{
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 100vw;
-    height: 100%;
-    margin-top: 56px;
-    background-color: #FFF;
-
-
-
-    &__card{
-      display: flex;
-      flex-direction: column;
-      width: 340px;
-      height: 204px;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-      font-weight: 800;
-
-      > img{
-        // margin-top: 24px; 
-        width: 104px;
-        height: 110px;
-      }
-      >div{
-        margin-top: 16px;
-        margin-bottom: 24px;
-      }
+    &__navbar{
+      top: 0;
+      width: 100%;
     }
-    &__form{
-      // margin-top: 32px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      >div{
+    &-body{
+      width: 100%;
+      height: 100%;
+      margin-top: 56px;
+      background-color: $grey00;
+
+      &__welcome-container{
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 8px;
-        margin-bottom: 24px;
-      }
-      > div:nth-child(2) > input:nth-child(1) {
-        width: 128px;
-        height: 40px;
-        margin-right: 4px; 
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        padding-left: 8px;
-      }
-      > div:nth-child(2) > div:nth-child(3) {
-        width: 150px;
-        height: 40px;
-      }
-      &-email{
-        position: relative;
-        &-check{
-          position: absolute;
-          right: 8px;
-          top: 0;
-          color: #DBDDE2;
-        }
-        &-check-valid{
-          position: absolute;
-          right: 8px;
-          top: 0;
-          color: #2B66F5;
-        }
-      }
-      &-drop-email{
-        position: relative;
-        display: block;
-
-        &-button{
-          padding: 10px;
-          border: 1px solid #898F9A;
-          border-radius: 8px;
-          margin-left: 4px;
-          cursor: pointer;
-        }
-
-        &-content{
-          display: block;
-          position: absolute;
-          top: 50px;
-          right: 0;
-          background-color: #f9f9f9;
-          min-width: 160px;
-          box-shadow: 0px 8px 16px 0px rbga(0,0,0,0.2);
-          z-index: 1;
-        }
-        &-content div{
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-        &-content div:hover{
-          background-color: #f1f1f1;
-        }
-      }
-      &-emailicon{
-        position: absolute;
-        right: 15px;
-      }
-      &-email-auth{
-        width: 50px;
-        height: 40px;
-        background-color: #BDC0C6;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 400;
-        text-align: center;
-        line-height: 40px;
-        margin-left: 2px;
-      }
-
-      &-red-star{
-        color: #FE2525;
-        font-weight: 700;
-        margin-right: 4px;
-      }
-      &-password{
-        position: relative;
-
-        &-check{
-          position: absolute;
-          top: 0;
-          right: 8px;
-          color: #DBDDE2;
-        }
-        &-check-valid{
-          position: absolute;
-          right: 8px;
-          top: 0;
-          color: #2B66F5;
-        }
-      }
-      &-password-txt {
         width: 328px;
-        height: 40px;
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        font-size: 12px;
-        padding-left: 8px;
-        padding-right: 8px;
-
+        height: 204px;
+        margin: 0 auto;
       }
-      &-password-txt-confirm{
-        width: 328px;
-        height: 40px;
-        border: 1px solid #898F9A;
-        border-radius: 8px;
-        font-size: 12px;
-        padding-left: 8px;
-        padding-right: 8px;
+      &__welcome-words{
+        font-family: 'NanumSquareNeo_extrabold';
+        font-size: 20px;
+        color: $grey100;
+        margin-top: 16px;
       }
-      &-password-again{
+      &__email-label{
+        display: flex;
         position: relative;
-
-        &-check{
+        margin: 0 16px 4px;
+        font-size: 18px;
+        color: $grey100;
+        font-family: 'NanumSquareNeo_bold';
+        >p{
+          margin-left: 2px;
+        }
+        &__check{
           position: absolute;
-          top: 0;
-          right: 8px;
-          color: #DBDDE2;
-        }
-        &-check-valid{
-          position: absolute;
-          top: 0;
-          right: 8px;
-          color: #2B66F5;
+          right: 16px;
+          top: calc(50% - 8px);
+          color: $grey20;
         }
       }
-      label{
-        font-size: 12px;
-        font-weight: 700;
-      }
-
-      &-privacy-checkbox{
-        width: 24px;
-        height: 24px;
-        margin-right: 4px;
-      }
-      &-step1{
-        &-button{
-          color: #FFF;
-          width: 352px;
-          height: 48px;
-          background: #2B66F5;
+      &__email-contents{
+        margin: 4px 16px 12px;
+        display: flex;
+        align-items: center;
+        justify-content:space-evenly;
+        >input{
+          width: 136px;
+        }
+        >input::placeholder{
+          color: $grey40;
+        }
+        >select{
+          width: 136px;
+        }
+        &__authentication{
+          width: 40px;
+          height: 40px;
+          background: #BDC0C6;
           border-radius: 8px;
-        }
-        &-button:disabled{
-          color: #FFF;
-          width: 352px;
-          height: 48px;
-          background: gray;
-          border-radius: 8px;
-          cursor: not-allowed;
+          text-align: center;
+          line-height: 40px;
+          font-size: 12px;
+          color: $grey60;
+          font-family: 'NanumSquareNeo_extrabold';
         }
       }
     }
-    #sign-up__form-privacy{
-      display: flex;
-      justify-content: left;
-      margin-left: 8px;
-    }
-
-    #sign-up__welcome-div{
-      font-size: 20px;
-      font-family: 'NanumSquareNeo_extrabold';
-    }
+  }
+  option:enabled{
+    color: $grey100;
   }
 </style>

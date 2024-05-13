@@ -15,7 +15,7 @@
         <input v-model="template.email" type="text" class="sign-in-form__email__front" placeholder="이메일">
         <p>@</p>
         <select v-model="selectedOption ">
-          <option disabled value="선택">선택</option>
+          <option value="선택" disabled selected hidden>선택</option>
           <option value="gmail.com">gmail.com</option>
           <option value="naver.com">naver.com</option>
           <option value="nate.com">nate.com</option>
@@ -102,7 +102,7 @@
   });
 
   async function handleClickSignIn() {
-    if (selectedOption.value == undefined) {
+    if (selectedOption.value == undefined || selectedOption.value == "선택" || selectedOption.value == '') {
       const message_temp = '이메일 양식을 확인하세요. 도메인 선택!';
       alert(message_temp);
       throw new Error(message_temp);

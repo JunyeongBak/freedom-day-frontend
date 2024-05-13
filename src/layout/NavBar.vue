@@ -3,13 +3,13 @@
       :class="{ 'expanded': isExpanded, 'collapsed': !isExpanded }" 
       @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd"
       >
-    {{ navBarHeight }}
+    <!-- {{ navBarHeight }} -->
     <!-- 뒤로가기 없는 navbar -->
     <div v-if="navBarFlag == '1_0'" class="nav-bar-1_0">
-      <p>{{ title }}</p>
+      <p>{{ title || $route.query.title }}</p>
     </div>
     <!-- 뒤로가기 있는 navbar -->
-    <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1">
+    <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1" @click="goBack">
       <div class="nav-bar-1_1__container">
         <img src="@/assets/ic_arrow_left.png">
         <p>{{ title || $route.query.title }}</p>
@@ -187,6 +187,10 @@
     touchStartY = 0;
     // document.body.style.overflow = '';  // 스크롤 잠금 해제
   };
+
+  function goBack() {
+    router.go(-1);
+  }
 
 </script>
 
