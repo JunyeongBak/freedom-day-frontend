@@ -12,4 +12,8 @@ async function postAuthenticateEmail(param) {
   return axios.post("/member/send-mail", param);
 }
 
-export { postSignIn, postSignUp, postAuthenticateEmail };
+async function postLogout(){
+  return axios.post("/member/sign-out");
+}
+
+export { postSignIn, postSignUp, postAuthenticateEmail, postLogout };

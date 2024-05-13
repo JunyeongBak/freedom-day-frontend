@@ -127,7 +127,7 @@ onMounted(async () => {
     const response = await fetch("");
     const fetchedData = await response.json();
     dataLength.value = fetchedData["response"]["loanCount"];
-    console.log(dataLength);
+    // console.log(dataLength);
   } catch (error) {
     console.error("Error fetching data:", error);
     dataLength = ref(0);

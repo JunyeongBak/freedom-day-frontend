@@ -72,13 +72,13 @@ const totalPrincipalRepayment = ref('');
 
 // navBar에서 emit으로 받음
 const handleResponse = ({ _tabIndex, _isExpanded }) => {
-  console.log(_tabIndex, _isExpanded);
+  // console.log(_tabIndex, _isExpanded);
   tabIndex.value = _tabIndex;
   isExpanded.value = _isExpanded;
 };
 
 const handleResponseStatistics = ({ _totalPrincipal, _totalPrincipalRepayment }) => {
-  console.log('totalPrincipal: ',_totalPrincipal, 'total repay',_totalPrincipalRepayment);
+  // console.log('totalPrincipal: ',_totalPrincipal, 'total repay',_totalPrincipalRepayment);
   totalPrincipal.value = _totalPrincipal.toLocaleString();
   totalPrincipalRepayment.value = _totalPrincipalRepayment.toLocaleString();
 };

@@ -66,7 +66,7 @@
   onMounted(() => {
     try{
 
-      console.log(proOutData);
+      // console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
       left.value = (props.loandata.paymentPercentage - 14);
       if (left.value < 0){

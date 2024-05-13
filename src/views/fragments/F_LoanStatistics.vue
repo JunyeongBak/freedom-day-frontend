@@ -157,7 +157,7 @@ import { routeLocationKey } from 'vue-router';
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
         currentDate.value = `${year}년 ${month}월`;
-        console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
+        // console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
 
         // 상환완료 총액 계산
         for (let i = 0; i < res.response.repaidLoanList.length; i++){
@@ -170,15 +170,15 @@ import { routeLocationKey } from 'vue-router';
         // console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
         // pichart(res.response.remainingPrincipalList);
         originalPercentList.value = getPercentList(res.response.remainingPrincipalList);
-        console.log('✨originalPercentList:', originalPercentList.value);
+        // console.log('✨originalPercentList:', originalPercentList.value);
         adjustedPercentList.value = getAdjustPercentList(originalPercentList.value);
-        console.log('✨adjustedPercentList:', adjustedPercentList.value);
+        // console.log('✨adjustedPercentList:', adjustedPercentList.value);
         
         appendingList.value = listAppending(remainingPrincipalList.value, adjustedPercentList.value);
-        console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
-        console.log('👌appendingList', appendingList.value);
+        // console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
+        // console.log('👌appendingList', appendingList.value);
         resultPieChartList.value = getDeg(appendingList.value); //deg까지 완료!
-        console.log('👌resultPieChartList', resultPieChartList.value);
+        // console.log('👌resultPieChartList', resultPieChartList.value);
         barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
       });
     }catch(error){
@@ -207,7 +207,7 @@ import { routeLocationKey } from 'vue-router';
     const minThreshold = 5.0; // 최소 표현 비율
     const increaseTo = 5.0;
     const total = originalPercentList.reduce((sum, val) => sum + val, 0);
-    console.log('✨total:', total);
+    // console.log('✨total:', total);
     // 5% 미만 값을 5%로 상향 조정
     const adjustedValues = originalPercentList.map(value =>{
       return(value / total * 100 < minThreshold ) ? (increaseTo * total / 100) : value;
@@ -235,7 +235,7 @@ import { routeLocationKey } from 'vue-router';
   function getDeg(appendingList){
     const apdList = appendingList;
     for (let [index, item] of apdList.entries()){
-      console.log('👌',index, item.adjustPercent);
+      // console.log('👌',index, item.adjustPercent);
       let deg = (((item.adjustPercent * 3.6) / 2) - 90) + 'deg';
       apdList[index]['deg'] = deg;
     }

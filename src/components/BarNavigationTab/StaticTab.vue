@@ -110,7 +110,7 @@
     try {
       const response = await fetch('https://www.freedom-day.site/api/test/loan-statistics');
       const fetchedData = await response.json();
-      console.log(fetchedData);
+      // console.log(fetchedData);
       // vb_drawersTotalLoan.value = fetchedData['totalBalance'].toLocaleString() + "원";
       vb_drawersTotalLoan.value = fetchedData['totalBalance'] + "원";
       // vb_drawersTotalRepayment.value = fetchedData['totalPrincipalRepayment'].toLocaleString() + "원";
@@ -131,7 +131,7 @@
     } else {
       // 기타 용도
       loanPurpose.value='hasdata-statistics-details__main__loan-purpose-student';
-      console.log('Loan for other purposes');
+      // console.log('Loan for other purposes');
     }
   }
 </script>

@@ -115,7 +115,7 @@
       const response = await postSignIn(signinParam.value);
       store.saveNickName(String(response.response.nickName));
       store.setNavBarFlag('1_0');
-      console.log(store.navBarFlag);
+      // console.log(store.navBarFlag);
 
       router.push("/home");
     } catch (e) {

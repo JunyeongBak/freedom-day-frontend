@@ -102,7 +102,7 @@
    */
   onMounted(() => {
     navBarFlag.value = store.navBarFlag; //TODO: 추후에 완전히 pinia 제거하기
-    console.log('navBarFlag: ', navBarFlag.value);
+    // console.log('navBarFlag: ', navBarFlag.value);
     nav2_split.value = navBarFlag.value.split('_')[0]; // 대출, 통계, 설정 화면 NavBar
     
   });
@@ -118,7 +118,7 @@
       isExpanded.value = false;
       document.body.style.backgroundColor = '#F3F3F3';
       document.body.style.overflow = '';
-      console.log('navBarFlag: 2_1 입니다.');
+      // console.log('navBarFlag: 2_1 입니다.');
       return 'nav-bar-2_1';
     }
     else if (tabIndex.value === 1){
@@ -127,7 +127,7 @@
       isExpanded.value = true; // 통계 탭은 확장된 상태로 시작
       document.body.style.backgroundColor = '#FFF';
       document.body.style.overflow = '';
-      console.log('navBarFlag: 2_2 입니다.');
+      // console.log('navBarFlag: 2_2 입니다.');
       return 'nav-bar-2_2';
     }
     else if (tabIndex.value === 2){
@@ -136,12 +136,12 @@
       isExpanded.value = false;
       document.body.style.backgroundColor = '#F3F3F3';
       document.body.style.overflow = '';
-      console.log('navBarFlag: 2_3 입니다.');
+      // console.log('navBarFlag: 2_3 입니다.');
       return 'nav-bar-2_3';
     }
   });
 
-  console.log(navBarFlag.value);
+  // console.log(navBarFlag.value);
 
   // 탭을 설정하고 해당 인덱스를 스토어에 저장하는 함수
   function setTab(tabName, _tabIndex) {

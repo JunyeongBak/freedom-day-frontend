@@ -55,7 +55,7 @@
 
   // props를 가지고 '/loan-detail' 상세페이지 이동.
   function handleLoanCardClick(item){
-    console.log(item);
+    // console.log(item);
     store.setNavBarFlag('1_1');
     // Redirect to '/loan-detail' page with props data
     router.push({
@@ -80,7 +80,7 @@
         response.value.nickName = store.nickName;
       }
       getUserLoanInfo().then((res) => {
-        console.log('api 고고');
+        // console.log('api 고고');
         if (res.response.previousMonthPayment !== null) {
           response.value.previousMonthPayment = res.response.previousMonthPayment.toLocaleString();
         }
@@ -88,7 +88,7 @@
           response.value.loanCount = res.response.loanCount;
         }
         response.value.loanSimpleDtoList = res.response.loanSimpleDtoList;
-        console.log(res.response);
+        // console.log(res.response);
       });
     }catch(error){
       console.log('에러발생', error);

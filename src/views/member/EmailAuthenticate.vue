@@ -14,8 +14,8 @@
   const domain = ref('');
 
   onMounted(() => {
-    console.log(router.query.email);
-    console.log(router.query.domain);
+    // console.log(router.query.email);
+    // console.log(router.query.domain);
   });
 
   async function handleAuthenticateEmail() {
