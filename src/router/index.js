@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import NotFound from '@/views/NotFound.vue';
 // TypeScript에서는 라우트 객체의 배열을 명시적으로 타입화할 필요가 있습니다.
 const routes = [
   {
@@ -50,7 +51,8 @@ const routes = [
     path: "/loan/create",
     name: "loan-create",
     component: () => import("@/views/loan/LoanCreate.vue"),
-  }
+  },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
