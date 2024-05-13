@@ -35,8 +35,7 @@ instance.interceptors.response.use(
     const { code, message, response } = error.response.data;
 
     if (code === "COMMON-001"){
-      alert("오류코드: COMMON-001")
-      router.push("/");
+      router.push("/error");
     }
     // 토근 만료
     if (code.indexOf("JWT") === 0) {
