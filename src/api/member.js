@@ -9,7 +9,7 @@ async function postSignUp(param) {
 }
 
 async function postAuthenticateEmail(param) {
-  return axios.post("/member/send-email", param);
+  return axios.post("/member/send-mail", param);
 }
 
 export { postSignIn, postSignUp, postAuthenticateEmail };
