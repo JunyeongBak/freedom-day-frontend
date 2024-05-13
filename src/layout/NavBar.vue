@@ -10,7 +10,10 @@
     </div>
     <!-- 뒤로가기 있는 navbar -->
     <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1">
-      <p>{{ title }}</p>
+      <div class="nav-bar-1_1__container">
+        <img src="@/assets/ic_arrow_left.png">
+        <p>{{ title || $route.query.title }}</p>
+      </div>
     </div>
     <!-- 홈화면 탭 있는 navbar -->
     <div v-else class="home-hidden-container">
@@ -64,7 +67,7 @@
   import { useStore } from "@/store/index.ts";
   const router = useRouter();
   const store = useStore();
-  const title = ref('해방의 날');
+  const title = ref('');
   const navBarFlag = ref(''); 
   const nav2_split = ref(''); // 대출, 통계, 설정 화면 NavBar
   const currentTab = ref('loan'); // 초기화면 대출 탭
@@ -102,9 +105,9 @@
    */
   onMounted(() => {
     navBarFlag.value = store.navBarFlag; //TODO: 추후에 완전히 pinia 제거하기
+    console.log(navBarFlag.value);
     // console.log('navBarFlag: ', navBarFlag.value);
     nav2_split.value = navBarFlag.value.split('_')[0]; // 대출, 통계, 설정 화면 NavBar
-    
   });
   
   /**
@@ -257,6 +260,12 @@
     &-1_1{
         font-size: 20px;
         font-family: "NanumSquareNeo_extrabold";
+        // margin-top: 20px;
+        &__container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     &-2_1{
       display: flex;

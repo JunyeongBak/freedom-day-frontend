@@ -47,14 +47,14 @@
             <!-- 최대 10억, 1만원 당 1px -->
             <li v-for="month in monthlyRepaymentList" :id="month.id" class="loan-statistics-barchart__chart-li">
               <div>
-                <div class="loan-statistics-barchart__chart-total">{{ (month.repaymentAmount1 + month.repaymentAmount2 + month.repaymentAmount3) / 1000 }}</div>
+                <div class="loan-statistics-barchart__chart-total">{{ (month.repaymentAmount1 + month.repaymentAmount2 + month.repaymentAmount3) / 1000 || 0}}</div>
                 <div class="loan-statistics-barchart__chart-graph">
                   <div class="loan-statistics-barchart__chart-graph__midterm" :style="{'height':  (month.repaymentAmount3 / 1000) + 'px' }" ></div>
                   <div class="loan-statistics-barchart__chart-graph__interest" :style="{'height': (month.repaymentAmount2 / 1000) + 'px'}"></div>
                   <div class="loan-statistics-barchart__chart-graph__principal" :style="{'height': (month.repaymentAmount1 / 1000) + 'px'}"></div>
                 </div>
                 <!-- month.historyDate는 YYYY-MM 포맷인데, YY.MM으로 변경 -->
-                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate.slice(2).replace('-', '.') }}</div>
+                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate || isNullDate }}</div>
               </div>
             </li>
           </ul>
@@ -85,7 +85,6 @@
   import { useStore } from '@/store/index.ts';
   import { ref, onMounted, computed, watch, defineProps, watchEffect} from "vue";
   import { getLoanStatistics } from '@/api/loan.js';
-import { routeLocationKey } from 'vue-router';
 
   // #9F33C4 0% 5%,  /* 생활비 */
   // #FFCE58 5% 15%, /* 학자금 */
@@ -110,6 +109,7 @@ import { routeLocationKey } from 'vue-router';
   const adjustedPercentList = ref([]);
   const appendingList = ref([]); // listAppending Function 전용
   const resultPieChartList = ref([]); // getDeg Function 전용
+  const isNullDate = ref('');
   const colors = {
     '생활비': '#9F33C4',
     '학자금': '#FFCE58',
@@ -150,13 +150,24 @@ import { routeLocationKey } from 'vue-router';
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
         loanList.value = res.response.loanList;
         loanFinishList.value = res.response.repaidLoanList;
-        monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
+        console.log(res.response.repaymentHistoryMonthList);
+        for (let [index, item] of res.response.repaymentHistoryMonthList.entries()){
+          if( item.historyDate == null || item.historyDate == ''){
+            monthlyRepaymentList.value.push(0);
+          }else{
+            monthlyRepaymentList.value.push(res.response.repaymentHistoryMonthList.slice(2).replace('-', '.'));
+          }
+        }
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();
         remainingPrincipalList.value = res.response.remainingPrincipalList;
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // JavaScript의 getMonth()는 0부터 시작하므로 1을 더해줍니다.
         currentDate.value = `${year}년 ${month}월`;
+        const year2 = year.toString().substring(2, 4);
+        const month2 = formatMonth(date);
+        console.log(year2, month2);
+        isNullDate.value = `${year2}.${month2}`;
         // console.log('%c✨getLoanStatistics: ', 'color:#e34034;font-weight: bold;',res.response);
 
         // 상환완료 총액 계산
@@ -241,7 +252,11 @@ import { routeLocationKey } from 'vue-router';
     }
     return apdList;
   }
-
+  // Month format 두 자리 고정
+  function formatMonth(date) {
+    const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더함
+    return month < 10 ? '0' + month : month.toString(); // 두 자리 숫자로 만듦
+  }
 </script>
 
 <style lang="scss" scoped>

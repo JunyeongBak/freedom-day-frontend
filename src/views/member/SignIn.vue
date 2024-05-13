@@ -49,7 +49,7 @@
 
     <!-- START sign-up -->
     <div class="line-text">
-      <router-link to="/signup"> 아직 회원이 아니세요?</router-link>
+      <p @click="siginIn"> 아직 회원이 아니세요?</p>
     </div>
     <!-- END sign-up -->
 
@@ -131,6 +131,16 @@
     }
   }
 
+  function siginIn(){
+    store.setNavBarFlag('1_1');
+    router.push({
+      path: '/signup',
+      query: {
+      title: '회원가입'
+      }
+    });
+  }
+
 </script>
 
 <style lang="scss" scoped>
@@ -142,7 +152,7 @@
     height: 100vh;
     background-color: #ffffff;
     &__img-card{
-      margin-top: 80px;
+      margin-top: 20px;
       > img{
         width: 104px;
         height: 110px;
@@ -204,7 +214,7 @@
       color: #565D69;
       font-family: 'NanumSquareNeo_bold';
       border-bottom: 1px solid #565D69;
-      margin-top: 16px;
+      margin: 16px auto;
     }
   }
 </style>

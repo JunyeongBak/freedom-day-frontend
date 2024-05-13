@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <navbar />
+    <nav_bar />
   </div>
   <div class="sign-up">
     <div class="sign-up__card">
@@ -70,7 +70,8 @@
   import { ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index";
-  import navbar from "@/components/BarNavigationSignUp.vue";
+  import nav_bar from '@/layout/NavBar.vue';
+  // import navbar from "@/components/BarNavigationSignUp.vue";
 
   const store = useStore();
   const router = useRouter();
@@ -175,20 +176,14 @@
 </script>
 
 <style lang="scss" scoped>
-  body{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 400;
-    font-size: 18px;
-  }
+
   .sign-up{
     display:flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height: 800px;
+    height: 100%;
+    margin-top: 56px;
     background-color: #FFF;
 
 
@@ -204,7 +199,7 @@
       font-weight: 800;
 
       > img{
-        margin-top: 24px; 
+        // margin-top: 24px; 
         width: 104px;
         height: 110px;
       }
@@ -214,7 +209,7 @@
       }
     }
     &__form{
-      margin-top: 32px;
+      // margin-top: 32px;
       position: relative;
       display: flex;
       flex-direction: column;
