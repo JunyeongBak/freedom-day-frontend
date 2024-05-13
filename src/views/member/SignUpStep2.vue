@@ -1,5 +1,5 @@
 <template>
-  <navbar />
+  <nav_bar />
   <div class="sign-up-step2">
     <form method="POST" class="sign-up-step2__form" @submit.prevent="handleSubmit">
       <!-- Start nick name -->
@@ -77,7 +77,8 @@
   import { ref, computed, watch } from 'vue';
   import { useStore } from "@/store/index";
   import {useRouter} from "vue-router";
-  import navbar from "@/components/BarNavigationSignStep2.vue";
+  // import navbar from "@/components/BarNavigationSignStep2.vue";
+  import nav_bar from "@/layout/NavBar.vue";
   import { postSignUp } from "@/api/member.js";
   const store = useStore();
   const router = useRouter();
