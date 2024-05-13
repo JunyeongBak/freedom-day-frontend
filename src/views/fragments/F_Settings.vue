@@ -166,7 +166,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    // background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    background-color: #1D2532;
+    opacity: 0.8;
     z-index: 999; /* ensure the overlay is on top of other elements */
   }
 </style>
