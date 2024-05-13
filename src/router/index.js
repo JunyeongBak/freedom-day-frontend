@@ -7,7 +7,7 @@ const routes = [
     path: "/",
     name : "Login",
     meta:{
-      keepAlive: true,
+      keepAlive: false,
     },
     component: () => import("@/views/member/SignIn.vue"),
   },
@@ -16,7 +16,7 @@ const routes = [
     name: "HomePage",
     meta: {
       title: "해방의날",
-      keepAlive: true,
+      keepAlive: false,
     },
     component: () => import("@/views/home/HomePage.vue"),
   },
@@ -53,7 +53,11 @@ const routes = [
     name: "loan-create",
     component: () => import("@/views/loan/LoanCreate.vue"),
   },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  { 
+    path: '/:pathMatch(.*)*', 
+    name: 'NotFound', 
+    component: NotFound 
+  },
   {
     path: '/error',
     name: 'Error',
