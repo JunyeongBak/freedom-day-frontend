@@ -72,7 +72,7 @@
       <!-- angle은 1% * 3.6 -->
       <ul class="loan-statistics-piechart__legend" v-for="purpose in resultPieChartList">
         <li class="legend-item" :style="{ '--angle': purpose.deg  }" >
-          <p class="legend-label" :style="{transform: 'rotate(' + (-1 * purpose.deg) + ')' }">{{ purpose.purpose + purpose.percentage}}</p>
+          <p class="legend-label" :style="{transform: 'rotate(' + (-1 * purpose.deg.split('deg')[0]) + 'deg)' }">{{ purpose.purpose + purpose.percentage}}%</p>
         </li>
       </ul>
     </div>
@@ -240,26 +240,6 @@ import { routeLocationKey } from 'vue-router';
       apdList[index]['deg'] = deg;
     }
     return apdList;
-  }
-
-
-  //input: remainingPrincipalList
-  //output: degreeList e.g. [-81deg, -54deg, -27deg, 36deg, 180deg]
-  function pichart(remainingList){
-    console.log(remainingList);
-    // remainingList.remainingPrincipalList[i].remainingPrincipal를 합산한 값
-    let totalRemainingPrincipal = remainingList.reduce((total, loan) => total + loan.remainingPrincipal, 0);
-    console.log(totalRemainingPrincipal);
-    //totalRemainingPrincipal 값에서 5 미만은 5로 만들고 조정하는 알고리즘 추천해줘.
-    
-    const angleList = [];
-    for (let i = 0; i < remainingList.length; i++){
-      let per = remainingList[i].remainingPrincipal / totalRemainingPrincipal * 100
-      console.log('✨percent:',i, per);
-      let angle = ((per * 3.6) / 2 - 90) + 'deg';
-      angleList.push(angle);
-    }
-    console.log(angleList);
   }
 
 </script>
@@ -522,7 +502,7 @@ import { routeLocationKey } from 'vue-router';
       left: 50%;
       width: 50%;
       height: 20px;
-      transform: translate(-60%, 50%) rotate(var(--angle)) translateX(30%) ;
+      transform: translate(-50%, 50%) rotate(var(--angle)) translateX(64%) ;
       text-align: right;
       // transform-origin: 50% 50%;
     }
