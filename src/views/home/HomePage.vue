@@ -102,22 +102,22 @@ watch(tabIndex, (newValue) => {
 });
 
 // 컴포넌트가 마운트되었을 때 데이터를 불러오는 함수를 호출합니다.
-onMounted(async () => {
-  try {
-    const response = await getUserLoanInfo();
-    // console.log('****************', response.response.loanCount);
-    loanCount.value = response.response.loanCount;
-
-    if (hasData.value) {
-      store.navBarFlag = "2_1";
-    }else{
-      store.navBarFlag = "1_0";
+  onMounted(async () => {
+    try{
+      if(store.nickName === ''){
+        router.push('/');
+      }
+      const response = await getUserLoanInfo();
+      loanCount.value = response.response.loanCount;
+      if(hasData.value){
+        store.navBarFlag = '2_1';
+      }else{
+        store.navBarFlag = '1_0';
+      }
+    }catch(e){
+      console.log(e);
     }
-    } catch (error) {
-
-      console.log(error);
-    }
-});
+  });
   function insertLoan(){
     router.push('/loan/create');
   } 

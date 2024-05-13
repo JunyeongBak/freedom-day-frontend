@@ -33,6 +33,7 @@
 
   const router = useRouter();
   const response = ref([]);
+  const store = useStore();
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
@@ -47,7 +48,14 @@
     // 로그아웃 로직을 여기에 작성하세요.
     // 예를 들어, 로그아웃 API를 호출하거나 로컬 스토리지의 토큰을 제거하는 등의 작업을 수행할 수 있습니다.
     // 로그아웃이 완료되면 팝업을 닫습니다.
-    response.value =  postLogout();
+    try{
+      store.$reset();
+      localStorage.removeItem('pinia');
+      localStorage.removeItem('token');
+      response.value =  postLogout();
+    }catch(e){
+      console.log(e);
+    }
     showLogoutPopup.value = false;
     // console.log(response.value);
     router.push("/");
