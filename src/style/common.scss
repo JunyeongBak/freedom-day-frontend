@@ -85,6 +85,14 @@ $gray-common: #898F9A;
   padding-right: 30px; /* 화살표 아이콘의 너비 + 여백 */
 }
 
+// 대출추가 탭 전용
+.input_dropdown {
+  width: 100%;
+  appearance: none;
+  background: url('@/assets/ic_arrow_down.svg') no-repeat right 10px center;
+  padding-right: 30px; /* 화살표 아이콘의 너비 + 여백 */
+}
+
 option:enabled{
   color: $grey100;
 }

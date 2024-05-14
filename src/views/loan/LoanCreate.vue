@@ -6,14 +6,14 @@
     <label for="loan-create__name" class="input_label">대출 이름</label>
     <input id="loan-create__name" class="loan-create__name" type="text" placeholder="대출 이름을 입력하세요." />
     <label for="loan-create__type" class="input_label">목적</label>
-    <select id="loan-create__type" class="loan-create__type">
+    <select id="loan-create__type" class="input_dropdown">
       <option value="" disabled selected hidden>대출 목적을 선택해주세요.</option>
       <option value="personal">개인 대출</option>
       <option value="business">사업 대출</option>
       <option value="mortgage">주택 대출</option>
     </select>
     <label for="loan-create__institution" class="input_label">기관</label>
-    <select id="loan-create__institution" class="loan-create__institution">
+    <select id="loan-create__institution" class="input_dropdown">
       <option value="" disabled selected hidden>대출 기관을 선택해주세요.</option>
       <option value="bank">은행</option>
       <option value="credit_union">신용조합</option>
@@ -106,12 +106,12 @@
     &__name{
       width: 100%;
     }
-    &__type{
-      width: 100%;
-    }
-    &__institution{
-      width: 100%;
-    }
+    // &__type{
+    //   width: 100%;
+    // }
+    // &__institution{
+    //   width: 100%;
+    // }
     &__principal{
       width: 100%;
     }
