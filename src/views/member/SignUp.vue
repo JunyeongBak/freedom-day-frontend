@@ -40,7 +40,19 @@
           </select>
           <div 
             class="sign-up-body__email-contents__authentication"
-            @click="authentication">인증</div>
+            @click="toggleAuthenticate">
+            인증
+          </div>
+          <div v-if="showAuthPopup" class="overlay"></div>
+          <div v-if="showAuthPopup" class="sign-up-auth-popup">
+            <p>{{ email + '@' +selectedOption }}</p>
+            <p>[인증 링크 발송 안내]</p>
+            <p class="sign-up-auth-popup__label">입력하신 이메일 주소가 맞습니까?</p>
+            <div class="sign-up-auth-popup__container">
+              <button @click="logout" class="sign-up-auth-popup__yes">네</button>
+              <button @click="toggleAuthenticate" class="sign-up-auth-popup__no">아니오</button>
+            </div>
+          </div>
         </div>
         <!-- END Email -->
 
@@ -116,6 +128,16 @@
   const isChecked = ref(false); //서비스 동의 체크박스
   const selectedOption = ref('');
 
+  const showAuthPopup = ref(false);//이메일 인증 팝업창 전용
+  const toggleAuthenticate = () => {
+    if (email.value != '' && selectedOption.value != '' && selectedOption.value != null && selectedOption.value != '선택'){
+      showAuthPopup.value = !showAuthPopup.value;
+    }
+    else{
+      alert('이메일을 입력해주세요.');
+    }
+  };
+
   watch(selectedOption, (newValue, oldValue) => {
     // selectedOption이 변경될 때 실행할 코드를 여기에 작성합니다.
     console.log(`selectedOption이 ${oldValue}에서 ${newValue}로 변경되었습니다.`);
@@ -130,6 +152,7 @@
   const passwordConfirm = ref('');
   const passwordError = ref('');
 
+  // BETA_1.2.1 이후 안씀.
   function authentication(){
     // router.push(`/email/authenticate?email=${email.value}&domain=${selectedOption.value}`);
     router.push({
@@ -283,12 +306,12 @@
         &__authentication{
           width: 40px;
           height: 40px;
-          background: #BDC0C6;
+          background: $blue10;
           border-radius: 8px;
           text-align: center;
           line-height: 40px;
           font-size: 12px;
-          color: $grey60;
+          color: $grey00;
           font-family: 'NanumSquareNeo_extrabold';
         }
       }
@@ -322,8 +345,55 @@
         position: relative;
         display: flex;
         align-items: center;
+        > p{
+          margin-left: 8px;
+        }
       }
 
+    }
+    &-auth-popup{
+      width: 328px;
+      height: 160px;
+      position: absolute;
+      top: calc(50% - 80px);
+      left: calc(50% - 164px);
+      z-index: 1000;
+      box-sizing: border-box;
+      background-color: #FFFFFF;
+      border: 1px solid #E4E4E4;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &__label{
+        font-size: 16px;
+        font-family: 'NanumSquareNeo_extrabold';
+        color: #1D2532;
+        margin-bottom: 24px;
+      }
+
+      &__container{
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+      }
+      &__yes{
+        width: 144px;
+        height: 48px;
+        background-color: #EAF0FE;
+        border-radius: 8px;
+        color: #367BF9;
+      } 
+      &__no{
+        width: 144px;
+        height: 48px;
+        background-color: #2B66F5;
+        border-radius: 8px;
+        color: #FFF;
+      }
     }
   }
 </style>

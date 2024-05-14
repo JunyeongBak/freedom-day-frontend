@@ -5,6 +5,8 @@ $grey40: #BDC0C6;
 $grey60: #898F9A;
 $grey100: #1D2532;
 
+$blue10: #2B66F5;
+
 $main-font: #1D2532;
 $gray-common: #898F9A;
 
@@ -89,4 +91,16 @@ option:enabled{
 
 input::placeholder{
   color: $grey40;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  background-color: #1D2532;
+  opacity: 0.8;
+  z-index: 999; /* ensure the overlay is on top of other elements */
 }
