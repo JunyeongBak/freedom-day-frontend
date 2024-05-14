@@ -52,9 +52,10 @@ $gray-common: #898F9A;
 }
 // 이미지 사용하는 체크박스 전용
 #check_box{
+  position:relative;
   width: 24px;
   height: 24px;
-  z-index: 1;
+  z-index: 999;
 }
 #check_box_img{
   position: absolute;
@@ -70,9 +71,9 @@ $gray-common: #898F9A;
   height: 48px;
   background: #2B66F5;
   border-radius: 8px;
-  margin-top: 32px;
   font-size: 16px;
   font-family: 'NanumSquareNeo_extrabold';
+  margin-top: 24px;
   color: #FFF;
 }
 

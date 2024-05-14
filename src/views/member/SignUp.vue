@@ -10,7 +10,7 @@
         </div>
         <p class="sign-up-body__welcome-words">해방의 날에 오신 걸 환영해요!</p>
       </div>
-      <form method="POST" @submit.prevent="handleSubmit">
+      <form method="POST" @submit.prevent="handleSubmit" style="padding:0 16px 0;">
         <!-- START Email -->
         <div class="sign-up-body__email-label">
           <img src="@/assets/ic_star.svg" alt="필수" />
@@ -18,7 +18,12 @@
           <van-icon name="success" class="sign-up-body__email-label__check"/>
         </div>
         <div class="sign-up-body__email-contents">
-          <input type="text" v-model="email" @blur="validateAndAlert" @input="validateAndAlert" placeholder="이메일" />
+          <input
+            type="text" 
+            v-model="email" 
+            @blur="validateAndAlert" 
+            @input="validateAndAlert" 
+            placeholder="이메일" />
           <span>@</span>
           <select 
             class="select-style" 
@@ -64,10 +69,30 @@
             type="password" 
             @blur="" 
             @input="" 
-            placeholder="영문+숫자+특수문자 포함 8~20자리" />
+            placeholder="다시 한번 입력해주세요" />
         </div>
         <!-- END Password RE -->
+        
+        <!-- START Service Consent -->
+        <div class="sign-up-body__service">
+          <input type="checkbox" id="check_box" v-model="isChecked" :style="{ opacity: isChecked ? 1 : 0 }">
+          <img v-if="!isChecked" id="check_box_img" class="" src="@/assets/ic_check.png" >
+          <p>
+            <a :href="termsOfUse" target="_blank">서비스 이용약관</a> 및 <a :href="personalInfo" target="_blank">개인정보처리방침</a>에 동의합니다.
+          </p>
+        </div>
+        <!-- END Service Consent -->
 
+        <!-- START Next -->
+        <button 
+          type="submit" 
+          class="blue_button" 
+          :disabled="nextButton" 
+          @click="saveData" 
+          >
+          다음
+        </button>
+        <!-- END Next -->
       </form>
     </div>
   </div>
@@ -80,11 +105,13 @@
   import { useStore } from "@/store/index";
   import nav_bar from '@/layout/NavBar.vue';
 
-
+  const termsOfUse ="https://www.notion.so/746c26fbef964cb4918d9412f64c3d2b"
+  const personalInfo = "https://www.notion.so/345ba3156844450b802cdcb6ea8f5160"
   const store = useStore();
   const router = useRouter();
 
   const isOpen = ref(false);
+  const isChecked = ref(false); //서비스 동의 체크박스
   const selectedOption = ref('');
 
   watch(selectedOption, (newValue, oldValue) => {
@@ -226,7 +253,7 @@
       &__email-label{
         display: flex;
         position: relative;
-        margin: 8px 16px 4px;
+        margin: 8px 0px 4px;
         font-size: 18px;
         color: $grey100;
         font-family: 'NanumSquareNeo_bold';
@@ -241,7 +268,7 @@
         }
       }
       &__email-contents{
-        margin: 4px 16px 12px;
+        margin: 4px 0px 12px;
         display: flex;
         align-items: center;
         justify-content:space-evenly;
@@ -266,7 +293,7 @@
       &__passwd-label{
         display: flex;
         position: relative;
-        margin: 20px 16px 4px;
+        margin: 20px 0px 4px;
         font-size: 18px;
         color: $grey100;
         font-family: 'NanumSquareNeo_bold';
@@ -281,7 +308,7 @@
         }
       }
       &__passwd-contents{
-        margin: 4px 16px 12px;
+        margin: 4px 0px 12px;
         display: flex;
         align-items: center;
         justify-content:space-evenly;
@@ -289,6 +316,12 @@
           width: 100%;
         }
       }
+      &__service{
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
     }
   }
 </style>

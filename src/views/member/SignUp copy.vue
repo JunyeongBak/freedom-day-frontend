@@ -51,8 +51,13 @@
         </div>
       </h2>
       <div>
-        <input type="password" class="sign-up__form-password-txt-confirm" placeholder="다시 한번 입력해주세요"
-        v-model="passwordConfirm" @input="validatePasswordConfirm"></input>
+        <input
+          type="password"
+          class="sign-up__form-password-txt-confirm" 
+          placeholder="다시 한번 입력해주세요"
+          v-model="passwordConfirm"
+          @input="validatePasswordConfirm">
+        </input>
       </div>
       <div class="sign-up__form-privacy" id="sign-up__form-privacy">
         <input v-model="isServiceCheck" @input="validateService" type="checkbox" class="sign-up__form-privacy-checkbox"></input>
