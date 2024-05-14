@@ -162,7 +162,8 @@
           if( item.historyDate == null || item.historyDate == ''){
             monthlyRepaymentList.value.push(0);
           }else{
-            monthlyRepaymentList.value.push(res.response.repaymentHistoryMonthList.slice(2).replace('-', '.'));
+            console.log(monthlyRepaymentList.value);
+            monthlyRepaymentList.value.push(res.response.repaymentHistoryMonthList);
           }
         }
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();

@@ -38,7 +38,9 @@
             <option value="hanmail.net">hanmail.net</option>
             <option value="kakao.com">kakao.com</option>
           </select>
-          <div class="sign-up-body__email-contents__authentication">인증</div>
+          <div 
+            class="sign-up-body__email-contents__authentication"
+            @click="authentication">인증</div>
         </div>
         <!-- END Email -->
 
@@ -271,7 +273,7 @@
         margin: 4px 0px 12px;
         display: flex;
         align-items: center;
-        justify-content:space-evenly;
+        justify-content:space-between;
         >input{
           width: 136px;
         }
