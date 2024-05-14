@@ -95,16 +95,16 @@
     display: flex;
     flex-direction: column;
     align-items: left;
+
     // margin-top: 56px;
     width: 100vw;
-    height: 100%;
+    height: 1200px;
     background-color: #FFF;
     box-sizing: border-box;
     padding: 0 16px; 
 
     &__name{
       width: 100%;
-      height: 40px;
     }
     &__type{
       width: 100%;
