@@ -12,10 +12,19 @@
       <!-- START sign-in__email -->
       <p class="input_label">이메일</p>
       <div class="sign-in-form__email">
-        <input v-model="template.email" type="text" class="sign-in-form__email__front" placeholder="이메일">
+        <input 
+          v-model="template.email" 
+          type="text" 
+          class="sign-in-form__email__front" 
+          placeholder="이메일"
+          >
         <p>@</p>
-        <select v-model="selectedOption ">
-          <option value="선택" disabled selected hidden>선택</option>
+        <select
+          class="select-style"
+          :style="{color: selectedOption =='' ? '#BDC0C6' : '#1D2532'}"  
+          v-model="selectedOption"
+          >
+          <option value="" disabled selected hidden>선택</option>
           <option value="gmail.com">gmail.com</option>
           <option value="naver.com">naver.com</option>
           <option value="nate.com">nate.com</option>
@@ -89,7 +98,7 @@
    * 로그인
    */
   const isChecked = ref(false);
-  const selectedOption  = ref('선택');
+  const selectedOption  = ref('');
 
   const template = ref({
     email: "",
@@ -104,6 +113,16 @@
   async function handleClickSignIn() {
     if (selectedOption.value == undefined || selectedOption.value == "선택" || selectedOption.value == '') {
       const message_temp = '이메일 양식을 확인하세요. 도메인 선택!';
+      alert(message_temp);
+      throw new Error(message_temp);
+    }
+    if (template.value.email == null || template.value.email == '') {
+      const message_temp = '이메일 양식을 확인하세요. 이메일 입력!';
+      alert(message_temp);
+      throw new Error(message_temp);
+    }
+    if (template.value.password == null || template.value.password == '') {
+      const message_temp = '비밀번호를 입력하세요!';
       alert(message_temp);
       throw new Error(message_temp);
     }
@@ -183,6 +202,7 @@
           margin-left: 8px;
           margin-right: 8px;
         }
+
       }
       &__password{
         margin-top: 24px;

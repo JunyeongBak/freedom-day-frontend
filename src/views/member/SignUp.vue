@@ -11,6 +11,7 @@
         <p class="sign-up-body__welcome-words">해방의 날에 오신 걸 환영해요!</p>
       </div>
       <form method="POST" @submit.prevent="handleSubmit">
+        <!-- START Email -->
         <div class="sign-up-body__email-label">
           <img src="@/assets/ic_star.svg" alt="필수" />
           <p>이메일</p>
@@ -19,8 +20,11 @@
         <div class="sign-up-body__email-contents">
           <input type="text" v-model="email" @blur="validateAndAlert" @input="validateAndAlert" placeholder="이메일" />
           <span>@</span>
-          <!-- disabled 인 경우에만 ##BDC0C6 color -->
-          <select class="select-style" :style="{color: selectedOption =='' ? '#BDC0C6' : '#1D2532'}" v-model="selectedOption">
+          <select 
+            class="select-style" 
+            :style="{color: selectedOption =='' ? '#BDC0C6' : '#1D2532'}" 
+            v-model="selectedOption"
+            >
             <option value="" disabled selected hidden >선택</option>
             <option value="gmail.com" >gmail.com</option>
             <option value="naver.com">naver.com</option>
@@ -31,6 +35,38 @@
           </select>
           <div class="sign-up-body__email-contents__authentication">인증</div>
         </div>
+        <!-- END Email -->
+
+        <!-- START Password -->
+        <div class="sign-up-body__passwd-label">
+          <img src="@/assets/ic_star.svg" alt="필수" />
+          <p>비밀번호</p>
+          <van-icon name="success" class="sign-up-body__email-label__check"/>
+        </div>
+        <div class="sign-up-body__passwd-contents">
+          <input 
+            type="password" 
+            v-model="password" 
+            @blur="validatePassword" 
+            @input="validatePassword" 
+            placeholder="영문+숫자+특수문자 포함 8~20자리" />
+        </div>
+        <!-- END Password -->
+
+        <!-- START Password RE -->
+        <div class="sign-up-body__passwd-label">
+          <img src="@/assets/ic_star.svg" alt="필수" />
+          <p>비밀번호 확인</p>
+          <van-icon name="success" class="sign-up-body__email-label__check"/>
+        </div>
+        <div class="sign-up-body__passwd-contents">
+          <input 
+            type="password" 
+            @blur="" 
+            @input="" 
+            placeholder="영문+숫자+특수문자 포함 8~20자리" />
+        </div>
+        <!-- END Password RE -->
 
       </form>
     </div>
@@ -190,7 +226,7 @@
       &__email-label{
         display: flex;
         position: relative;
-        margin: 0 16px 4px;
+        margin: 8px 16px 4px;
         font-size: 18px;
         color: $grey100;
         font-family: 'NanumSquareNeo_bold';
@@ -212,9 +248,6 @@
         >input{
           width: 136px;
         }
-        >input::placeholder{
-          color: $grey40;
-        }
         >select{
           width: 136px;
         }
@@ -230,9 +263,32 @@
           font-family: 'NanumSquareNeo_extrabold';
         }
       }
+      &__passwd-label{
+        display: flex;
+        position: relative;
+        margin: 20px 16px 4px;
+        font-size: 18px;
+        color: $grey100;
+        font-family: 'NanumSquareNeo_bold';
+        >p{
+          margin-left: 2px;
+        }
+        &__check{
+          position: absolute;
+          right: 16px;
+          top: calc(50% - 8px);
+          color: $grey20;
+        }
+      }
+      &__passwd-contents{
+        margin: 4px 16px 12px;
+        display: flex;
+        align-items: center;
+        justify-content:space-evenly;
+        >input{
+          width: 100%;
+        }
+      }
     }
-  }
-  option:enabled{
-    color: $grey100;
   }
 </style>
