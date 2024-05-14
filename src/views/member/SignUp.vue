@@ -142,6 +142,7 @@
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index";
   import nav_bar from '@/layout/NavBar.vue';
+  import { postAuthenticateEmail } from '@/api/member.js';
 
   const termsOfUse ="https://www.notion.so/746c26fbef964cb4918d9412f64c3d2b"
   const personalInfo = "https://www.notion.so/345ba3156844450b802cdcb6ea8f5160"
@@ -159,7 +160,7 @@
       showAuthPopup.value = !showAuthPopup.value;
     }
     else if(isEmailCheck.value){
-      alert('재전송을 원하신다면, 뒤로가기 후 다시 시도해주세요.');
+      alert('이미 이메일이 발송되었습니다.');
     }
     else{
       alert('이메일을 입력해주세요.');
@@ -181,6 +182,7 @@
   const passwordConfirm = ref('');
   const passwordError = ref('');
   const isEmailRegex = ref(false);
+  
 
   // BETA_1.2.1 이후 안씀.
   function authentication(){
@@ -280,6 +282,18 @@
   function emailAuthenticate(){
     isEmailCheck.value = true;
     showAuthPopup.value = !showAuthPopup.value;
+    handleAuthenticateEmail();
+  }
+
+  async function handleAuthenticateEmail() {
+    try {
+      // email.value = router.query.email;
+      // domain.value = router.query.domain;
+      const response = await postAuthenticateEmail(email.value.trim() + '@' + selectedOption.value.trim());
+      console.log('%c✨postAuthenticateEmail: ', 'color:#e34034;font-weight: bold;', response);
+    } catch (error) {
+      console.error(error);
+    }
   }
 </script>
 

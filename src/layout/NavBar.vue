@@ -6,13 +6,13 @@
     <!-- {{ navBarHeight }} -->
     <!-- 뒤로가기 없는 navbar -->
     <div v-if="navBarFlag == '1_0'" class="nav-bar-1_0">
-      <p>{{ title || $route.query.title }}</p>
+      <p>{{ title || $route.name }}</p>
     </div>
     <!-- 뒤로가기 있는 navbar -->
     <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1" @click="goBack">
       <div class="nav-bar-1_1__container">
         <img src="@/assets/ic_arrow_left.png">
-        <p>{{ title || $route.query.title }}</p>
+        <p>{{ title || $route.name }}</p>
       </div>
     </div>
     <!-- 홈화면 탭 있는 navbar -->
@@ -189,6 +189,7 @@
   };
 
   function goBack() {
+    store.navBarFlag = '1_0';
     router.go(-1);
   }
 

@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: "/home/",
-    name: "HomePage",
+    name: "해방의 날",
     meta: {
       title: "해방의날",
       keepAlive: false,
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: "/signup",
-    name: "signup",
+    name: "회원가입",
     meta:{
       keepAlive: true,
     },
@@ -53,7 +53,7 @@ const routes = [
   },
   {
     path: "/loan/create",
-    name: "loan-create",
+    name: "대출추가",
     component: () => import("@/views/loan/LoanCreate.vue"),
   },
   { 

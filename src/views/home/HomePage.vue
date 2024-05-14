@@ -31,10 +31,13 @@
       <div class="empty-container-call-to-action__label">
         <img src="/src/assets/call_to_action_label.png" alt="라벨" @click = "" />
       </div>
-      <button @click="insertLoan" class="empty-container-call-to-action__button">
-        <img src="/src/assets/ic_call_to_action.png" alt="대출추가" />
-      </button>
     </div>
+    <button 
+      @click="insertLoan" 
+      class="empty-container-call-to-action__button"
+      >
+      <img src="/src/assets/ic_call_to_action.png" alt="대출추가" />
+    </button>
     
   </div>
   <!-- <button type="button" v-on:click="clickTest()">test</button> -->
@@ -119,6 +122,7 @@ watch(tabIndex, (newValue) => {
     }
   });
   function insertLoan(){
+    store.navBarFlag = '1_1';
     router.push('/loan/create');
   } 
 </script>
@@ -176,7 +180,7 @@ watch(tabIndex, (newValue) => {
   // margin-top: 100px;
   &-view{
     width: 100vw;
-    height: 100%;
+    height: 100vh;
   }
 }
 </style>
