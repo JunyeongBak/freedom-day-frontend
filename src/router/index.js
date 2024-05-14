@@ -23,6 +23,9 @@ const routes = [
   {
     path: "/signup",
     name: "signup",
+    meta:{
+      keepAlive: true,
+    },
     component: () => import("@/views/member/SignUp.vue"),
   },
   {

@@ -22,11 +22,12 @@
             />
         </div>
         <div class="sign-up-body__email-contents">
+          <p style="position:absolute;top:46px;left:0px; color:red">{{ emailLocalError }}</p>
           <input
             type="text" 
             v-model="email" 
-            @blur="validateAndAlert" 
             @input="validateAndAlert"
+            @blur="validateAndAlert" 
             :disabled="isEmailCheck" 
             placeholder="이메일" />
           <span>@</span>
@@ -150,10 +151,11 @@
   const isOpen = ref(false);
   const isChecked = ref(false); //서비스 동의 체크박스
   const selectedOption = ref('');
+  const emailLocalError = ref('');
 
   const showAuthPopup = ref(false);//이메일 인증 팝업창 전용
   const toggleAuthenticate = () => {
-    if (email.value != '' && selectedOption.value != '' && selectedOption.value != null && selectedOption.value != '선택' && !isEmailCheck.value){
+    if (email.value != '' && selectedOption.value != '' && selectedOption.value != null && selectedOption.value != '선택' && !isEmailCheck.value && isEmailRegex.value){
       showAuthPopup.value = !showAuthPopup.value;
     }
     else if(isEmailCheck.value){
@@ -178,6 +180,7 @@
   const passwordRe = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
+  const isEmailRegex = ref(false);
 
   // BETA_1.2.1 이후 안씀.
   function authentication(){
@@ -207,10 +210,14 @@
     validateAndAlert();
   }
 
+  /**
+   * @param {string} localPart 이메일의 로컬파트규칙을 검사합니다.
+   */
+  function emailValidation(localPart){
+    console.log(localPart);
+    const regex = /^(?!.*\.\.)(?!^\.)[A-Za-z0-9.]+(?:\([^()]*\)[A-Za-z0-9.]*)*$/;
 
-  function emailValidation(input){
-    const regex = /^[a-zA-Z0-9]+$/;
-    return regex.test(input);
+    return regex.test(localPart);
   }
 
   // BETA_1.3.0에서 수정 예정. 기능작동은 문제없으나 코드가 지저분함.
@@ -246,21 +253,20 @@
       isServiceCheck.value = true;
     }
   }
+
+
+  /**
+   * @param {function} emailValidation function
+   */
   function validateAndAlert() {
     if (!emailValidation(email.value)) {
-      email.value = '';
+      emailLocalError.value = '이메일 로컬 규칙을 확인하세요.';
       isEmailCheck.value = false;
-      // alert('영문, 숫자 입력하세요'); // 정기미팅 지적 사항
+      isEmailRegex.value = false;
+    }else{
+      emailLocalError.value ='';
+      isEmailRegex.value = true;
     }
-    
-    if(email.value!='' && selectedOption.value != '선택' && selectedOption.value != '' && selectedOption.value != null) {
-      isEmailCheck.value = true;
-      // alert('[개발용] 이메일이 인증되었습니다.')
-    }
-    else{
-      isEmailCheck.value = false;
-    }
-  
   }
   function saveData(){
     store.saveStep1Data(email.value, selectedOption.value, password.value);
@@ -334,6 +340,7 @@
         display: flex;
         align-items: center;
         justify-content:space-between;
+        position: relative;
         >input{
           width: 136px;
         }
