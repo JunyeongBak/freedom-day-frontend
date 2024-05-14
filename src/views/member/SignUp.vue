@@ -15,20 +15,25 @@
         <div class="sign-up-body__email-label">
           <img src="@/assets/ic_star.svg" alt="필수" />
           <p>이메일</p>
-          <van-icon name="success" class="sign-up-body__email-label__check"/>
+          <van-icon 
+            name="success" 
+            class="sign-up-body__email-label__check"
+            :style="{color: isEmailCheck ? '#2B66F5' : '#DBDDE2'}"/>
         </div>
         <div class="sign-up-body__email-contents">
           <input
             type="text" 
             v-model="email" 
             @blur="validateAndAlert" 
-            @input="validateAndAlert" 
+            @input="validateAndAlert"
+            :disabled="isEmailCheck" 
             placeholder="이메일" />
           <span>@</span>
           <select 
             class="select-style" 
             :style="{color: selectedOption =='' ? '#BDC0C6' : '#1D2532'}" 
             v-model="selectedOption"
+            :disabled="isEmailCheck"
             >
             <option value="" disabled selected hidden >선택</option>
             <option value="gmail.com" >gmail.com</option>
@@ -40,7 +45,9 @@
           </select>
           <div 
             class="sign-up-body__email-contents__authentication"
-            @click="toggleAuthenticate">
+            @click="toggleAuthenticate"
+            :style="{background: isEmailCheck ? '#BDC0C6' : 'linear-gradient(315deg, #2B66F5 15.76%, #4BA6FE 84.24%)'}"
+            >
             인증
           </div>
           <div v-if="showAuthPopup" class="overlay"></div>
@@ -49,7 +56,7 @@
             <p>[인증 링크 발송 안내]</p>
             <p class="sign-up-auth-popup__label">입력하신 이메일 주소가 맞습니까?</p>
             <div class="sign-up-auth-popup__container">
-              <button @click="logout" class="sign-up-auth-popup__yes">네</button>
+              <button @click="emailAuthenticate" class="sign-up-auth-popup__yes">네</button>
               <button @click="toggleAuthenticate" class="sign-up-auth-popup__no">아니오</button>
             </div>
           </div>
@@ -101,7 +108,8 @@
         <button 
           type="submit" 
           class="blue_button" 
-          :disabled="nextButton" 
+          :disabled="nextButton"
+          :style="{background: nextButton ? '#BDC0C6' : 'green'}" 
           @click="saveData" 
           >
           다음
@@ -130,8 +138,11 @@
 
   const showAuthPopup = ref(false);//이메일 인증 팝업창 전용
   const toggleAuthenticate = () => {
-    if (email.value != '' && selectedOption.value != '' && selectedOption.value != null && selectedOption.value != '선택'){
+    if (email.value != '' && selectedOption.value != '' && selectedOption.value != null && selectedOption.value != '선택' && !isEmailCheck.value){
       showAuthPopup.value = !showAuthPopup.value;
+    }
+    else if(isEmailCheck.value){
+      alert('이미 인증된 이메일입니다.');
     }
     else{
       alert('이메일을 입력해주세요.');
@@ -238,6 +249,10 @@
     store.saveStep1Data(email.value, selectedOption.value, password.value);
     router.push('/step2');
   }
+  function emailAuthenticate(){
+    isEmailCheck.value = true;
+    showAuthPopup.value = !showAuthPopup.value;
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -306,7 +321,6 @@
         &__authentication{
           width: 40px;
           height: 40px;
-          background: $blue10;
           border-radius: 8px;
           text-align: center;
           line-height: 40px;
