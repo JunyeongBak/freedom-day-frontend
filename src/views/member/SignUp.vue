@@ -18,7 +18,8 @@
           <van-icon 
             name="success" 
             class="sign-up-body__email-label__check"
-            :style="{color: isEmailCheck ? '#2B66F5' : '#DBDDE2'}"/>
+            :style="{color: isEmailCheck ? '#2B66F5' : '#DBDDE2'}"
+            />
         </div>
         <div class="sign-up-body__email-contents">
           <input
@@ -67,7 +68,11 @@
         <div class="sign-up-body__passwd-label">
           <img src="@/assets/ic_star.svg" alt="필수" />
           <p>비밀번호</p>
-          <van-icon name="success" class="sign-up-body__email-label__check"/>
+          <van-icon 
+            name="success" 
+            class="sign-up-body__email-label__check"
+            :style="{color: isPasswordCheck ? '#2B66F5' : '#DBDDE2'}"
+            />
         </div>
         <div class="sign-up-body__passwd-contents">
           <input 
@@ -83,21 +88,31 @@
         <div class="sign-up-body__passwd-label">
           <img src="@/assets/ic_star.svg" alt="필수" />
           <p>비밀번호 확인</p>
-          <van-icon name="success" class="sign-up-body__email-label__check"/>
+          <van-icon 
+            name="success" 
+            class="sign-up-body__email-label__check"
+            :style="{color: ispasswordCheckAgain ? '#2B66F5' : '#DBDDE2'}"
+            />
         </div>
         <div class="sign-up-body__passwd-contents">
           <input 
             type="password" 
-            @blur="" 
-            @input="" 
+            v-model="passwordRe"
+            @blur="validatePasswordConfirm" 
+            @input="validatePasswordConfirm" 
             placeholder="다시 한번 입력해주세요" />
         </div>
         <!-- END Password RE -->
         
         <!-- START Service Consent -->
         <div class="sign-up-body__service">
-          <input type="checkbox" id="check_box" v-model="isChecked" :style="{ opacity: isChecked ? 1 : 0 }">
-          <img v-if="!isChecked" id="check_box_img" class="" src="@/assets/ic_check.png" >
+          <input
+            type="checkbox" 
+            id="check_box"
+            v-model="isServiceCheck"
+            :style="{ opacity: isServiceCheck ? 1 : 0 }"
+            >
+          <img v-if="!isServiceCheck" id="check_box_img" class="" src="@/assets/ic_check.png" >
           <p>
             <a :href="termsOfUse" target="_blank">서비스 이용약관</a> 및 <a :href="personalInfo" target="_blank">개인정보처리방침</a>에 동의합니다.
           </p>
@@ -109,7 +124,7 @@
           type="submit" 
           class="blue_button" 
           :disabled="nextButton"
-          :style="{background: nextButton ? '#BDC0C6' : 'green'}" 
+          :style="{background: nextButton ? '#BDC0C6' : '#2B66F5'}" 
           @click="saveData" 
           >
           다음
@@ -142,7 +157,7 @@
       showAuthPopup.value = !showAuthPopup.value;
     }
     else if(isEmailCheck.value){
-      alert('이미 인증된 이메일입니다.');
+      alert('재전송을 원하신다면, 뒤로가기 후 다시 시도해주세요.');
     }
     else{
       alert('이메일을 입력해주세요.');
@@ -160,6 +175,7 @@
   const ispasswordCheckAgain = ref(false);
   const isServiceCheck = ref(false);
   const password = ref('');
+  const passwordRe = ref('');
   const passwordConfirm = ref('');
   const passwordError = ref('');
 
@@ -197,6 +213,7 @@
     return regex.test(input);
   }
 
+  // BETA_1.3.0에서 수정 예정. 기능작동은 문제없으나 코드가 지저분함.
   function validatePassword() {
     if (passwordConfirm.value != ''){
       passwordConfirm.value = '';
@@ -210,16 +227,16 @@
       passwordError.value = '';
       isPasswordCheck.value = true;
     }
+    validatePasswordConfirm();
   }
-
+  // BETA_1.2.1 수정
   function validatePasswordConfirm() {
-    if (password.value !== passwordConfirm.value) {
-      passwordError.value = 'Passwords do not match.';
-      ispasswordCheckAgain.value = false;
-    } else {
-      passwordError.value = '';
+    if(isPasswordCheck.value && password.value == passwordRe.value){
       ispasswordCheckAgain.value = true;
+    }else{
+      ispasswordCheckAgain.value = false;
     }
+
   }
   function validateService(){
     if (isServiceCheck.value){
@@ -247,7 +264,12 @@
   }
   function saveData(){
     store.saveStep1Data(email.value, selectedOption.value, password.value);
-    router.push('/step2');
+    router.push({
+      path: '/step2',
+      query: {
+        title: '사용자 정보 입력',
+      }
+    });
   }
   function emailAuthenticate(){
     isEmailCheck.value = true;

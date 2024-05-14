@@ -137,11 +137,11 @@
       // console.log(store.navBarFlag);
 
       router.push({
-      path: '/home',
-      query: {
-        title: '해방의 날',
-      }
-    });
+        path: '/home',
+        query: {
+          title: '해방의 날',
+        }
+      });
     } catch (e) {
       const { code } = e;
 
