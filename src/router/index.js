@@ -48,7 +48,7 @@ const routes = [
   },
   {
     path: "/loan-detail",
-    name: "loan-detail",
+    name: "대출 상세페이지",
     component: () => import("@/views/loan/LoanDetail.vue"),
   },
   {

@@ -182,15 +182,15 @@
         // console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
         // pichart(res.response.remainingPrincipalList);
         originalPercentList.value = getPercentList(res.response.remainingPrincipalList);
-        // console.log('✨originalPercentList:', originalPercentList.value);
+        console.log('✨originalPercentList:', originalPercentList.value);
         adjustedPercentList.value = getAdjustPercentList(originalPercentList.value);
-        // console.log('✨adjustedPercentList:', adjustedPercentList.value);
+        console.log('✨adjustedPercentList:', adjustedPercentList.value);
         
         appendingList.value = listAppending(remainingPrincipalList.value, adjustedPercentList.value);
-        // console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
-        // console.log('👌appendingList', appendingList.value);
+        console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
+        console.log('👌appendingList', appendingList.value);
         resultPieChartList.value = getDeg(appendingList.value); //deg까지 완료!
-        // console.log('👌resultPieChartList', resultPieChartList.value);
+        console.log('👌resultPieChartList', resultPieChartList.value);
         // console.log('👌barchartRef:', barchartRef.value.scrollWidth);
         // console.log('👌barchartRef:', barchartRef.value.scrollLeft);
         setTimeout(() => {
@@ -249,14 +249,16 @@
   // input: appendingList
   // pichart 공식 (5 * 3.6) / 2  - 90deg
   function getDeg(appendingList){
-    const apdList = appendingList;
-    for (let [index, item] of apdList.entries()){
-      // console.log('👌',index, item.adjustPercent);
-      let deg = (((item.adjustPercent * 3.6) / 2) - 90) + 'deg';
-      apdList[index]['deg'] = deg;
-    }
-    return apdList;
+  const apdList = appendingList;
+  let accumulatedPercent = 0; // 누적값을 저장할 변수 추가
+  for (let [index, item] of apdList.entries()){
+    console.log('👌',index, item.adjustPercent);
+    accumulatedPercent += item.adjustPercent; // 현재 인덱스의 adjustPercent 값을 누적값에 더함
+    let deg = ((accumulatedPercent * 3.6) -135) + 'deg'; // 누적값을 사용하여 deg 계산
+    apdList[index]['deg'] = deg;
   }
+  return apdList;
+}
   // Month format 두 자리 고정
   function formatMonth(date) {
     const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더함
