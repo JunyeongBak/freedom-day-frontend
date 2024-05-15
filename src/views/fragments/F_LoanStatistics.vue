@@ -72,7 +72,10 @@
       <!-- angle은 1% * 3.6 -->
       <ul class="loan-statistics-piechart__legend" v-for="purpose in resultPieChartList">
         <li class="legend-item" :style="{ '--angle': purpose.deg  }" >
-          <p class="legend-label" :style="{transform: 'rotate(' + (-1 * purpose.deg.split('deg')[0]) + 'deg)' }">{{ purpose.purpose + purpose.percentage}}%</p>
+          <div class="legend-label" :style="{transform: 'rotate(' + (-1 * purpose.deg.split('deg')[0]) + 'deg)' }">
+            <p>{{ purpose.purpose}}</p>
+            <p>{{ purpose.percentage }}%</p>
+          </div>
         </li>
       </ul>
     </div>
