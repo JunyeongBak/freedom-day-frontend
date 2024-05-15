@@ -455,7 +455,6 @@
   }
   // 확장된 상태
   .nav-bar.expanded {
-    position: relative;
     width: 100%;
     height: 200px;
     transition: height 0.2s ease, background-color 0.2s linear;
