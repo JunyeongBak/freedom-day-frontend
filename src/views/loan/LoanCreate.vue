@@ -71,8 +71,8 @@
       "interestRate" : 4.5,
       "variableRate" : false,
       "loanPeriod" : 24,
-      "originationDate" : "2024-01-01",
-      "expirationDate" : "2025-12-31",
+      "originationDate" : "2023-01-01",
+      "expirationDate" : "2024-12-31",
       "paymentDate" : 1,
       "periodUnit" : "M"
     }
@@ -81,6 +81,42 @@
     console.log(response);
   
   }
+
+  // 2024년은 윤년 초일 산입 말일 불산입 365일
+  // 2023년은 평년 초일 산입 말일 불산입 364일
+  // 2023-01-01 14:00:00 에 대출하고 2024-12-31 09:59:59 대출 갚으면 729일
+  /**
+   * @param {string} startDate 2023-01-01 00:00:00
+   * @param {string} endDate 2024-12-31 23:59:59
+   * @returns {number} 730일
+   * start 계산 시 현재 시간을 초로 환산하여 빼고, end 계산 시 현재 시간을 초로 환산하여 23:59:59까지 더한다.
+   */
+  function calculatePeriod(startDate, endDate) {
+    // 날짜 객체 생성
+    const now = new Date();
+    
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const time = `${hours}:${minutes}:${seconds}`;
+    console.log(time);
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // 종료 날짜에서 시작 날짜를 뺀 후, 결과를 밀리초 단위로 얻음
+    const diff = end.getTime() - start.getTime();
+
+    // 밀리초를 일 단위로 변환
+    const days = diff / (1000 * 60 * 60 * 24);
+
+    // 결과 반환
+    return Math.floor(days);
+  }
+  console.log(calculatePeriod('2023-01-01 23:59:59','2023-01-02 00:59:59'));
+  console.log(new Date('2024-01-01 00:00:00').getTime());
+  console.log(new Date('2024-01-01 23:59:59').getTime());
+  console.log(new Date('2024-01-02 00:00:00').getTime());
 
 </script>
 

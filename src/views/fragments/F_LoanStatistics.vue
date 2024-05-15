@@ -54,7 +54,7 @@
                   <div class="loan-statistics-barchart__chart-graph__principal" :style="{'height': (month.repaymentAmount1 / 1000) + 'px'}"></div>
                 </div>
                 <!-- month.historyDate는 YYYY-MM 포맷인데, YY.MM으로 변경 -->
-                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate || isNullDate }}</div>
+                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate }}</div>
               </div>
             </li>
           </ul>
@@ -99,7 +99,7 @@
   const loanList = ref([]);
   const emit = defineEmits(['response']);
   const currentDate = ref('');
-  const barchartRef = ref(null);
+  const barchartRef = ref(0);
   const finishRepayment = ref(0);
   const loanFinishList = ref([]);
   const monthlyRepaymentList = ref([]);
@@ -158,14 +158,7 @@
 
         loanFinishList.value = res.response.repaidLoanList;
         // console.log(res.response.repaymentHistoryMonthList);
-        for (let [index, item] of res.response.repaymentHistoryMonthList.entries()){
-          if( item.historyDate == null || item.historyDate == ''){
-            monthlyRepaymentList.value.push(0);
-          }else{
-            console.log(monthlyRepaymentList.value);
-            monthlyRepaymentList.value.push(res.response.repaymentHistoryMonthList);
-          }
-        }
+        monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();
         remainingPrincipalList.value = res.response.remainingPrincipalList;
         const date = new Date();
@@ -198,7 +191,11 @@
         // console.log('👌appendingList', appendingList.value);
         resultPieChartList.value = getDeg(appendingList.value); //deg까지 완료!
         // console.log('👌resultPieChartList', resultPieChartList.value);
-        barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
+        // console.log('👌barchartRef:', barchartRef.value.scrollWidth);
+        // console.log('👌barchartRef:', barchartRef.value.scrollLeft);
+        setTimeout(() => {
+          barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
+        }, 0.3);
       });
     }catch(error){
       console.log('에러발생', error);
