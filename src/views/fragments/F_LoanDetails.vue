@@ -29,9 +29,21 @@
   import { useStore } from '@/store';
   import { useRouter } from 'vue-router'
   import nav_bar from "@/layout/NavBar.vue";
+  import { getLoanDetails } from '@/api/loan.js';
 
   const router = useRouter();
   const store = useStore();
+  const response = ref(null);
+  const loanId = ref(0);
+
+  onMounted(async () => {
+    loanId.value = router.currentRoute.value.query.id;
+    console.log(loanId.value);
+    const res = await getLoanDetails(loanId.value);
+    console.log(res);
+    // response.value = res.data;
+  });
+
 </script>
 
 <style lang="scss" scoped>

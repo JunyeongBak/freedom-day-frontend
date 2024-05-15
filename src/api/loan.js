@@ -12,4 +12,8 @@ async function getLoanStatistics(){
   return axios.get("/loan/loan-statistics");
 }
 
-export { getUserLoanInfo, postLoanCreate, getLoanStatistics };
+async function getLoanDetails(param){
+  return axios.get("/loan/detail", param);
+}
+
+export { getUserLoanInfo, postLoanCreate, getLoanStatistics, getLoanDetails };

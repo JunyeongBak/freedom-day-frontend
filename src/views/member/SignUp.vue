@@ -26,7 +26,7 @@
           <input
             type="text" 
             v-model="email" 
-            @input="validateAndAlert"
+
             @blur="validateAndAlert" 
             :disabled="isEmailCheck" 
             placeholder="이메일" />
@@ -79,6 +79,7 @@
           <input 
             type="password" 
             v-model="password" 
+            @input="validatePassword"
             @blur="validatePassword" 
             placeholder="영문+숫자+특수문자 포함 8~20자리" />
         </div>
