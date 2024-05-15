@@ -3,6 +3,7 @@ $grey00: #FFFFFF;
 $grey20: #DBDDE2;
 $grey40: #BDC0C6;
 $grey60: #898F9A;
+$grey80: #565D69;
 $grey100: #1D2532;
 
 $blue10: #2B66F5;
@@ -111,4 +112,13 @@ input::placeholder{
   background-color: #1D2532;
   opacity: 0.8;
   z-index: 999; /* ensure the overlay is on top of other elements */
+}
+
+.orient-line{
+  width: 295px;
+  height: 0px;
+
+  /* grey/10 */
+  border: 1px solid #F3F3F3;
+  margin: 0 auto;
 }

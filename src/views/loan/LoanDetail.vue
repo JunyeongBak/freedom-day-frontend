@@ -3,14 +3,16 @@
     <div class="loan-details-navbar">
       <nav_bar />
     </div>
-    {{ $route.query.id }}
+    <!-- {{ $route.query.id }}
     {{ $route.query.name }}
     {{ $route.query.purpose }}
     {{ $route.query.expirationDate }}
     {{ $route.query.outstandingPrincipal }}
     {{ $route.query.paymentDDay }}
-    {{ $route.query.paymentPercentage }}
-    <f_loanDetails />
+    {{ $route.query.paymentPercentage }} -->
+    <div class="loan-details-body">
+      <f_loanDetails />
+    </div>
   </div>
 </template>
 

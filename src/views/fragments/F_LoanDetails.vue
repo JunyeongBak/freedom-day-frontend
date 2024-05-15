@@ -1,5 +1,8 @@
 <template>
-  <div class="loan-details__fragment">
+  <div class="loan-details-fragment">
+    <div class="loan-details-fragment__card">
+      테스트
+    </div>
   </div>
 </template>
 
@@ -14,4 +17,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .loan-details-fragment {
+    &__card {
+      width: 328px;
+      height: 190px;
+      margin: 300px auto;
+      background-color: orange;
+    }
+  }
 </style>

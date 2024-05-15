@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar" 
-      :class="{ 'expanded': isExpanded, 'collapsed': !isExpanded }" 
+      :class="{ 'expanded': isExpanded, 'collapsed': !isExpanded, 'expandedDetails' : isExpandedDetails }" 
       @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd"
       >
     <!-- {{ navBarHeight }} -->
@@ -9,10 +9,29 @@
       <p>{{ title || $route.name }}</p>
     </div>
     <!-- 뒤로가기 있는 navbar -->
-    <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1" @click="goBack">
+    <div v-else-if="navBarFlag == '1_1'" class="nav-bar-1_1" :class="{navDetailsComputed}">
       <div class="nav-bar-1_1__container">
-        <img src="@/assets/ic_arrow_left.png">
+        <img src="@/assets/ic_arrow_left.png" @click="goBack"/>
         <p>{{ title || $route.name }}</p>
+      </div>
+      <div v-if="isExpandedDetails" class="nav-bar-details">
+        <div class="nav-bar-details__card">
+          <div class="nav-bar-details__card-container">
+            <img src="@/assets/ic_bank.png" class="nav-bar-details__card-container__img"/>
+            <p class="nav-bar-details__card-container__name">{{ $route.query.name }}</p>
+            <p class="nav-bar-details__card-container__purpose">{{ $route.query.purpose }}</p>
+          </div>
+          <div class="orient-line"></div>
+          <p>상환 현황</p>
+          <div class="nav-bar-details__card-total">
+            <img src="@/assets/ic_haebang_56.svg" style="width:24px; height:24px"/>
+            <p>{{ store.nickName }}님! 대출이 19,886,317원이 남았어요!</p>
+          </div>
+          <div class="back-chart">
+            <p class="chart-percent" :style="{left: left}">{{ width }}</p>
+            <div class="progress-bar" :style="{ width: width }"></div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- 홈화면 탭 있는 navbar -->
@@ -75,6 +94,7 @@
   const emit = defineEmits(['response']);
   const isNavBarBlue = ref(false);
   const isExpanded = ref(false);
+  const isExpandedDetails = ref(false);
   let touchStartY = 0;
   const navBarDisabled = ref(false);  // nav-bar 비활성화 상태
   const themeColor = ref("#ffffff");
@@ -144,6 +164,12 @@
     }
   });
 
+  const navDetailsComputed = computed(() =>{
+    if(router.currentRoute.value.name === '대출 상세페이지'){
+      isExpandedDetails.value = true; 
+      document.body.style.backgroundColor = '#FFF';
+    }
+  })
   // console.log(navBarFlag.value);
 
   // 탭을 설정하고 해당 인덱스를 스토어에 저장하는 함수
@@ -196,6 +222,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/style/common.scss";
   // TODO: PC화면용 2024년 5월 16일 이후로 예정.
   @media screen and (min-width: 1500px){
     .nav-bar{
@@ -268,8 +295,9 @@
         // margin-top: 20px;
         &__container{
           display: flex;
-          justify-content: center;
+          justify-content: left;
           align-items: center;
+          // margin-bottom: 40px;
         }
       }
     &-2_1{
@@ -353,6 +381,71 @@
         }
       }
     }
+
+    &-details{
+      width: 328px;
+      height: 190px;
+      &__card{
+        position: absolute;
+        top: 80px;
+        left: calc(50% - 164px);
+        width: 328px;
+        height: 190px;
+        background: #FFFFFF;
+        border: 1px solid #E4E4E4;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        // margin: 48px 16px 0;
+        > p{
+          font-size: 14px;
+          margin: 8px auto 8px;
+          padding: 0 16px 0;
+        }
+        &-total{
+          display: flex;
+          font-size: 12px;
+          align-items: center;
+          justify-content: center;
+        }
+        &-container{
+          position:relative;
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          padding: 16px;
+        }
+        &-container__img{
+          width: 48px;
+          height: 48px;
+          // margin: 16px 0 0 16px;
+        }
+        &-container__purpose{
+          position:absolute;
+          top: 16px;
+          left:80px;
+          text-align: center;
+          line-height: 19px;
+          display: inline-block;
+          font-size: 12px;
+          min-width: 50px;
+          padding: 3px 6px;
+          color: $grey00;
+          height: 19px;
+          font-family: 'NanumSquareNeo_bold';
+          background: $grey80;
+          border-radius: 999px;
+        }
+        &-container__name{
+          position:absolute;
+          top: 36px;
+          left: 80px;
+          font-size: 16px;
+          font-family: 'NanumSquareNeo_bold';
+          color: $grey100;
+          margin-top: 8px;
+        }
+      }
+    }
   }
   // 축소된 상태
   // TODO: 대출, 설정 글꼴 색상 #2C62B8
@@ -362,8 +455,23 @@
   }
   // 확장된 상태
   .nav-bar.expanded {
+    position: relative;
     width: 100%;
     height: 200px;
+    transition: height 0.2s ease, background-color 0.2s linear;
+    background-color: #3C86FA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 16px 16px;
+  }
+
+  // .nav-bar.collapsedDetails{
+  //   height: 56px;
+  //   transition: height 0.2s ease, background-color 0.2s linear;
+  // }
+
+  .nav-bar.expandedDetails{
+    width: 100%;
+    height: 294px;
     transition: height 0.2s ease, background-color 0.2s linear;
     background-color: #3C86FA;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -430,5 +538,31 @@
     border: 1px solid #F3F3F3;
     transform: rotate(90deg);
   }
+  .chart-percent{
+  color: #FFF;
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  z-index: 1;
+}
 
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 26px;
+  width: 50px;
+  background: linear-gradient(270deg, #2B66F5 0%, #4BA6FE 100%);
+  border-radius: 999px;
+}
+
+.back-chart{
+  position: absolute;
+  width: 297px;
+  height: 26px;
+  background: #DBDDE2;
+  border-radius: 999px;
+  bottom: 16px;
+  left: 16px;
+}
 </style>
