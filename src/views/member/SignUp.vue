@@ -80,7 +80,6 @@
             type="password" 
             v-model="password" 
             @blur="validatePassword" 
-            @input="validatePassword" 
             placeholder="영문+숫자+특수문자 포함 8~20자리" />
         </div>
         <!-- END Password -->
