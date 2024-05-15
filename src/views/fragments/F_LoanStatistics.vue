@@ -54,7 +54,7 @@
                   <div class="loan-statistics-barchart__chart-graph__principal" :style="{'height': (month.repaymentAmount1 / 1000) + 'px'}"></div>
                 </div>
                 <!-- month.historyDate는 YYYY-MM 포맷인데, YY.MM으로 변경 -->
-                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate }}</div>
+                <div class="loan-statistics-barchart__chart-date">{{ month.historyDate.substring(2).replace('-','.') }}</div>
               </div>
             </li>
           </ul>
@@ -254,7 +254,7 @@
   for (let [index, item] of apdList.entries()){
     console.log('👌',index, item.adjustPercent);
     accumulatedPercent += item.adjustPercent; // 현재 인덱스의 adjustPercent 값을 누적값에 더함
-    let deg = ((accumulatedPercent * 3.6) -135) + 'deg'; // 누적값을 사용하여 deg 계산
+    let deg = ((accumulatedPercent * 3.6) -120) + 'deg'; // 누적값을 사용하여 deg 계산
     apdList[index]['deg'] = deg;
   }
   return apdList;
@@ -531,7 +531,7 @@
       left: 50%;
       width: 50%;
       height: 20px;
-      transform: translate(-50%, 50%) rotate(var(--angle)) translateX(64%) ;
+      transform: translate(-74%, 60%) rotate(var(--angle)) translateX(64%) ;
       text-align: right;
       // transform-origin: 50% 50%;
     }
