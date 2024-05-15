@@ -189,7 +189,7 @@
   const handleTouchStart = (event) => {
     if (navBarDisabled.value) {return};
     touchStartY = event.touches[0].clientY;
-    document.body.style.overflow = 'hidden';  // 스크롤 잠금
+    // document.body.style.overflow = 'hidden';  // 스크롤 잠금
   };
 
   const handleTouchMove = (event) => {
@@ -384,7 +384,7 @@
 
     &-details{
       width: 328px;
-      height: 190px;
+      height: 230px;
       &__card{
         position: absolute;
         top: 80px;
@@ -398,6 +398,7 @@
         // margin: 48px 16px 0;
         > p{
           font-size: 14px;
+          font-family: 'NanumSquareNeo_bold';
           margin: 8px auto 8px;
           padding: 0 16px 0;
         }
