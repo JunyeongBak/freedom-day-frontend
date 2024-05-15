@@ -157,7 +157,7 @@
         }
 
         loanFinishList.value = res.response.repaidLoanList;
-        // console.log(res.response.repaymentHistoryMonthList);
+        console.log(res.response.repaymentHistoryMonthList);
         monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();
         remainingPrincipalList.value = res.response.remainingPrincipalList;
@@ -414,6 +414,7 @@
       position: relative;
       margin-bottom: 24px;
       &__label{
+        // position: absolute;
         font-size: 16px;
         font-family: 'NanumSquareNeo_bold';
         margin-left: 16px;
@@ -422,9 +423,14 @@
       &__chart-container{
         margin-top: 36px;
       }
+      &__chart-total{
+        position: absolute;
+        top: 0;
+      }
       &__chart-ul{
         display: flex;
         align-items: center;
+        position: relative;
       }
       &__chart-li{
         margin-left: 19px;
@@ -443,6 +449,7 @@
         justify-content: flex-end;
         width: 20px;
         height: 100px;
+        margin-top: 20px;
         // background: #FFF;
         // border-radius: 4px 4px 0px 0px;
         // z-index: 100;
