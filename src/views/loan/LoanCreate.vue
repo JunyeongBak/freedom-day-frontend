@@ -13,16 +13,16 @@
       @blur="test"
       />
     <label for="loan-create__type" class="input_label">목적</label>
-    <select id="loan-create__type" class="input_dropdown">
+    <select id="loan-create__type" class="input_dropdown" @change="test" v-model="repayMethod">
       <option value="" disabled selected hidden>대출 목적을 선택해주세요.</option>
-      <option value="personal">주택</option>
-      <option value="business">생활비</option>
-      <option value="mortgage">자동차</option>
-      <option value="mortgage">학자금</option>
-      <option value="mortgage">기타</option>
+      <option value="주택">주택</option>
+      <option value="생활비">생활비</option>
+      <option value="자동차">자동차</option>
+      <option value="학자금">학자금</option>
+      <option value="기타">기타</option>
     </select>
     <label for="loan-create__institution" class="input_label">기관</label>
-    <select id="loan-create__institution" class="input_dropdown">
+    <select id="loan-create__institution" class="input_dropdown" @change="test" v-model="bank">
       <option value="" disabled selected hidden>대출 기관을 선택해주세요.</option>
       <option value="SC제일은행">SC제일은행</option>
       <option value="국민은행">국민은행</option>
@@ -44,6 +44,8 @@
       <option value="수산협동조합">수산협동조합</option>
       <option value="산림조합">산림조합</option>
       <option value="상호저축은행">상호저축은행</option>
+      <option value="카카오뱅크">카카오뱅크</option>
+      <option value="토스뱅크">토스뱅크</option>
       <option value="기타">기타</option>
     </select>
     <label class="input_label">상환 방법</label>
@@ -52,25 +54,31 @@
         type="radio"
         id="loan-create__repayment-equal-principal" 
         name="repayment" 
-        value="equal-principal" 
+        value="EPI" 
         class="loan-create__repayment-option" 
         checked
+        v-model="picked"
+        @change="test"
         />
       <label for="loan-create__repayment-equal-principal" class="loan-create__repayment-option">원리금균등</label>
       <input
         type="radio" 
         id="loan-create__repayment-equal-installment"
         name="repayment" 
-        value="equal-installment" 
+        value="EP" 
         class="loan-create__repayment-option" 
+        v-model="picked"
+        @change="test"
         />
       <label for="loan-create__repayment-equal-installment" class="loan-create__repayment-option">원금균등</label>
       <input
         type="radio" 
         id="loan-create__repayment-lump-sum" 
         name="repayment" 
-        value="lump-sum" 
+        value="BR" 
         class="loan-create__repayment-option" 
+        v-model="picked"
+        @change="test"
         />
       <label for="loan-create__repayment-lump-sum" class="loan-create__repayment-option">만기일시</label>
     </div>
@@ -80,6 +88,8 @@
       class="loan-create__principal" 
       type="text" 
       placeholder="보유하고 계신 대출의 총 원금을 입력해주세요" 
+      v-model="totalPrincipal"
+      @blur="test"
       />
     <label for="loan-create__repayment-amount" class="input_label">상환 완료 금액</label>
     <input 
@@ -87,6 +97,8 @@
       class="loan-create__repayment-amount" 
       type="text" 
       placeholder="해당 대출 원금 중 상환이 이루어진 금액을 입력해주세요" 
+      v-model="repaymentAmount"
+      @blur="test"
       />
     
     <label for="loan-create__interest-rate" class="input_label">연이자율</label>
@@ -96,6 +108,8 @@
         class="loan-create__interest-rate-input" 
         type="text" 
         placeholder="해당 대출 연 이자율을 입력해주세요" 
+        v-model="interestRate"
+        @blur="test"
         />
       <div class="loan-create__interest-rate-variable">
         <input 
@@ -112,6 +126,7 @@
       class="loan-create__duration" 
       type="text" 
       placeholder="대출 기간 자동 입력" 
+      v-model="month"
       disabled 
       />
 
@@ -121,6 +136,8 @@
       class="loan-create__start-date" 
       type="text" 
       placeholder="해당 대출의 시작일을 입력해주세요" 
+      v-model="startDate"
+      @blur="test"
       />
 
     <label for="loan-create__expiration-date" class="input_label">만료일</label>
@@ -129,6 +146,8 @@
       class="loan-create__expiration-date" 
       type="text" 
       placeholder="해당 대출의 만료일을 입력해주세요" 
+      v-model="expirationDate"
+      @blur="test"
       />
 
     <button class="loan-create__button blue_button" @click="handleClickSave">저장하기</button>
@@ -143,6 +162,15 @@
   const hard = ref('');
 
   const name = ref(''); //대출이름
+  const repayMethod = ref('') //상환방법
+  const bank = ref('') //은행
+  const picked = ref('') //상환방법 BR:만기일시 EPI:원리금균등 RP:원금균등
+  const totalPrincipal = ref(null) //총 원금
+  const repaymentAmount = ref(null) //상환 완료 금액
+  const interestRate = ref('') //연이자율
+  const month = ref('') //대출기간
+  const startDate = ref('') //시작일
+  const expirationDate = ref('') //만료일
 
   async function handleClickSave(){
     hard.value = {
@@ -165,7 +193,16 @@
   
   }
   function test (){
-    console.log(name.value);
+    console.log('대출이름', name.value);
+    console.log('목적',repayMethod.value);
+    console.log('기관',bank.value);
+    console.log('상환방법',picked.value);
+    console.log('총 원금',totalPrincipal.value);
+    console.log('상환 완료 금액',repaymentAmount.value);
+    console.log('연이자율',interestRate.value);
+    console.log('대출기간',month.value);
+    console.log('시작일',startDate.value);
+    console.log('만료일',expirationDate.value);
   }
 
   // 2024년은 윤년 초일 산입 말일 불산입 365일
