@@ -1,7 +1,7 @@
 <template>
   <div class="loan-details">
     <div class="loan-details-navbar">
-      <nav_bar />
+      <nav_bar :repaymentAmount="repaymentAmount"/>
     </div>
     <!-- {{ $route.query.id }}
     {{ $route.query.name }}
@@ -22,6 +22,35 @@
   import { useRouter } from 'vue-router'
   import nav_bar from "@/layout/NavBar.vue";
   import f_loanDetails from '@/views/fragments/F_LoanDetails.vue';
+  import { getLoanDetails } from '@/api/loan.js';
+
+  const router = useRouter();
+
+  const repaymentAmount = ref(0);
+
+  onMounted(async () => { // async 키워드 추가
+    console.log(`id: ${router.currentRoute.value.query.id}`);
+    const id = Number.parseInt(router.currentRoute.value.query.id);
+    try {
+      const response = await getLoanDetails(id); // await 키워드 추가
+      console.log('✨', response.response.repaymentAmount);
+      repaymentAmount.value = response.response.repaymentAmount;
+      
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  // onMounted(async () => {
+
+  //   // console.log(`id: ${router.currentRoute.value.query.id}`);
+  //   // const response = getLoanDetails(Number.parseInt(router.currentRoute.value.query.id)).then((res)=>{
+  //     return res.response;
+  //   }); 
+    // const tmp = response;
+    // console.log('✨', response);
+    // repaymentAmount.value = response.repaymentAmount;
+    // repaymentAmount.value = router.currentRoute.value.query.repaymentAmount;
 </script>
   
 <style lang="scss">

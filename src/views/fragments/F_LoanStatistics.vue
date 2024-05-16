@@ -148,6 +148,7 @@
     store.setNavBarFlag('2_2');
     try{
       getLoanStatistics().then((res) => {
+        console.log('✨getLoanStatistics:', res.response);
         response.value = res.response;
         totalPrincipal.value = res.response.totalPrincipal;
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;

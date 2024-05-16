@@ -25,9 +25,10 @@
           <p>상환 현황</p>
           <div class="nav-bar-details__card-total">
             <img src="@/assets/ic_haebang_56.svg" style="width:24px; height:24px"/>
-            <p>{{ store.nickName }}님! 대출이 19,886,317원이 남았어요!</p>
+            <p>{{ store.nickName }}님! 대출이 {{ Number.parseInt($route.query.outstandingPrincipal).toLocaleString() }}원이 남았어요!</p>
           </div>
           <div class="back-chart">
+            <div class="back-chart-repaymentAmount">{{ Number.parseInt(repaymentAmount).toLocaleString() + "원" ||0 }}</div>
             <p class="chart-percent" :style="{left: left}">{{ width }}</p>
             <div class="progress-bar" :style="{ width: width }"></div>
           </div>
@@ -84,6 +85,7 @@
   import { ref, onMounted, computed, watchEffect, watch, defineProps } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index.ts";
+  import { getLoanDetails } from '@/api/loan.js';
   const router = useRouter();
   const store = useStore();
   const title = ref('');
@@ -102,6 +104,7 @@
   defineProps({
     totalPrincipal: String,
     totalPrincipalRepayment: String,
+    repaymentAmount: Number,
   });
 
   watchEffect(() => {
@@ -128,6 +131,8 @@
     console.log(navBarFlag.value);
     // console.log('navBarFlag: ', navBarFlag.value);
     nav2_split.value = navBarFlag.value.split('_')[0]; // 대출, 통계, 설정 화면 NavBar
+    console.log(isExpandedDetails.value);
+    // console.log(`repaymentAmount: ${repaymentAmount.value}`);
   });
   
   /**
@@ -564,5 +569,14 @@
   border-radius: 999px;
   bottom: 16px;
   left: 16px;
+  &-repaymentAmount{
+    color: $grey00;
+    position: absolute;
+    z-index: 1001;
+    font-size: 14px;
+    line-height: 26px;
+    top:0;
+    left: 100px;
+  }
 }
 </style>

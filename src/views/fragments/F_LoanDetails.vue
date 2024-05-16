@@ -53,6 +53,7 @@
     height: 190px;
     margin: 300px auto;
     &__container1{
+      background-color: #fff;
       // background-color: orange;
     }
     &__calendar{

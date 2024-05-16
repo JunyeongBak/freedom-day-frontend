@@ -156,9 +156,11 @@
 
 <script setup>
   import { useStore } from "@/store/index";
+  import { useRouter } from "vue-router";
   import { ref, onMounted, computed, watch} from "vue";
   import nav_bar from '@/layout/NavBar.vue';
   import { postLoanCreate } from '@/api/loan.js';
+  const router = useRouter();
   const hard = ref('');
 
   const name = ref(''); //대출이름
@@ -191,7 +193,7 @@
     // console.log(hard.value);
     const response = await postLoanCreate(hard.value);
     console.log(response);
-  
+    router.push('/home');
   }
   function test (){
     console.log('대출이름', name.value);
