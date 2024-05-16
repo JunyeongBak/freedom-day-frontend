@@ -126,29 +126,29 @@
         <label for="loan-create__interest-rate-variable" class="input-label-check">변동금리</label>
       </div>
     </div>
-    <label for="loan-create__duration" class="input_label">
-      대출 기간
-      <div style="position:absolute; top:42px;right: 16px">개월</div>
-    </label>
-    <input 
-      id="loan-create__duration" 
-      class="loan-create__duration" 
-      type="text" 
-      placeholder="대출 기간 자동 입력" 
-      v-model="month"
-      disabled 
-      />
-
+    
     <label for="loan-create__start-date" class="input_label">시작일<span style="color:red; font-size:12px; margin-left: 16px;">{{errorStartDate}}</span></label>
     <input 
-      id="loan-create__start-date" 
-      class="loan-create__start-date" 
-      type="number" 
-      placeholder="해당 대출의 시작일을 입력해주세요" 
-      v-model="startDate"
-      @blur="test"
-      @input="test"
-      />
+    id="loan-create__start-date" 
+    class="loan-create__start-date" 
+    type="number" 
+    placeholder="해당 대출의 시작일을 입력해주세요" 
+    v-model="startDate"
+    @blur="test"
+    @input="test"
+    />
+    
+    
+    <label for="loan-create__expiration-date" class="input_label">만료일<span style="color:red; font-size:12px; margin-left: 16px;">{{errorExpirationDate}}</span></label>
+    <input 
+    id="loan-create__expiration-date" 
+    class="loan-create__expiration-date" 
+    type="number" 
+    placeholder="해당 대출의 만료일을 입력해주세요" 
+    v-model="expirationDate"
+    @blur="test"
+    />
+    
     <label for="loan-create__payment-date" class="input_label">
       납입일
       <div style="position:absolute; top:42px;right: 16px">일</div>
@@ -163,15 +163,17 @@
     @input="test"
     />
     
-
-    <label for="loan-create__expiration-date" class="input_label">만료일<span style="color:red; font-size:12px; margin-left: 16px;">{{errorExpirationDate}}</span></label>
+    <label for="loan-create__duration" class="input_label">
+      대출 기간
+      <div style="position:absolute; top:42px;right: 16px">개월</div>
+    </label>
     <input 
-      id="loan-create__expiration-date" 
-      class="loan-create__expiration-date" 
-      type="number" 
-      placeholder="해당 대출의 만료일을 입력해주세요" 
-      v-model="expirationDate"
-      @blur="test"
+      id="loan-create__duration" 
+      class="loan-create__duration" 
+      type="text" 
+      placeholder="대출 기간 자동 입력" 
+      v-model="month"
+      disabled 
       />
 
     <button class="loan-create__button blue_button" @click="handleClickSave">저장하기</button>
