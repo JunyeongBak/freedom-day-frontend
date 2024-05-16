@@ -29,11 +29,6 @@ const routes = [
     component: () => import("@/views/member/SignUp.vue"),
   },
   {
-    path: "/email/authenticate",
-    name: "EmailAuthenticate",
-    component: () => import("@/views/member/EmailAuthenticate.vue"),
-  },
-  {
     path: "/step2",
     name: "SignUpStep2",
     meta: {

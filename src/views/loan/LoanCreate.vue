@@ -82,11 +82,14 @@
         />
       <label for="loan-create__repayment-lump-sum" class="loan-create__repayment-option">만기일시</label>
     </div>
-    <label for="loan-create__principal" class="input_label">총 원금</label>
+    <label for="loan-create__principal" class="input_label">
+      총 원금
+      <div style="position:absolute; top:42px;right: 16px">원</div>
+    </label>
     <input 
       id="loan-create__principal" 
       class="loan-create__principal" 
-      type="text" 
+      type="number" 
       placeholder="보유하고 계신 대출의 총 원금을 입력해주세요" 
       v-model="totalPrincipal"
       @blur="test"
@@ -95,18 +98,21 @@
     <input 
       id="loan-create__repayment-amount" 
       class="loan-create__repayment-amount" 
-      type="text" 
+      type="number" 
       placeholder="해당 대출 원금 중 상환이 이루어진 금액을 입력해주세요" 
       v-model="repaymentAmount"
       @blur="test"
       />
     
-    <label for="loan-create__interest-rate" class="input_label">연이자율</label>
+    <label for="loan-create__interest-rate" class="input_label">
+      연이자율
+      <div style="position:absolute; top:42px;left: 220px">%</div>
+    </label>
     <div class="loan-create__interest-rate">
       <input 
         id="loan-create__interest-rate" 
         class="loan-create__interest-rate-input" 
-        type="text" 
+        type="number" 
         placeholder="해당 대출 연 이자율을 입력해주세요" 
         v-model="interestRate"
         @blur="test"
@@ -120,7 +126,10 @@
         <label for="loan-create__interest-rate-variable" class="input-label-check">변동금리</label>
       </div>
     </div>
-    <label for="loan-create__duration" class="input_label">대출 기간</label>
+    <label for="loan-create__duration" class="input_label">
+      대출 기간
+      <div style="position:absolute; top:42px;right: 16px">개월</div>
+    </label>
     <input 
       id="loan-create__duration" 
       class="loan-create__duration" 
@@ -130,21 +139,36 @@
       disabled 
       />
 
-    <label for="loan-create__start-date" class="input_label">시작일</label>
+    <label for="loan-create__start-date" class="input_label">시작일<span style="color:red; font-size:12px; margin-left: 16px;">{{errorStartDate}}</span></label>
     <input 
       id="loan-create__start-date" 
       class="loan-create__start-date" 
-      type="text" 
+      type="number" 
       placeholder="해당 대출의 시작일을 입력해주세요" 
       v-model="startDate"
       @blur="test"
+      @input="test"
       />
+    <label for="loan-create__payment-date" class="input_label">
+      납입일
+      <div style="position:absolute; top:42px;right: 16px">일</div>
+    </label>
+    <input 
+    id="loan-create__payment-date" 
+    class="loan-create__payment-date" 
+    type="number" 
+    placeholder="해당 대출의 납부일을 입력해주세요" 
+    v-model="paymentDate"
+    @blur="test"
+    @input="test"
+    />
+    
 
-    <label for="loan-create__expiration-date" class="input_label">만료일</label>
+    <label for="loan-create__expiration-date" class="input_label">만료일<span style="color:red; font-size:12px; margin-left: 16px;">{{errorExpirationDate}}</span></label>
     <input 
       id="loan-create__expiration-date" 
       class="loan-create__expiration-date" 
-      type="text" 
+      type="number" 
       placeholder="해당 대출의 만료일을 입력해주세요" 
       v-model="expirationDate"
       @blur="test"
@@ -169,10 +193,13 @@
   const picked = ref('') //상환방법 BR:만기일시 EPI:원리금균등 RP:원금균등
   const totalPrincipal = ref(null) //총 원금
   const repaymentAmount = ref(null) //상환 완료 금액
-  const interestRate = ref('') //연이자율
+  const interestRate = ref(null) //연이자율
   const month = ref('') //대출기간
   const startDate = ref('') //시작일
+  const errorStartDate = ref('8자리(YYYY-MM-DD) 숫자만 입력');
+  const paymentDate = ref('');//납부일
   const expirationDate = ref('') //만료일
+  const errorExpirationDate = ref('8자리(YYYY-MM-DD) 숫자만 입력');
 
   async function handleClickSave(){
     hard.value = {
@@ -195,7 +222,65 @@
     console.log(response);
     router.push('/home');
   }
+  // BETA_1.3.0 실험용
   function test (){
+    // if(totalPrincipal.value === null){
+    //   totalPrincipal.value = 0;
+    // }
+    // if(repaymentAmount.value === null){
+    //   repaymentAmount.value = 0;
+    // }
+    // if(interestRate.value === null){
+    //   interestRate.value = 0;
+    // }
+
+    name.value = name.value.replace(/[^a-zA-Z0-9]/g, '');
+    // totalPrincipal.value = Number.parseInt(totalPrincipal.value.toString().replace(/[^0-9]/g, ''));
+    // repaymentAmount.value = Number.parseInt(repaymentAmount.value.toString().replace(/[^0-9]/g, ''));
+    // interestRate.value = Number.parseFloat(interestRate.value.toString().replace(/[^0-9.]/g, ''));
+    // console.log(startDate.value);
+    if (startDate.value.toString().length === 8){
+      errorStartDate.value = '';
+      const year = startDate.value.toString().slice(0,4);
+      const month = startDate.value.toString().slice(4,6);
+      const day = startDate.value.toString().slice(6,8);
+      // console.log(year, month, day);
+      const inputDate = new Date(year, month - 1, day);
+      if(inputDate.getFullYear() !== parseInt(year) || inputDate.getMonth() +1 !== parseInt(month) || inputDate.getDate() !== parseInt(day)){
+        errorStartDate.value = '8자리(YYYY-MM-DD) 숫자만 입력';
+        // startDate.value = '';
+      }else{
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        if (inputDate.getTime() > today.getTime()){
+          errorStartDate.value = '오늘 이후 입력 불가';
+          // startDate.value = '';
+        }
+      }
+    }else{
+      // errorStartDate.value = '8자리(YYYY-MM-DD) 숫자만 입력하세요.';
+    }
+    if (expirationDate.value.toString().length === 8){
+      errorExpirationDate.value = '';
+      const year = expirationDate.value.toString().slice(0,4);
+      const month = expirationDate.value.toString().slice(4,6);
+      const day = expirationDate.value.toString().slice(6,8);
+      // console.log(year, month, day);
+      const inputDate = new Date(year, month - 1, day);
+      if(inputDate.getFullYear() !== parseInt(year) || inputDate.getMonth() +1 !== parseInt(month) || inputDate.getDate() !== parseInt(day)){
+        errorExpirationDate.value = '8자리(YYYY-MM-DD) 숫자만 입력';
+        // expirationDate.value = '';
+      }else{
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        if (inputDate.getTime() < today.getTime()){
+          errorExpirationDate.value = '오늘 이전 입력 불가';
+          // expirationDate.value = '';
+        }
+      }
+    }else{
+      // errorStartDate.value = '8자리(YYYY-MM-DD) 숫자만 입력하세요.';
+    }
     console.log('대출이름', name.value);
     console.log('목적',repayMethod.value);
     console.log('기관',bank.value);
@@ -286,6 +371,9 @@
     &__start-date{
       width: 100%;
     }
+    &__payment-date{
+      width: 100%;
+    }
     &__expiration-date{
       width: 100%;
     }
@@ -345,6 +433,7 @@
   }
   .input_label{
     margin-top: 16px;
+    position: relative;
   }
   .input-label-check{
     font-size: 14px;
