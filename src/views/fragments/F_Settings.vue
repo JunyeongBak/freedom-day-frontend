@@ -2,7 +2,7 @@
   <div class="settings">
     <div class="settings-profile">
       <img class="settings-profile-img" src="@/assets/ic_haebang.png" alt="profile"/>
-      <p class="settings-profile-nickname">사용자명</p>
+      <p class="settings-profile-nickname">{{ store.nickName }}</p>
       <p class="settings-profile-update">개인정보 수정</p>
     </div>
     <div class="settings-line">

@@ -35,8 +35,47 @@
     </div>
     <div class="loan-details-fragment__container3">
       <p class="label">대출 정보</p>
-      <div class="loan-details-fragment__info">d</div>
-      <div>{{ loanDetails || '테스트' }}</div>
+      <div class="loan-details-fragment__info">
+        <div class="loan-details-fragment__info__container">
+          <img src="@/assets/Rectangle_48_grey.png" style="width:48px; height:48px;"/>
+          <div>
+            <p class="loan-details-label">대출 실행</p>
+            <div class="loan-details-value">{{ loanDetails.originationDate.replace('-','.').replace('-','.') }}</div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="loan-details-fragment__info__container">
+          <img src="@/assets/Rectangle_48_grey.png" style="width:48px; height:48px;"/>
+          <div>
+            <p class="loan-details-label">대출 금액</p>
+            <div class="loan-details-value">{{ Number.parseInt(loanDetails.totalPrincipal).toLocaleString() }}원</div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="loan-details-fragment__info__container">
+          <img src="@/assets/Rectangle_48_grey.png" style="width:48px; height:48px;"/>
+          <div>
+            <p class="loan-details-label">대출 기간</p>
+            <div class="loan-details-value">{{ loanDetails.loanPeriod }}개월</div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="loan-details-fragment__info__container">
+          <img src="@/assets/Rectangle_48_grey.png" style="width:48px; height:48px;"/>
+          <div>
+            <p class="loan-details-label">대출 이율</p>
+            <div class="loan-details-value">{{ loanDetails.interestRate }}%</div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="loan-details-fragment__info__container">
+          <img src="@/assets/Rectangle_48_grey.png" style="width:48px; height:48px;"/>
+          <div>
+            <p class="loan-details-label">상환 방식</p>
+            <div class="loan-details-value">{{ loanDetails.repaymentMethod }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -160,13 +199,24 @@
       }
     }
     &__container3{
-      background-color: green;
+      position: relative;
     }
     &__info{
       width: 328px;
       height: 232px;
-      border: 1px solid #DBDDE2;
-      border-radius: 16px;
+      // border: 1px solid #DBDDE2;
+      // border-radius: 16px;
+      &__container{
+        display: flex;
+        padding: 4px;
+        > div{
+          margin-left: 5px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: left;
+        }
+      }
     }
     &__chart-ul{
       display: flex;
@@ -179,5 +229,20 @@
     font-family: 'NanumSquareNeo_extraBold';
     color: #000000;
     margin: 24px 0 16px;
+  }
+  .line{
+    width: 328px;
+    height: 0px;
+    border: 1px solid #F3F3F3;
+  }
+  .loan-details-label{
+    color: $grey100;
+    font-size: 18px;
+    font-family: 'NamumSquareNeo_bold';
+  }
+  .loan-details-value{
+    color: $grey60;
+    font-size: 16px;
+    font-family: 'NamumSquareNeo_normal';
   }
 </style>
