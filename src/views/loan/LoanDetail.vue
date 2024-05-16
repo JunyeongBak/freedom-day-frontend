@@ -11,7 +11,7 @@
     {{ $route.query.paymentDDay }}
     {{ $route.query.paymentPercentage }} -->
     <div class="loan-details-body">
-      <f_loanDetails />
+      <f_loanDetails :loanDetails="loanDetails"/>
     </div>
   </div>
 </template>
@@ -26,6 +26,20 @@
 
   const router = useRouter();
 
+  const loanDetails = ref({
+    name: '',
+    purpose: '',
+    bankCode: '',
+    outstandingPrincipal: 0,
+    repaymentAmount: 0,
+    repaymentHistoryMonthList: [],
+    totalPrincipal: 0,
+    originationDate: '',
+    loanPeriod: 0,
+    interestRate: 0,
+    repaymentMethod: '',
+  });  
+
   const repaymentAmount = ref(0);
 
   onMounted(async () => { // async 키워드 추가
@@ -33,9 +47,11 @@
     const id = Number.parseInt(router.currentRoute.value.query.id);
     try {
       const response = await getLoanDetails(id); // await 키워드 추가
-      console.log('✨', response.response.repaymentAmount);
-      repaymentAmount.value = response.response.repaymentAmount;
-      
+      // console.log('✨', response.response.repaymentAmount);
+      loanDetails.repaymentAmount = Number.parseInt(response.response.repaymentAmount);
+      // console.log('✨', loanDetails.repaymentAmount);
+      repaymentAmount.value = loanDetails.repaymentAmount;
+      loanDetails.value = response.response;
     } catch (error) {
       console.error(error);
     }

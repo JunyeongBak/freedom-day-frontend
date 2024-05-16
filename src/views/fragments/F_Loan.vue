@@ -45,6 +45,7 @@
     previousMonthPayment: 0,
     loanCount: 0,
     loanSimpleDtoList: [],
+    repaymentHistoryMonthList: [],
   });  
   const props = {
   msg: {
@@ -58,17 +59,19 @@
     // console.log(item);
     store.setNavBarFlag('1_1');
     // Redirect to '/loan-detail' page with props data
+    console.log('item: ',item);
     router.push({
       path: '/loan-detail',
       query: {
-      msg: props.msg,
-      id: item.id,
+      // msg: props.msg,
+      id: Number.parseInt(item.id),
       name: item.name,
       purpose: item.purpose,
       expiarationDate: item.expirationDate,
       outstandingPrincipal: item.outstandingPrincipal,
       paymentDDay: item.paymentDDay,
-      paymentPercentage: item.paymentPercentage
+      paymentPercentage: item.paymentPercentage,
+      repaymentHistoryMonthList: item.repaymentHistoryMonthList,
       }
     });
   }
@@ -88,6 +91,8 @@
           response.value.loanCount = res.response.loanCount;
         }
         response.value.loanSimpleDtoList = res.response.loanSimpleDtoList;
+        console.log(`✨repayment: ${res.response.repaymentHistoryMonthList} `)
+        // response.value.repaymentHistoryMonthList = res.response.repaymentHistoryMonthList;
         // console.log(res.response);
       });
     }catch(error){

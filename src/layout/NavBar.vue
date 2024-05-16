@@ -26,11 +26,10 @@
           <div class="nav-bar-details__card-total">
             <img src="@/assets/ic_haebang_56.svg" style="width:24px; height:24px"/>
             <p>{{ store.nickName }}님! 대출이 {{ Number.parseInt($route.query.outstandingPrincipal).toLocaleString() }}원이 남았어요!</p>
+            <div class="nav-bar-details__card-total-repaymentAmount">{{ Number.parseInt(repaymentAmount).toLocaleString() + "원" ||0 }}</div>
           </div>
           <div class="back-chart">
-            <div class="back-chart-repaymentAmount">{{ Number.parseInt(repaymentAmount).toLocaleString() + "원" ||0 }}</div>
-            <p class="chart-percent" :style="{left: left}">{{ width }}</p>
-            <div class="progress-bar" :style="{ width: width }"></div>
+            <div class="progress-bar" :style="{ minWidth: '10%', width: $route.query.paymentPercentage.toString() + '%' }"></div>
           </div>
         </div>
       </div>
@@ -85,7 +84,7 @@
   import { ref, onMounted, computed, watchEffect, watch, defineProps } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from "@/store/index.ts";
-  import { getLoanDetails } from '@/api/loan.js';
+  // import { getLoanDetails } from '@/api/loan.js';
   const router = useRouter();
   const store = useStore();
   const title = ref('');
@@ -412,6 +411,15 @@
           font-size: 12px;
           align-items: center;
           justify-content: center;
+          position: relative;
+          &-repaymentAmount{
+            position: absolute;
+            color: $grey00;
+            font-size: 14px;
+            line-height: 26px;
+            bottom: -40px;
+            z-index: 1001;
+          }
         }
         &-container{
           position:relative;
@@ -556,7 +564,7 @@
   bottom: 0;
   left: 0;
   height: 26px;
-  width: 50px;
+  width: 100px;
   background: linear-gradient(270deg, #2B66F5 0%, #4BA6FE 100%);
   border-radius: 999px;
 }
@@ -569,14 +577,5 @@
   border-radius: 999px;
   bottom: 16px;
   left: 16px;
-  &-repaymentAmount{
-    color: $grey00;
-    position: absolute;
-    z-index: 1001;
-    font-size: 14px;
-    line-height: 26px;
-    top:0;
-    left: 100px;
-  }
 }
 </style>

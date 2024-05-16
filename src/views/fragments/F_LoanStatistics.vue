@@ -199,7 +199,7 @@
         // console.log('👌barchartRef:', barchartRef.value.scrollLeft);
         setTimeout(() => {
           barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
-        }, 0.3);
+        }, 500);
       });
     }catch(error){
       console.log('에러발생', error);
