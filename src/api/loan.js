@@ -4,16 +4,20 @@ async function getUserLoanInfo() {
   return axios.get("/loan/user-loan-info");
 }
 
-async function postLoanCreate(param){
+async function postLoanCreate(param) {
   return axios.post("/loan/create", param);
 }
 
-async function getLoanStatistics(){
+async function getLoanStatistics() {
   return axios.get("/loan/loan-statistics");
 }
 
-async function getLoanDetails(param){
-  return axios.get("/loan/detail", param);
+async function getLoanDetails(param) {
+  return axios.get("/loan/detail", {
+    params: {
+      loanId: param,
+    },
+  });
 }
 
 export { getUserLoanInfo, postLoanCreate, getLoanStatistics, getLoanDetails };
