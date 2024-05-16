@@ -210,10 +210,10 @@
       "repaymentAmount" : repaymentAmount.value,
       "interestRate" : interestRate.value,
       "variableRate" : false,
-      "loanPeriod" : 24,
-      "originationDate" : "2023-01-01",
-      "expirationDate" : "2024-12-31",
-      "paymentDate" : 1,
+      "loanPeriod" : calcPeriod(startDate.value, expirationDate.value),
+      "originationDate" : convertNumberToDate(startDate.value),
+      "expirationDate" : convertNumberToDate(expirationDate.value),
+      "paymentDate" : paymentDate.value,
       "periodUnit" : "M",
       "repaymentMethod" : picked.value
     }
@@ -224,6 +224,8 @@
   }
   // BETA_1.3.0 실험용
   function test (){
+    month.value = calcPeriod(startDate.value, expirationDate.value);
+    console.log(month.value);
     // if(totalPrincipal.value === null){
     //   totalPrincipal.value = 0;
     // }
@@ -234,7 +236,6 @@
     //   interestRate.value = 0;
     // }
 
-    name.value = name.value.replace(/[^a-zA-Z0-9]/g, '');
     // totalPrincipal.value = Number.parseInt(totalPrincipal.value.toString().replace(/[^0-9]/g, ''));
     // repaymentAmount.value = Number.parseInt(repaymentAmount.value.toString().replace(/[^0-9]/g, ''));
     // interestRate.value = Number.parseFloat(interestRate.value.toString().replace(/[^0-9.]/g, ''));
@@ -302,32 +303,100 @@
    * @returns {number} 730일
    * start 계산 시 현재 시간을 초로 환산하여 빼고, end 계산 시 현재 시간을 초로 환산하여 23:59:59까지 더한다.
    */
-  function calculatePeriod(startDate, endDate) {
-    // 날짜 객체 생성
-    const now = new Date();
+  // function calculatePeriod(startDate, endDate) {
+  //   // 날짜 객체 생성
+  //   const now = new Date();
     
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const time = `${hours}:${minutes}:${seconds}`;
-    console.log(time);
+  //   const hours = String(now.getHours()).padStart(2, '0');
+  //   const minutes = String(now.getMinutes()).padStart(2, '0');
+  //   const seconds = String(now.getSeconds()).padStart(2, '0');
+  //   const time = `${hours}:${minutes}:${seconds}`;
+  //   console.log(time);
     
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+  //   const start = new Date(startDate);
+  //   const end = new Date(endDate);
 
-    // 종료 날짜에서 시작 날짜를 뺀 후, 결과를 밀리초 단위로 얻음
-    const diff = end.getTime() - start.getTime();
+  //   // 종료 날짜에서 시작 날짜를 뺀 후, 결과를 밀리초 단위로 얻음
+  //   const diff = end.getTime() - start.getTime();
 
-    // 밀리초를 일 단위로 변환
-    const days = diff / (1000 * 60 * 60 * 24);
+  //   // 밀리초를 일 단위로 변환
+  //   const days = diff / (1000 * 60 * 60 * 24);
 
-    // 결과 반환
-    return Math.floor(days);
+  //   // 결과 반환
+  //   return Math.floor(days);
+  // }
+
+  /**
+   * BETA_1.3.0 2024-05-16 21:34
+   * @param originationDate 
+   * @param expirationDate 
+   */
+  function calcPeriod(originationDate, expirationDate) {
+    const dateString = originationDate.toString();
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+    const afterOrigin = `${year}-${month}-${day}`;
+
+    const dateString2 = expirationDate.toString();
+    const year2 = dateString2.slice(0, 4);
+    const month2 = dateString2.slice(4, 6);
+    const day2 = dateString2.slice(6, 8);
+    const afterExpiration = `${year2}-${month2}-${day2}`;
+    
+    const origination = new Date(afterOrigin + ' 00:00:00').getTime();
+    const expiration = new Date(afterExpiration + ' 00:00:00').getTime();
+
+    const diffInMicroseconds = expiration - origination;
+    const diffInMonths = Math.round(diffInMicroseconds / (1000 * 60 * 60 * 24 * 30)); // 대략적으로 월을 계산합니다.
+
+    return diffInMonths.toString(); // MM 형식으로 출력합니다.
   }
-  console.log(calculatePeriod('2023-01-01 23:59:59','2023-01-02 00:59:59'));
-  console.log(new Date('2024-01-01 00:00:00').getTime());
-  console.log(new Date('2024-01-01 23:59:59').getTime());
-  console.log(new Date('2024-01-02 00:00:00').getTime());
+
+
+  // console.log(calculatePeriod('2023-01-01 23:59:59','2023-01-02 00:59:59'));
+  // console.log(new Date('2024-01-01 00:00:00').getTime());
+  // console.log(new Date('2024-01-01 23:59:59').getTime());
+  // console.log(new Date('2024-01-02 00:00:00').getTime());
+
+  function convertNumberToDate(dateNumber) {
+    const dateString = dateNumber.toString();
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+
+    return `${year}-${month}-${day}`;
+  }
+
+  /**
+   * BETA_1.3.0calculateLoanPeriod
+   * @param originationDate {String} YYYY-MM-DD
+   * @param expirationDate {String} YYYY-MM-DD
+   */
+   function calculateLoanPeriod(originationDate, expirationDate) {
+    // 날짜 포맷을 Date 객체로 변환
+    const startDate = new Date(originationDate);
+    const endDate = new Date(expirationDate);
+
+    // 각 날짜에서 연도와 월을 추출
+    const startYear = startDate.getFullYear();
+    const startMonth = startDate.getMonth(); // 0에서 11 사이의 값
+    const endYear = endDate.getFullYear();
+    const endMonth = endDate.getMonth(); // 0에서 11 사이의 값
+
+    // 전체 월 수 계산: 년도 차이를 월로 변환하고 월 차이를 더함
+    let totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
+
+    // 일수를 고려하여 마지막 달 제외 처리
+    if (endDate.getDate() >= startDate.getDate()) {
+        // 종료일이 시작일보다 크거나 같으면 종료 월을 포함
+        totalMonths += 1;
+    }
+
+    // 전체 월 수를 문자열로 반환하고 필요하면 앞에 0을 붙임
+    return totalMonths.toString().padStart(2, '0');
+}
+
 
 </script>
 
