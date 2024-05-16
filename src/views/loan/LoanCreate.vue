@@ -15,7 +15,7 @@
     <label for="loan-create__type" class="input_label">목적</label>
     <select id="loan-create__type" class="input_dropdown" @change="test" v-model="repayMethod">
       <option value="" disabled selected hidden>대출 목적을 선택해주세요.</option>
-      <option value="주택">주택</option>
+      <option value="주택자금">주택자금</option>
       <option value="생활비">생활비</option>
       <option value="자동차">자동차</option>
       <option value="학자금">학자금</option>
@@ -174,18 +174,19 @@
 
   async function handleClickSave(){
     hard.value = {
-      "name" : "카카오 청년전월세",
-      "purpose" : "주택자금",
-      "bankCode" : "",
-      "totalPrincipal" : 100000000,
-      "repaymentAmount" : 0,
-      "interestRate" : 4.5,
+      "name" : name.value,
+      "purpose" : repayMethod.value,
+      "bankCode" : bank.value,
+      "totalPrincipal" : totalPrincipal.value,
+      "repaymentAmount" : repaymentAmount.value,
+      "interestRate" : interestRate.value,
       "variableRate" : false,
       "loanPeriod" : 24,
       "originationDate" : "2023-01-01",
       "expirationDate" : "2024-12-31",
       "paymentDate" : 1,
-      "periodUnit" : "M"
+      "periodUnit" : "M",
+      "repaymentMethod" : picked.value
     }
     // console.log(hard.value);
     const response = await postLoanCreate(hard.value);

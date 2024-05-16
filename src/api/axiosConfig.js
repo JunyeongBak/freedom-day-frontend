@@ -34,9 +34,9 @@ instance.interceptors.response.use(
     console.error(error.response.data);
     const { code, message, response } = error.response.data;
 
-    if (code === "COMMON-001"){
-      router.push("/error");
-    }
+    // if (code === "COMMON-001"){
+    //   router.push("/error");
+    // }
     // 토근 만료
     if (code.indexOf("JWT") === 0) {
       router.push("/");
