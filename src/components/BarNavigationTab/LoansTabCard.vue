@@ -23,10 +23,12 @@
       <div class="loan-card-contents__line"></div>
       <div class="loan-card-info2-container">
         <img class="loan-card-contents__what" src="@/assets/ic_loan.png" alt="img" />
-        <div class="loan-card-contents__label"><p>정말 반이에요! 거의 다 왔어요!</p></div>
+        <div class="loan-card-contents__label"><p>{{ loanCheers }}</p></div>
       </div>
       <div class="loan-card-contents__chart">
-        <img class="ic-loantab" src="@/assets/ic_loantab.png" :style="{left: left}">
+        <div style="width: 36px; height:36px;">
+          <img class="ic-loantab" src="@/assets/cha_50.svg" :style="{left: left}">
+        </div>
         <p class="chart-percent" :style="{left: left}">{{ width }}</p>
         <div class="progress-bar" :style="{ width: width }"></div>
       </div>
@@ -40,6 +42,15 @@
 
 <script setup>
   import { defineProps, computed, ref, onMounted, h  } from 'vue';
+  const phrases = ref([
+    "착실하게 해방의 날을 향하여~",
+    "아시죠? 대출도 능력인거ㅎ",
+    "오늘은 경제 뉴스를 보는거 어때요?",
+    "얼른 해방되고 싶어요오~~",
+    "으쌰!으쌰!",
+    "매달 상환하는 당신! 대견해요!",
+    "이번 달은 중도상환 어때요?"
+  ]);
   const width = ref('0%');
   const left = ref('0%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
@@ -48,24 +59,58 @@
   const cssProOutDat = ref('loan-card-contents__prooutdat');
   const props = defineProps({
     // loandata: {
-    //   type: Object,
-    //   required: true,
-    //   default: () => ({ name: '토스뱅크 신용대출', purpose: '생활비', paymentDDay: 20, outstandingPrincipal: 120000, expirationDate: "2024-14-03T22:00:00", paymentDate: 16, paymentPercentage: 9 })
-    // }
-    loandata : {
-      name: String,
-      purpose: String,
-      paymentDDay: Number,
-      outstandingPrincipal : Number,
-      expirationDate: String,
-      paymentDate : Number,
-      paymentPercentage : Number,
-    },
-  });
-
+      //   type: Object,
+      //   required: true,
+      //   default: () => ({ name: '토스뱅크 신용대출', purpose: '생활비', paymentDDay: 20, outstandingPrincipal: 120000, expirationDate: "2024-14-03T22:00:00", paymentDate: 16, paymentPercentage: 9 })
+      // }
+      loandata : {
+        name: String,
+        purpose: String,
+        paymentDDay: Number,
+        outstandingPrincipal : Number,
+        expirationDate: String,
+        paymentDate : Number,
+        paymentPercentage : Number,
+      },
+    });
+    
+    const loanCheers = computed(() => {
+      const msg = '';
+      if (Math.round(props.loandata.paymentPercentage) == 10 ){
+        return '시작이 반! 벌써 반이네요?';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 20){
+        return '연체없는 대출 습관을 들여봐요ㅎㅎ';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 30){
+        return '해방의 날은 금방 올거에요!';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 40){
+        return '곧 있음 절반! 너무 잘하고 있잖아요?';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 50){
+        return '정말 반! 거의 다 왔어요!!';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 60){
+        return '와 벌써 이만큼이나!';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 70){
+        return '행운의 숫자 7! 좋은 일 생길거에요!';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 80){
+        return '빨리 해방돼서 맛있는거 사먹으러 가요!';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 90){
+        return '이제 정말 고지가 눈 앞ㅠㅠ';
+      }
+      else if(Math.round(props.loandata.paymentPercentage) == 100){
+        return '드디어 해방!! 축하드려요!';
+      }
+  
+      return getRandomPhrase();
+    });
   onMounted(() => {
     try{
-
       // console.log(proOutData);
       width.value = props.loandata.paymentPercentage + '%';
       left.value = (props.loandata.paymentPercentage - 14);
@@ -92,7 +137,7 @@
     }
   });
 
-  // 2024-05-16 font-size 16px로 일괄 적용
+  // 2024-05-16 font-size 16px로 일괄 적용()
   const proOutData = computed(() => {
     try{
       if (typeof(props.loandata.outstandingPrincipal) === 'number'){
@@ -111,6 +156,11 @@
       return [];
     }
   });
+
+  function getRandomPhrase() {
+    const randomIndex = Math.floor(Math.random() * phrases.value.length);
+    return phrases.value[randomIndex];
+  }
 
   // const expirationDateList = computed(() => props.loandata.expirationDate);
   // console.log(expirationDateList.value);
