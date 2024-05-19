@@ -7,7 +7,7 @@
       <img src="/src/assets/ic_x.png" alt="close"/>
     </div>
     <div class="loan-card-info-container">
-      <div :class="cssInfoPurpose">
+      <div :class="cssInfoPurpose" :style="{background:colorComputed}">
         <p>{{loandata.purpose}}</p>
       </div>
       <div :class="cssPaymentDday">
@@ -51,6 +51,27 @@
     "매달 상환하는 당신! 대견해요!",
     "이번 달은 중도상환 어때요?"
   ]);
+  const colors = {
+    '생활비': '#9F33C4',
+    '학자금': '#FFCE58',
+    '자동차': '#89D8D8',
+    '주택자금': '#3182F6',
+    '기타': '#6B7583',
+  };
+  const colorComputed = computed(()=>{
+    console.log(props.loandata.purpose);
+    if (props.loandata.purpose == '생활비'){
+      return colors['생활비'];
+    }else if(props.loandata.purpose == '학자금'){
+      return colors['학자금'];
+    }else if(props.loandata.purpose == '자동차'){
+      return colors['자동차'];
+    }else if(props.loandata.purpose == '주택자금'){
+      return colors['주택자금'];
+    }else if(props.loandata.purpose == '기타'){
+      return colors['기타'];
+    }
+  });
   const width = ref('0%');
   const left = ref('10%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
@@ -167,6 +188,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/style/common.scss";
   .loan-card{
     &__component{
       position: relative;
@@ -192,8 +214,9 @@
       &__purpose{
         display: inline-block;
         text-align: center;
+        min-width: 48px;
         margin-left: 27px;
-        background-color: #9F33C4;
+        // background-color: #9F33C4;
         font-size: 12px;
         font-family: 'NanumSquareNeo_bold';
         color: #FFF;
@@ -202,10 +225,10 @@
       }
       &__paymentDDay{
         display: inline-block;
-        min-width: 41px;
+        min-width: 48px;
         text-align: center;
         margin-left: 4px;
-        background-color: #2B66F5;
+        background-color: $blue10;
         font-size: 12px;
         font-family: 'NanumSquareNeo_bold';
         color: #FFF;
