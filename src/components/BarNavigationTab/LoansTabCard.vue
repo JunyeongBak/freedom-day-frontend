@@ -30,7 +30,7 @@
           <img class="ic-loantab" src="@/assets/cha_50.svg" :style="{left: left}">
         </div>
         <p class="chart-percent" :style="{left: left}">{{ width }}</p>
-        <div class="progress-bar" :style="{ width: width }"></div>
+        <div class="progress-bar" :style="{ width: width, minWidth: '15%' }"></div>
       </div>
 
     </div>
@@ -52,7 +52,7 @@
     "이번 달은 중도상환 어때요?"
   ]);
   const width = ref('0%');
-  const left = ref('0%');
+  const left = ref('10%');
   const cssInfoPurpose = ref('loan-card-info__purpose');
   const cssPaymentDday = ref('loan-card-info__paymentDDay');
   // loan-card-contents__prooutdat
@@ -115,7 +115,7 @@
       width.value = props.loandata.paymentPercentage + '%';
       left.value = (props.loandata.paymentPercentage - 14);
       if (left.value < 0){
-        left.value = 0 + '%';
+        left.value = 2 + '%';
       }else if (left.value > 100){
         left.value = 88 + '%';
       }else{
