@@ -113,6 +113,8 @@
   const appendingList = ref([]); // listAppending Function 전용
   const resultPieChartList = ref([]); // getDeg Function 전용
   const isNullDate = ref('');
+
+
   const colors = {
     '생활비': '#9F33C4',
     '학자금': '#FFCE58',
@@ -456,9 +458,9 @@
         width: 20px;
         height: 100px;
         margin-top: 20px;
-        // background: #FFF;
-        // border-radius: 4px 4px 0px 0px;
-        // z-index: 100;
+        position: relative;
+        border-radius: 4px 4px 0px 0px;
+        overflow: hidden;
         &__principal{
           background: #031F84;
           height: 10px;
@@ -553,4 +555,5 @@
       font-size: 14px;
     }
   }
+
 </style>

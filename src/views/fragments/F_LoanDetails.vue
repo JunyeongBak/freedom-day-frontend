@@ -184,6 +184,8 @@
         width: 20px;
         height: 100px;
         margin-top: 20px;
+        border-radius: 4px 4px 0px 0px;
+        overflow: hidden;
         &__principal{
           background: #031F84;
           height: 10px;

@@ -24,7 +24,7 @@
           <div class="orient-line"></div>
           <p>상환 현황</p>
           <div class="nav-bar-details__card-total">
-            <img src="@/assets/ic_haebang_56.svg" style="width:24px; height:24px"/>
+            <img src="@/assets/ic_haebang.png" style="width:24px; height:24px; margin-right: 8px;"/>
             <p>{{ store.nickName }}님! 대출이 {{ Number.parseInt($route.query.outstandingPrincipal).toLocaleString() }}원이 남았어요!</p>
             <div class="nav-bar-details__card-total-repaymentAmount">{{ Number.parseInt(repaymentAmount).toLocaleString() + "원" ||0 }}</div>
           </div>
