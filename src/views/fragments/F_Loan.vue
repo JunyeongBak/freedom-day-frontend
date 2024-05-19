@@ -5,7 +5,14 @@
         <span>{{ response.nickName }}</span> 님의 지난달 총 납부액
       </p>
       <div class="loan-total-info__card">
-        <img src="@/assets/loan001.png" alt="대출" />
+        <img class="loan-total-info__card-background" src="@/assets/loan001.png" alt="대출" />
+        <img v-if="response.repaymentRate <50" class="loan-total-info__card-overlay" src="@/assets/cha_00_60.svg" alt="대출" />
+        <img v-else-if="response.repaymentRate >=50 && response.repaymentRate < 90" class="loan-total-info__card-overlay" src="@/assets/cha_50_60.svg" alt="대출" />
+        <img v-else="response.repaymentRate >=90" class="loan-total-info__card-overlay" src="@/assets/cha_100_60.svg" alt="대출" />
+        <div class="back-chart">
+          <!-- <div class="progress-bar" :style="{ minWidth: '10%', width: $route.query.paymentPercentage.toString() + '%' }"></div> -->
+          <p>{{ response.repaymentRate }}%</p>
+        </div>
         <p>{{ response.previousMonthPayment }}원</p>
       </div>
     </div>
@@ -43,6 +50,7 @@
   const response = ref({
     nickName: '홍길동',
     previousMonthPayment: 0,
+    repaymentRate: 0,
     loanCount: 0,
     loanSimpleDtoList: [],
     repaymentHistoryMonthList: [],
@@ -90,6 +98,7 @@
         if (res.response.loanCount !== null) {
           response.value.loanCount = res.response.loanCount;
         }
+        response.value.repaymentRate = res.response.repaymentRate;
         response.value.loanSimpleDtoList = res.response.loanSimpleDtoList;
         console.log(`✨repayment: ${res.response.repaymentHistoryMonthList} `)
         // response.value.repaymentHistoryMonthList = res.response.repaymentHistoryMonthList;
@@ -106,6 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/style/common.scss";
   .loan {
     display: flex;
     flex-direction: column;
@@ -138,9 +148,18 @@
         width: 100%;
         height: 84px;
         margin-top: 8px;
-        > img{
+        position: relative;
+
+        &-background{
           width: 84px;
           height: 84px;
+        }
+        &-overlay{
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          top: 2px;
+          left: 12px;
         }
         > p{
           font-size: 24px;
@@ -177,4 +196,18 @@
       margin-top: 56px;
     }
   }
+  .back-chart{
+    position: absolute;
+    bottom: 6px;
+    left: 7px;
+    background: linear-gradient(270deg, #FFA800 0%, #FFE074 100%);
+    border-radius: 9999px;
+    color: $grey00;
+    width: 70px;
+    height: 16px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
 </style>

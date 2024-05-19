@@ -18,7 +18,7 @@
       <img class="loan-card-contents__img" src="/src/assets/ic_bank.png" alt="img" />
       <div class="loan-card-contents__name">{{ loandata.name }}</div>
       <div class="loan-card-contents__exdata">{{ proExData }}</div>
-      <div :class="cssProOutDat">{{ proOutData }}원</div>
+      <div class="loan-card-contents__prooutdat_fontsize_16">{{ proOutData }}원</div>
       <div class="loan-card-contents__paymentday">매달 {{ loandata.paymentDate }}일</div>
       <div class="loan-card-contents__line"></div>
       <div class="loan-card-info2-container">
@@ -92,6 +92,7 @@
     }
   });
 
+  // 2024-05-16 font-size 16px로 일괄 적용
   const proOutData = computed(() => {
     try{
       if (typeof(props.loandata.outstandingPrincipal) === 'number'){

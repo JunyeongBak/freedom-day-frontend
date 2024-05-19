@@ -262,7 +262,7 @@
    */
   function validateAndAlert() {
     if (!emailValidation(email.value)) {
-      emailLocalError.value = '이메일 로컬 규칙을 확인하세요.';
+      emailLocalError.value = '이메일을 확인해주세요';
       isEmailCheck.value = false;
       isEmailRegex.value = false;
     }else{
