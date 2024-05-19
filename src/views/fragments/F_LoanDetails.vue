@@ -170,8 +170,8 @@
         position: relative;
       }
       &-li{
-        margin-left: 19px;
-        margin-right: 19px;
+        margin-left: 12px;
+        margin-right: 12px;
       }
       &-total{
         position: absolute;

@@ -216,7 +216,7 @@
    * @param {string} localPart 이메일의 로컬파트규칙을 검사합니다.
    */
   function emailValidation(localPart){
-    console.log(localPart);
+    // console.log(localPart);
     const regex = /^(?!.*\.\.)(?!^\.)[A-Za-z0-9.]+(?:\([^()]*\)[A-Za-z0-9.]*)*$/;
 
     return regex.test(localPart);
@@ -289,8 +289,9 @@
     try {
       // email.value = router.query.email;
       // domain.value = router.query.domain;
-      const response = await postAuthenticateEmail(email.value.trim() + '@' + selectedOption.value.trim());
-      console.log('%c✨postAuthenticateEmail: ', 'color:#e34034;font-weight: bold;', response);
+      await postAuthenticateEmail(email.value.trim() + '@' + selectedOption.value.trim());
+      // const response = await postAuthenticateEmail(email.value.trim() + '@' + selectedOption.value.trim());
+      // console.log('%c✨postAuthenticateEmail: ', 'color:#e34034;font-weight: bold;', response);
     } catch (error) {
       console.error(error);
     }

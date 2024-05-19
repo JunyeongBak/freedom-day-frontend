@@ -150,7 +150,7 @@
     store.setNavBarFlag('2_2');
     try{
       getLoanStatistics().then((res) => {
-        console.log('✨getLoanStatistics:', res.response);
+        // console.log('✨getLoanStatistics:', res.response);
         response.value = res.response;
         totalPrincipal.value = res.response.totalPrincipal;
         totalPrincipalRepayment.value = res.response.totalPrincipalRepayment;
@@ -163,7 +163,7 @@
         }
 
         loanFinishList.value = res.response.repaidLoanList;
-        console.log(res.response.repaymentHistoryMonthList);
+        // console.log(res.response.repaymentHistoryMonthList);
         monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();
         remainingPrincipalList.value = res.response.remainingPrincipalList;
@@ -188,15 +188,15 @@
         // console.log('%c✨상환완료: ', 'color:#e34034;font-weight: bold;',finishRepayment.value);
         // pichart(res.response.remainingPrincipalList);
         originalPercentList.value = getPercentList(res.response.remainingPrincipalList);
-        console.log('✨originalPercentList:', originalPercentList.value);
+        // console.log('✨originalPercentList:', originalPercentList.value);
         adjustedPercentList.value = getAdjustPercentList(originalPercentList.value);
-        console.log('✨adjustedPercentList:', adjustedPercentList.value);
+        // console.log('✨adjustedPercentList:', adjustedPercentList.value);
         
         appendingList.value = listAppending(remainingPrincipalList.value, adjustedPercentList.value);
-        console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
-        console.log('👌appendingList', appendingList.value);
+        // console.log(`📌${appendingList['value'][0]['adjustPercent']}`);
+        // console.log('👌appendingList', appendingList.value);
         resultPieChartList.value = getDeg(appendingList.value); //deg까지 완료!
-        console.log('👌resultPieChartList', resultPieChartList.value);
+        // console.log('👌resultPieChartList', resultPieChartList.value);
         // console.log('👌barchartRef:', barchartRef.value.scrollWidth);
         // console.log('👌barchartRef:', barchartRef.value.scrollLeft);
         setTimeout(() => {
@@ -258,7 +258,7 @@
   const apdList = appendingList;
   let accumulatedPercent = 0; // 누적값을 저장할 변수 추가
   for (let [index, item] of apdList.entries()){
-    console.log('👌',index, item.adjustPercent);
+    // console.log('👌',index, item.adjustPercent);
     accumulatedPercent += item.adjustPercent; // 현재 인덱스의 adjustPercent 값을 누적값에 더함
     let deg = ((accumulatedPercent * 3.6) -120) + 'deg'; // 누적값을 사용하여 deg 계산
     apdList[index]['deg'] = deg;

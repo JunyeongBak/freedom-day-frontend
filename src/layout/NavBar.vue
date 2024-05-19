@@ -127,10 +127,10 @@
    */
   onMounted(() => {
     navBarFlag.value = store.navBarFlag; //TODO: 추후에 완전히 pinia 제거하기
-    console.log(navBarFlag.value);
+    // console.log(navBarFlag.value);
     // console.log('navBarFlag: ', navBarFlag.value);
     nav2_split.value = navBarFlag.value.split('_')[0]; // 대출, 통계, 설정 화면 NavBar
-    console.log(isExpandedDetails.value);
+    // console.log(isExpandedDetails.value);
     // console.log(`repaymentAmount: ${repaymentAmount.value}`);
   });
   

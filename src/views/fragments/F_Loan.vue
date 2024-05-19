@@ -67,7 +67,7 @@
     // console.log(item);
     store.setNavBarFlag('1_1');
     // Redirect to '/loan-detail' page with props data
-    console.log('item: ',item);
+    // console.log('item: ',item);
     router.push({
       path: '/loan-detail',
       query: {
@@ -100,7 +100,7 @@
         }
         response.value.repaymentRate = res.response.repaymentRate;
         response.value.loanSimpleDtoList = res.response.loanSimpleDtoList;
-        console.log(`✨repayment: ${res.response.repaymentHistoryMonthList} `)
+        // console.log(`✨repayment: ${res.response.repaymentHistoryMonthList} `)
         // response.value.repaymentHistoryMonthList = res.response.repaymentHistoryMonthList;
         // console.log(res.response);
       });

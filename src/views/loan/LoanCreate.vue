@@ -220,14 +220,15 @@
       "repaymentMethod" : picked.value
     }
     // console.log(hard.value);
-    const response = await postLoanCreate(hard.value);
-    console.log(response);
+    await postLoanCreate(hard.value);
+    // const response = await postLoanCreate(hard.value);
+    // console.log(response);
     router.push('/home');
   }
   // BETA_1.3.0 실험용
   function test (){
     month.value = calcPeriod(startDate.value, expirationDate.value);
-    console.log(month.value);
+    // console.log(month.value);
     // if(totalPrincipal.value === null){
     //   totalPrincipal.value = 0;
     // }
@@ -284,16 +285,16 @@
     }else{
       // errorStartDate.value = '8자리(YYYY-MM-DD) 숫자만 입력하세요.';
     }
-    console.log('대출이름', name.value);
-    console.log('목적',repayMethod.value);
-    console.log('기관',bank.value);
-    console.log('상환방법',picked.value);
-    console.log('총 원금',totalPrincipal.value);
-    console.log('상환 완료 금액',repaymentAmount.value);
-    console.log('연이자율',interestRate.value);
-    console.log('대출기간',month.value);
-    console.log('시작일',startDate.value);
-    console.log('만료일',expirationDate.value);
+    // console.log('대출이름', name.value);
+    // console.log('목적',repayMethod.value);
+    // console.log('기관',bank.value);
+    // console.log('상환방법',picked.value);
+    // console.log('총 원금',totalPrincipal.value);
+    // console.log('상환 완료 금액',repaymentAmount.value);
+    // console.log('연이자율',interestRate.value);
+    // console.log('대출기간',month.value);
+    // console.log('시작일',startDate.value);
+    // console.log('만료일',expirationDate.value);
   }
 
   // 2024년은 윤년 초일 산입 말일 불산입 365일

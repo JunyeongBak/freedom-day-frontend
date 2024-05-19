@@ -43,7 +43,7 @@
   const repaymentAmount = ref(0);
 
   onMounted(async () => { // async 키워드 추가
-    console.log(`id: ${router.currentRoute.value.query.id}`);
+    // console.log(`id: ${router.currentRoute.value.query.id}`);
     const id = Number.parseInt(router.currentRoute.value.query.id);
     try {
       const response = await getLoanDetails(id); // await 키워드 추가

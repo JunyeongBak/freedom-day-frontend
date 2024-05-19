@@ -59,7 +59,7 @@
     '기타': '#6B7583',
   };
   const colorComputed = computed(()=>{
-    console.log(props.loandata.purpose);
+    // console.log(props.loandata.purpose);
     if (props.loandata.purpose == '생활비'){
       return colors['생활비'];
     }else if(props.loandata.purpose == '학자금'){
