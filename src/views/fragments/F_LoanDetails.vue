@@ -5,7 +5,10 @@
       <div class="loan-details-fragment__calendar">
         <div style="display:flex; width:195px; align-items: center;justify-content: space-between;">
           <img src="@/assets/ic_24_left_grey80.svg" alt="calendar" style="width:24px; height: 24px;">
-          <p>2024.11</p>
+          <p>{{ currentRepayment.historyDate }}</p>
+          <!-- <ul>
+            <li v-for="data in monthlyRepaymentList" :key="data.id">{{ data.historyDate }}</li>
+          </ul> -->
           <img src="@/assets/ic_24_right_grey80.svg" alt="calendar" style="width:24px; height: 24px;">
         </div>
         <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
@@ -93,6 +96,14 @@
   const loanId = ref(0);
   const barchartRef = ref(0);
   const monthlyRepaymentList = ref([]);
+  const indexMaxMonthly = ref(0);
+  const currentRepayment = ref({
+    "historyDate": "YYYY-MM",
+    "interestRate" : 0,
+    "repaymentAmount1": 0,
+    "repaymentAmount2": 0,
+    "repaymentAmount3": 0,
+  });
   // onMounted(async () => {
   //   loanId.value = router.currentRoute.value.query.id;
   //   console.log(loanId.value);
@@ -101,16 +112,26 @@
   //   // response.value = res.data;
   // });
 
-  onMounted(() =>{
-    // monthlyRepaymentList.value = 
+  const props = defineProps({
+    loanDetails: Object,
+  });
+  onMounted(async () =>{
     setTimeout(() => {
       barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
     }, 500);
   })
-  defineProps({
-    loanDetails: Object,
-  });
 
+  watch(() => props.loanDetails, (newVal) => {
+    // console.log('✨', newVal);
+    monthlyRepaymentList.value = newVal.repaymentHistoryMonthList;
+    indexMaxMonthly.value = monthlyRepaymentList.value.length - 1;
+    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
+    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
+    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
+    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
+    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+    console.log(indexMaxMonthly.value, monthlyRepaymentList.value[monthlyRepaymentList.value.length - 1]);
+  });
 </script>
 
 <style lang="scss" scoped>

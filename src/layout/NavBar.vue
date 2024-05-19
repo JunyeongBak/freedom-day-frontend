@@ -29,7 +29,7 @@
             <div class="nav-bar-details__card-total-repaymentAmount">{{ Number.parseInt(repaymentAmount).toLocaleString() + "원" ||0 }}</div>
           </div>
           <div class="back-chart">
-            <div class="progress-bar" :style="{ minWidth: '10%', width: $route.query.paymentPercentage.toString() + '%' }"></div>
+            <div class="progress-bar" :style="{ minWidth: '10%', width: Number.parseInt($route.query.paymentPercentage).toString() + '%' }"></div>
           </div>
         </div>
       </div>
