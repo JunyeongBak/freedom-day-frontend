@@ -165,6 +165,8 @@
   const barchartRef = ref(0);
   const monthlyRepaymentList = ref([]);
   const indexMaxMonthly = ref(0);
+  const currentYear = ref(null);
+  const currentMonth = ref(null);
   const currentRepayment = ref({
     "id" : 0,
     "historyDate": "YYYY-MM",
@@ -229,10 +231,10 @@
         // repaymentAmount3: currentRepayment.value.repaymentAmount3,
         loanId: router.currentRoute.value.query.id,
         interestRates: 6.2,
-        repaymentAmount1: 3800000,
-        repaymentAmount2: 3300000,
-        repaymentAmount3: 4800000,
-        historyDate: '2024-04-01',
+        repaymentAmount1: 1000000,
+        repaymentAmount2: 1000000,
+        repaymentAmount3: 2000000,
+        historyDate: '2024-05-16',
       });
       router.push("/home");
     }catch(e){
@@ -245,11 +247,45 @@
     loanDetails: Object,
   });
   onMounted(async () =>{
-    setTimeout(() => {
-      barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
-    }, 500);
-    isLeftArrow.value = true;
     try{
+      setTimeout(() => {
+        barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
+      }, 500);
+      isLeftArrow.value = true;
+      let year = new Date().getFullYear();
+      let month = (new Date().getMonth()) + 1;
+      currentMonth.value = month < 10 ? '0' + month : month.toString();
+      currentYear.value = year.toString();
+      // console.log(currentMonth.value);
+
+      watch(() => props.loanDetails, (newVal) => {
+        monthlyRepaymentList.value = newVal.repaymentHistoryMonthList;
+        indexMaxMonthly.value = monthlyRepaymentList.value.length - 1;
+        const maxMonth = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate.toString().split('-')[1];
+        console.log('max month: ',maxMonth);
+        if(Number.parseInt(maxMonth.toString().replace('0',''))+1 == Number.parseInt(currentMonth.value.toString().replace('0',''))){
+          console.log('캬캬캬', maxMonth, currentMonth.value); 
+          monthlyRepaymentList.value.push({
+            "id": indexMaxMonthly.value + 1,
+            "historyDate": `${currentYear.value}-${currentMonth.value}`,
+            "interestRate": 0,
+            "repaymentAmount1": 0,
+            "repaymentAmount2": 0,
+            "repaymentAmount3": 0,
+          });
+          indexMaxMonthly.value += 1;
+        }else{
+          console.log('api에서 현재 월까지 데이터 읽어옴');
+        }
+        currentRepayment.value.id = indexMaxMonthly.value;
+        currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
+        currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
+        currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
+        currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
+        currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+        console.log('max date: ',currentRepayment.value.historyDate);
+      })
+      // console.log(props.loanDetails);
       // await setAddRepaymentDetails({
       //   loanId: router.currentRoute.value.query.id,
       //   historyDate: currentRepayment.value.historyDate,
@@ -271,18 +307,7 @@
     }
   })
 
-  watch(() => props.loanDetails, (newVal) => {
-    // console.log('✨', newVal);
-    monthlyRepaymentList.value = newVal.repaymentHistoryMonthList;
-    indexMaxMonthly.value = monthlyRepaymentList.value.length - 1;
-    currentRepayment.value.id = indexMaxMonthly.value;
-    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
-    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
-    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
-    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
-    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
-    console.log(indexMaxMonthly.value, monthlyRepaymentList.value[monthlyRepaymentList.value.length - 1]);
-  });
+
 </script>
 
 <style lang="scss" scoped>

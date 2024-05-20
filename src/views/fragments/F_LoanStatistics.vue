@@ -8,7 +8,7 @@
           <div class="loan-statistics-remind-card">
             <img class="loan-statistics-remind-card__bankimg" src="@/assets/ic_bank.png" alt="">
             <div class="loan-statistics-remind-card-info">
-              <p class="loan-statistics-remind-card-info__purpose">{{ loan.purpose }}</p>
+              <p class="loan-statistics-remind-card-info__purpose" :style="{backgroundColor : purposeColor(loan.purpose.toString())}">{{ loan.purpose }}</p>
               <p class="loan-statistics-remind-card-info__dday">D-{{ loan.paymentDDay }}</p>
             </div>
             <p class="loan-statistics-remind-card__name">{{ loan.name }}</p>
@@ -27,7 +27,7 @@
           <li v-for="finish in loanFinishList" :key="finish.id">
             <div class="loan-statistics-finish-card">
               <img class="loan-statistics-finish-card__bankimg" src="@/assets/ic_bank.png" alt="">
-              <p class="loan-statistics-finish-card__purpose">{{ finish.purpose }}</p>
+              <p class="loan-statistics-finish-card__purpose" :style="{backgroundColor:purposeColor(finish.purpose.toString())}">{{ finish.purpose }}</p>
               <p class="loan-statistics-finish-card__name">{{ finish.name }}</p>
               <p class="loan-statistics-finish-card__amount">{{ finish.repaymentAmount }}원</p>        
             </div>
@@ -138,7 +138,19 @@
     return {background: gradient};
   });
   
-
+  function purposeColor(purpose) {
+    if (purpose === '생활비'){
+      return colors['생활비'];
+    } else if (purpose === '학자금'){
+      return colors['학자금'];
+    } else if (purpose === '자동차'){
+      return colors['자동차'];
+    } else if (purpose === '주택자금'){
+      return colors['주택자금'];
+    } else if (purpose === '기타'){
+      return colors['기타'];
+    }
+  }
 
 
 
