@@ -40,9 +40,10 @@
             >
         </div>
         <div 
-          style="display:flex; flex-direction:column; justify-content: space-evenly;align-items: center; height: 210px;box-sizing: border-box;"
+          style="position:relative; display:flex; flex-direction:column; justify-content: space-evenly;align-items: center; height: 210px;box-sizing: border-box;"
           v-if="currentRepayment.repaymentAmount1 + currentRepayment.repaymentAmount2 + currentRepayment.repaymentAmount3 == 0"
           >
+          <div style="position:absolute;background-color: orange; width: 296px; height: 182px;">layout</div>
           <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
           <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
           <form method="POST" @submit.prevent="handleSubmit">
@@ -222,21 +223,28 @@
 
   const handleSubmit = async () =>{
     try{
-      await setAddRepaymentDetails({
-        // loanId: router.currentRoute.value.query.id,
-        // interestRate: currentRepayment.value.interestRate,
-        // historyDate: currentRepayment.value.historyDate,
-        // repaymentAmount1: currentRepayment.value.repaymentAmount1,
-        // repaymentAmount2: currentRepayment.value.repaymentAmount2,
-        // repaymentAmount3: currentRepayment.value.repaymentAmount3,
-        loanId: router.currentRoute.value.query.id,
-        interestRates: 6.2,
-        repaymentAmount1: 1000000,
-        repaymentAmount2: 1000000,
-        repaymentAmount3: 2000000,
-        historyDate: '2024-05-16',
-      });
-      router.push("/home");
+      alert('상환 입력!');
+      // await setAddRepaymentDetails({
+      //   // loanId: router.currentRoute.value.query.id,
+      //   // interestRate: currentRepayment.value.interestRate,
+      //   // historyDate: currentRepayment.value.historyDate,
+      //   // repaymentAmount1: currentRepayment.value.repaymentAmount1,
+      //   // repaymentAmount2: currentRepayment.value.repaymentAmount2,
+      //   // repaymentAmount3: currentRepayment.value.repaymentAmount3,
+      //   // 상환 1, 2, 3 합쳐서 outStandingPrincipal보다 크면 에러
+      //   // const totalRepay = 
+      //   // if (router.currentRoute.value.query.outstandingPrincipal > ){
+
+      //   // }
+      //   loanId: router.currentRoute.value.query.id,
+      //   interestRates: 6.2,
+      //   repaymentAmount1: 1000000,
+      //   repaymentAmount2: 1000000,
+      //   repaymentAmount3: 2000000,
+      //   historyDate: '2024-05-16',
+      // });
+
+      // router.push("/home");
     }catch(e){
       console.log(e);
     }
@@ -262,11 +270,10 @@
         monthlyRepaymentList.value = newVal.repaymentHistoryMonthList;
         indexMaxMonthly.value = monthlyRepaymentList.value.length - 1;
         const maxMonth = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate.toString().split('-')[1];
-        console.log('max month: ',maxMonth);
+        console.log('api: ',monthlyRepaymentList.value);
         if(Number.parseInt(maxMonth.toString().replace('0',''))+1 == Number.parseInt(currentMonth.value.toString().replace('0',''))){
           console.log('캬캬캬', maxMonth, currentMonth.value); 
           monthlyRepaymentList.value.push({
-            "id": indexMaxMonthly.value + 1,
             "historyDate": `${currentYear.value}-${currentMonth.value}`,
             "interestRate": 0,
             "repaymentAmount1": 0,
