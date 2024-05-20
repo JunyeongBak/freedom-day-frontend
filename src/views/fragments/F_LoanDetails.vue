@@ -29,23 +29,35 @@
           <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
           <div class="loan-details-fragment__calendar-write" @click="">네! 상환 입력하기</div>
         </div>
-        <div v-else style="height: 160px; width:296px; background: #F3F3F3; border-radius: 10px;padding: 16px; box-sizing:border-box;display:flex; flex-direction: column; justify-content:space-between;">
-          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NamumSquareNeo_bold';">
+        <div v-else style="height: 126px; width:296px; background: #F3F3F3; border-radius: 10px;padding: 16px; box-sizing:border-box;display:flex; flex-direction: column; justify-content:space-between;">
+          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
             <span>금리</span>
-            <span>{{ currentRepayment.interestRate }} %</span>
+            <span style="font-family: 'NanumSquareNeo_extraBold';">{{ currentRepayment.interestRate }} %</span>
           </p>
-          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NamumSquareNeo_bold';">
+          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
             <span>이자</span>
-            <span>{{ currentRepayment.repaymentAmount1.toLocaleString() }} 원</span>
+            <span style="font-family: 'NanumSquareNeo_extraBold';">{{ currentRepayment.repaymentAmount1.toLocaleString() }} 원</span>
           </p>
-          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NamumSquareNeo_bold';">
+          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
             <span>원금</span>
-            <span>{{ currentRepayment.repaymentAmount2.toLocaleString() }} 원</span>
+            <span style="font-family: 'NanumSquareNeo_extraBold';">{{ currentRepayment.repaymentAmount2.toLocaleString() }} 원</span>
           </p>
-          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NamumSquareNeo_bold';">
+          <p style="display: flex; justify-content: space-between; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
             <span>중도상환</span>
-            <span>{{ currentRepayment.repaymentAmount3.toLocaleString() }} 원</span>
+            <span style="font-family: 'NanumSquareNeo_extraBold';">{{ currentRepayment.repaymentAmount3.toLocaleString() }} 원</span>
           </p>
+        </div>
+        <div style="width:296px; height:76px; box-sizing: border-box;display: flex;box-sizing: border-box; padding:16px;align-items: center;justify-content: space-between;background: #EAF0FE;border-radius: 10px;">
+          <div style="display:flex; flex-direction: column;">
+            <p style="font-size:12px; font-family: 'NanumSquareNeo_bold';">11월 납입금액</p>
+            <p style="font-size:20px; font-family: 'NanumSquareNeo_extrabold';margin-top: 4px;">1,200,000원</p>
+          </div>
+          <div 
+            style="border: 1px solid #2B66F5;border-radius: 16px;background: #FFFFFF;box-sizing: border-box;width: 94px;height: 40px;font-size: 14px;font-family: 'NanumSquareNeo_extrabold'; text-align: center;line-height: 40px;color:#2B66F5;"
+            @click=""
+            >
+            수정하기
+          </div>
         </div>
       </div>
     </div>
