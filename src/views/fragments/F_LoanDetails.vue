@@ -4,18 +4,36 @@
       <p class="label">상환 세부 내용</p>
       <div class="loan-details-fragment__calendar">
         <div style="display:flex; width:195px; align-items: center;justify-content: space-between;">
-          <img 
+          <img
+            v-if = "isLeftArrow"
             src="@/assets/ic_24_left_grey80.svg" 
             alt="calendar" 
             style="width:24px; height: 24px;"
             @click="minusIndex"
             >
+          <img
+          v-else
+          src="@/assets/ic_24_left_grey20.svg" 
+          alt="calendar" 
+          style="width:24px; height: 24px;"
+          @click="minusIndex"
+          >
           <p style="text-decoration: underline;text-underline-offset: 3px;text-decoration-thickness: 1px;font-family: 'NanumSquareNeo_bold';">{{ currentRepayment.historyDate.replace('-','.') }}</p>
           <!-- <ul>
             <li v-for="data in monthlyRepaymentList" :key="data.id">{{ data.historyDate }}</li>
           </ul> -->
           <img 
+            v-if="isRightArrow"
+            id="arrow-right"
             src="@/assets/ic_24_right_grey80.svg" 
+            alt="calendar" 
+            style="width:24px; height: 24px;" 
+            @click="addIndex"
+            >
+          <img 
+            v-else
+            id="arrow-right"
+            src="@/assets/ic_24_right_grey20.svg" 
             alt="calendar" 
             style="width:24px; height: 24px;" 
             @click="addIndex"
@@ -155,6 +173,8 @@
     "repaymentAmount2": 0,
     "repaymentAmount3": 0,
   });
+  const isRightArrow = ref(false);
+  const isLeftArrow = ref(false);
   // onMounted(async () => {
   //   loanId.value = router.currentRoute.value.query.id;
   //   console.log(loanId.value);
@@ -163,6 +183,7 @@
   //   // response.value = res.data;
   // });
   function addIndex(){
+    isLeftArrow.value = true; // 오른쪽 누른 순간 왼쪽 화살표는 무조건 true
     if(currentRepayment.value.id + 1 > monthlyRepaymentList.value.length - 1){
       return;
     }
@@ -172,8 +193,15 @@
     currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount1;
     currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount2;
     currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount3;
+    if(currentRepayment.value.id == monthlyRepaymentList.value.length - 1){
+      isRightArrow.value = false;
+    }else{
+      isRightArrow.value = true;
+    }
   }
   function minusIndex(){
+    
+    isRightArrow.value = true; // 왼쪽 누른 순간 오른쪽 화살표는 무조건 true
     if(currentRepayment.value.id - 1 < 0 ){
       return;
     }
@@ -183,6 +211,11 @@
     currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount1;
     currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount2;
     currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount3;
+    if(currentRepayment.value.id == 0){
+      isLeftArrow.value = false;
+    }else{
+      isLeftArrow.value = true;
+    }
   }
 
   const handleSubmit = async () =>{
@@ -215,6 +248,7 @@
     setTimeout(() => {
       barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
     }, 500);
+    isLeftArrow.value = true;
     try{
       // await setAddRepaymentDetails({
       //   loanId: router.currentRoute.value.query.id,
