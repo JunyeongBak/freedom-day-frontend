@@ -195,11 +195,11 @@
         // repaymentAmount2: currentRepayment.value.repaymentAmount2,
         // repaymentAmount3: currentRepayment.value.repaymentAmount3,
         loanId: router.currentRoute.value.query.id,
-        interestRate: 6.2,
-        repaymentAmount1: 100000,
-        repaymentAmount2: 0,
-        repaymentAmount3: 0,
-        historyDate: '2024-05-16',
+        interestRates: 6.2,
+        repaymentAmount1: 10000000,
+        repaymentAmount2: 20000000,
+        repaymentAmount3: 30000000,
+        historyDate: '2024-04-16',
       });
       router.push("/home");
     }catch(e){
