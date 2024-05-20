@@ -27,7 +27,9 @@
           >
           <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
           <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
-          <div class="loan-details-fragment__calendar-write" @click="">네! 상환 입력하기</div>
+          <form method="POST" @submit.prevent="handleSubmit">
+            <button class="loan-details-fragment__calendar-write">네! 상환 입력하기</button>
+          </form>
         </div>
         <div 
           v-if="currentRepayment.repaymentAmount1 + currentRepayment.repaymentAmount2 + currentRepayment.repaymentAmount3 != 0" style="height: 126px; width:296px; background: #F3F3F3; border-radius: 10px;padding: 16px; box-sizing:border-box;display:flex; flex-direction: column; justify-content:space-between;">
@@ -136,7 +138,7 @@
   import { useStore } from '@/store';
   import { useRouter } from 'vue-router'
   import nav_bar from "@/layout/NavBar.vue";
-  import { getLoanDetails } from '@/api/loan.js';
+  import { getLoanDetails, setAddRepaymentDetails } from '@/api/loan.js';
 
   const router = useRouter();
   const store = useStore();
@@ -183,6 +185,29 @@
     currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount3;
   }
 
+  const handleSubmit = async () =>{
+    try{
+      await setAddRepaymentDetails({
+        // loanId: router.currentRoute.value.query.id,
+        // interestRate: currentRepayment.value.interestRate,
+        // historyDate: currentRepayment.value.historyDate,
+        // repaymentAmount1: currentRepayment.value.repaymentAmount1,
+        // repaymentAmount2: currentRepayment.value.repaymentAmount2,
+        // repaymentAmount3: currentRepayment.value.repaymentAmount3,
+        loanId: router.currentRoute.value.query.id,
+        interestRate: 6.2,
+        repaymentAmount1: 100000,
+        repaymentAmount2: 0,
+        repaymentAmount3: 0,
+        historyDate: '2024-05-16',
+      });
+      router.push("/home");
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+
   const props = defineProps({
     loanDetails: Object,
   });
@@ -190,6 +215,26 @@
     setTimeout(() => {
       barchartRef.value.scrollLeft = barchartRef.value.scrollWidth;
     }, 500);
+    try{
+      // await setAddRepaymentDetails({
+      //   loanId: router.currentRoute.value.query.id,
+      //   historyDate: currentRepayment.value.historyDate,
+      //   interestRate: currentRepayment.value.interestRate,
+      //   repaymentAmount1: currentRepayment.value.repaymentAmount1,
+      //   repaymentAmount2: currentRepayment.value.repaymentAmount2,
+      //   repaymentAmount3: currentRepayment.value.repaymentAmount3,
+      // });
+      // await setAddRepaymentDetails({
+      //   loanId: router.currentRoute.value.query.id,
+      //   interestRate: 6.2,
+      //   repaymentAmount1: 100000,
+      //   repaymentAmount2: 200000,
+      //   repaymentAmount3: 300000,
+      //   historyDate: '2024-05-16',
+      // });
+    }catch(e){
+      console.log(e);
+    }
   })
 
   watch(() => props.loanDetails, (newVal) => {

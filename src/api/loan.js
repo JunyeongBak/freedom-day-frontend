@@ -20,4 +20,8 @@ async function getLoanDetails(param) {
   });
 }
 
-export { getUserLoanInfo, postLoanCreate, getLoanStatistics, getLoanDetails };
+async function setAddRepaymentDetails(param){
+  return axios.post('/loan/add-repayment-details', param);
+}
+
+export { getUserLoanInfo, postLoanCreate, getLoanStatistics, getLoanDetails, setAddRepaymentDetails };
