@@ -8,7 +8,7 @@
             src="@/assets/ic_24_left_grey80.svg" 
             alt="calendar" 
             style="width:24px; height: 24px;"
-            @click="minusIndex(currentRepayment.id)"
+            @click="minusIndex"
             >
           <p>{{ currentRepayment.historyDate }}</p>
           <!-- <ul>
@@ -18,7 +18,7 @@
             src="@/assets/ic_24_right_grey80.svg" 
             alt="calendar" 
             style="width:24px; height: 24px;" 
-            @click="addIndex(currentRepayment.id)"
+            @click="addIndex"
             >
         </div>
         <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
@@ -122,27 +122,27 @@
   //   console.log(res);
   //   // response.value = res.data;
   // });
-  function addIndex(index){
-    if(indexMaxMonthly.value + index < 0 || indexMaxMonthly.value + index > monthlyRepaymentList.value.length - 1){
+  function addIndex(){
+    if(currentRepayment.value.id + 1 > monthlyRepaymentList.value.length - 1){
       return;
     }
-    indexMaxMonthly.value += index;
-    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
-    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
-    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
-    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
-    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+    currentRepayment.value.id += 1;
+    currentRepayment.value.historyDate = monthlyRepaymentList.value[currentRepayment.value.id].historyDate;
+    currentRepayment.value.interestRate = monthlyRepaymentList.value[currentRepayment.value.id].interestRate;
+    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount1;
+    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount2;
+    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount3;
   }
-  function minusIndex(index){
-    if(indexMaxMonthly.value - index < 0 || indexMaxMonthly.value - index > monthlyRepaymentList.value.length - 1){
+  function minusIndex(){
+    if(currentRepayment.value.id - 1 < 0 ){
       return;
     }
-    indexMaxMonthly.value -= index;
-    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
-    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
-    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
-    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
-    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+    currentRepayment.value.id -= 1;
+    currentRepayment.value.historyDate = monthlyRepaymentList.value[currentRepayment.value.id].historyDate;
+    currentRepayment.value.interestRate = monthlyRepaymentList.value[currentRepayment.value.id].interestRate;
+    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount1;
+    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount2;
+    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[currentRepayment.value.id].repaymentAmount3;
   }
 
   const props = defineProps({
