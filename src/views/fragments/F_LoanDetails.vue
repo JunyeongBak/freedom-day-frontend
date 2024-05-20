@@ -4,12 +4,22 @@
       <p class="label">상환 세부 내용</p>
       <div class="loan-details-fragment__calendar">
         <div style="display:flex; width:195px; align-items: center;justify-content: space-between;">
-          <img src="@/assets/ic_24_left_grey80.svg" alt="calendar" style="width:24px; height: 24px;">
+          <img 
+            src="@/assets/ic_24_left_grey80.svg" 
+            alt="calendar" 
+            style="width:24px; height: 24px;"
+            @click="minusIndex(currentRepayment.id)"
+            >
           <p>{{ currentRepayment.historyDate }}</p>
           <!-- <ul>
             <li v-for="data in monthlyRepaymentList" :key="data.id">{{ data.historyDate }}</li>
           </ul> -->
-          <img src="@/assets/ic_24_right_grey80.svg" alt="calendar" style="width:24px; height: 24px;">
+          <img 
+            src="@/assets/ic_24_right_grey80.svg" 
+            alt="calendar" 
+            style="width:24px; height: 24px;" 
+            @click="addIndex(currentRepayment.id)"
+            >
         </div>
         <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
         <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
@@ -98,6 +108,7 @@
   const monthlyRepaymentList = ref([]);
   const indexMaxMonthly = ref(0);
   const currentRepayment = ref({
+    "id" : 0,
     "historyDate": "YYYY-MM",
     "interestRate" : 0,
     "repaymentAmount1": 0,
@@ -111,6 +122,28 @@
   //   console.log(res);
   //   // response.value = res.data;
   // });
+  function addIndex(index){
+    if(indexMaxMonthly.value + index < 0 || indexMaxMonthly.value + index > monthlyRepaymentList.value.length - 1){
+      return;
+    }
+    indexMaxMonthly.value += index;
+    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
+    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
+    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
+    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
+    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+  }
+  function minusIndex(index){
+    if(indexMaxMonthly.value - index < 0 || indexMaxMonthly.value - index > monthlyRepaymentList.value.length - 1){
+      return;
+    }
+    indexMaxMonthly.value -= index;
+    currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
+    currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
+    currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
+    currentRepayment.value.repaymentAmount2 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount2;
+    currentRepayment.value.repaymentAmount3 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount3;
+  }
 
   const props = defineProps({
     loanDetails: Object,
@@ -125,6 +158,7 @@
     // console.log('✨', newVal);
     monthlyRepaymentList.value = newVal.repaymentHistoryMonthList;
     indexMaxMonthly.value = monthlyRepaymentList.value.length - 1;
+    currentRepayment.value.id = indexMaxMonthly.value;
     currentRepayment.value.historyDate = monthlyRepaymentList.value[indexMaxMonthly.value].historyDate;
     currentRepayment.value.interestRate = monthlyRepaymentList.value[indexMaxMonthly.value].interestRate;
     currentRepayment.value.repaymentAmount1 = monthlyRepaymentList.value[indexMaxMonthly.value].repaymentAmount1;
