@@ -43,12 +43,25 @@
           style="position:relative; display:flex; flex-direction:column; justify-content: space-evenly;align-items: center; height: 210px;box-sizing: border-box;"
           v-if="currentRepayment.repaymentAmount1 + currentRepayment.repaymentAmount2 + currentRepayment.repaymentAmount3 == 0"
           >
-          <div style="position:absolute;background-color: orange; width: 296px; height: 182px;">layout</div>
+          <div 
+            :style="{position:'absolute', top:'8px', display:isDisplayVisible, backgroundColor: 'orange', width: '296px', height: '200px'}"
+            >
+            <button
+              @click="displayVisible"
+              >
+              취소
+            </button>
+          </div>
           <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
           <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
-          <form method="POST" @submit.prevent="handleSubmit">
-            <button class="loan-details-fragment__calendar-write">네! 상환 입력하기</button>
-          </form>
+          <button
+            @click="displayVisible" 
+            class="loan-details-fragment__calendar-write"
+            >
+            네! 상환 입력하기
+          </button>
+          <!-- <form method="POST" @submit.prevent="handleSubmit">
+          </form> -->
         </div>
         <div 
           v-if="currentRepayment.repaymentAmount1 + currentRepayment.repaymentAmount2 + currentRepayment.repaymentAmount3 != 0" style="height: 126px; width:296px; background: #F3F3F3; border-radius: 10px;padding: 16px; box-sizing:border-box;display:flex; flex-direction: column; justify-content:space-between;">
@@ -78,7 +91,7 @@
           </div>
           <div 
             style="border: 1px solid #2B66F5;border-radius: 16px;background: #FFFFFF;box-sizing: border-box;width: 94px;height: 40px;font-size: 14px;font-family: 'NanumSquareNeo_extrabold'; text-align: center;line-height: 40px;color:#2B66F5;"
-            @click=""
+            @click="displayVisible"
             >
             수정하기
           </div>
@@ -178,6 +191,14 @@
   });
   const isRightArrow = ref(false);
   const isLeftArrow = ref(false);
+  const isDisplayVisible = ref('none'); //상환세부내용 입력
+  function displayVisible() {
+    if (isDisplayVisible.value == 'none'){
+      isDisplayVisible.value = 'block';
+    }else{
+      isDisplayVisible.value = 'none';
+    }
+  }
   // onMounted(async () => {
   //   loanId.value = router.currentRoute.value.query.id;
   //   console.log(loanId.value);
