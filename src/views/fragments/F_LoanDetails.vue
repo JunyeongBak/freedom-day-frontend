@@ -44,8 +44,34 @@
           v-if="currentRepayment.repaymentAmount1 + currentRepayment.repaymentAmount2 + currentRepayment.repaymentAmount3 == 0"
           >
           <div 
-            :style="{position:'absolute', top:'8px', display:isDisplayVisible, backgroundColor: 'orange', width: '296px', height: '200px'}"
+            :style="{position:'absolute', top:'8px', display:isDisplayVisible, backgroundColor: '#FFF', width: '296px', height: '200px'}"
             >
+            <div style="background-color: #F3F3F3; border-radius: 10px; box-sizing: border-box;padding:8px;">
+              <form>
+                <div style="display: flex; flex-direction: column; align-items:center; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
+                  <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
+                    <span style="position:absolute;left:0;">금리</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>%</span>
+                  </div>
+                  <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
+                    <span style="position:absolute;left:0;">금리</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>%</span>
+                  </div>
+                  <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
+                    <span style="position:absolute;left:0;">금리</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>%</span>
+                  </div>
+                  <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
+                    <span style="position:absolute;left:0;">금리</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>%</span>
+                  </div>
+                </div>
+              </form>
+            </div>
             <button
               @click="displayVisible"
               >
