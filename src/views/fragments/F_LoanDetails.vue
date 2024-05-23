@@ -51,32 +51,41 @@
                 <div style="display: flex; flex-direction: column; align-items:center; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
                     <span style="position:absolute;left:0;">금리</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
                     <span>%</span>
                   </div>
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
-                    <span style="position:absolute;left:0;">금리</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
-                    <span>%</span>
+                    <span style="position:absolute;left:0;">이자</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>원</span>
                   </div>
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
-                    <span style="position:absolute;left:0;">금리</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
-                    <span>%</span>
+                    <span style="position:absolute;left:0;">원금</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>원</span>
                   </div>
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
-                    <span style="position:absolute;left:0;">금리</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 4px; padding: 4px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
-                    <span>%</span>
+                    <span style="position:absolute;left:0;">중도상환</span>
+                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <span>원</span>
                   </div>
                 </div>
               </form>
             </div>
-            <button
-              @click="displayVisible"
-              >
-              취소
-            </button>
+            <div style="display:flex; justify-content: right;box-sizing: border-box;">
+              <button
+                @click="displayVisible"
+                style="color:#898F9A;font-size:12px; font-family:'NanumSquareNeo_extrabold';width:62px;height:40px;border: 1px solid #898F9A;border-radius: 16px;"
+                >
+                취소
+              </button>
+              <button
+                @click="displayVisible"
+                style="color:#FFFFFF;background-color:#2B66F5;font-size:12px; font-family:'NanumSquareNeo_extrabold';width:62px;height:40px;border-radius: 16px;"
+                >
+                확인
+              </button>
+            </div>
           </div>
           <img src="@/assets/ic_haebang_56.svg" alt="calendar" style="width:56px; height: 56px;">
           <p style="font-size:18px; font-family: 'NanumSquareNeo_bold';">이번 달도 상환 하셨나요?</p>
