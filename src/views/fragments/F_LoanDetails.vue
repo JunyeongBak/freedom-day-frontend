@@ -80,7 +80,7 @@
                 취소
               </button>
               <button
-                @click="displayVisible"
+                @click="handleSubmit"
                 style="color:#FFFFFF;background-color:#2B66F5;font-size:12px; font-family:'NanumSquareNeo_extrabold';width:62px;height:40px;border-radius: 16px;"
                 >
                 확인
@@ -280,7 +280,7 @@
   const handleSubmit = async () =>{
     try{
       alert('상환 입력!');
-      // await setAddRepaymentDetails({
+      await setAddRepaymentDetails({
       //   // loanId: router.currentRoute.value.query.id,
       //   // interestRate: currentRepayment.value.interestRate,
       //   // historyDate: currentRepayment.value.historyDate,
@@ -292,15 +292,15 @@
       //   // if (router.currentRoute.value.query.outstandingPrincipal > ){
 
       //   // }
-      //   loanId: router.currentRoute.value.query.id,
-      //   interestRates: 6.2,
-      //   repaymentAmount1: 1000000,
-      //   repaymentAmount2: 1000000,
-      //   repaymentAmount3: 2000000,
-      //   historyDate: '2024-05-16',
-      // });
+        loanId: router.currentRoute.value.query.id,
+        interestRates: 6.2,
+        repaymentAmount1: 100000,
+        repaymentAmount2: 100000,
+        repaymentAmount3: 200000,
+        historyDate: '2024-05-24',
+      });
 
-      // router.push("/home");
+      router.push("/home");
     }catch(e){
       console.log(e);
     }

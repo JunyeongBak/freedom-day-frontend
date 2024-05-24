@@ -9,7 +9,12 @@
             <img class="loan-statistics-remind-card__bankimg" src="@/assets/ic_bank.png" alt="">
             <div class="loan-statistics-remind-card-info">
               <p class="loan-statistics-remind-card-info__purpose" :style="{backgroundColor : purposeColor(loan.purpose.toString())}">{{ loan.purpose }}</p>
-              <p class="loan-statistics-remind-card-info__dday">D-{{ loan.paymentDDay }}</p>
+              <p 
+                class="loan-statistics-remind-card-info__dday"
+                :style="{backgroundColor: overdue[loan.paymentDDay < 0 ? '연체' : '']}"
+                >
+                  {{ loan.paymentDDay < 0 ? '연체'+loan.paymentDDay.toString().replace('-','') : 'D-' + loan.paymentDDay }}
+              </p>
             </div>
             <p class="loan-statistics-remind-card__name">{{ loan.name }}</p>
             <p class="loan-statistics-remind-card__duedate">{{ loan.paymentDate }}</p>
@@ -122,6 +127,10 @@
     '주택자금': '#3182F6',
     '기타': '#6B7583',
   };
+
+  const overdue = {
+    '연체' : 'red'
+  }
   const pieChart = computed(() => {
     let gradient = 'conic-gradient(';
     let accumulatedPercent = 0;
@@ -175,6 +184,7 @@
         }
 
         loanFinishList.value = res.response.repaidLoanList;
+        console.log(res.response.repaidLoanList);
         // console.log(res.response.repaymentHistoryMonthList);
         monthlyRepaymentList.value = res.response.repaymentHistoryMonthList;
         totalRemainingPrincipal.value = res.response.totalRemainingPrincipal.toLocaleString();

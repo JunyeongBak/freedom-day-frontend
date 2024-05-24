@@ -16,6 +16,7 @@ export default defineConfig({
     },
   },
   server: {
+    host: "0.0.0.0", // Window WSL2 사용 시, 잦은 local 접속 문제 해결을 위해 네트워크로 접속하도록 조치
     port: 5000, // 개발 서버의 포트를 5000으로 설정
     proxy: {
       // 필요한 경우 API 프록시 설정 추가
