@@ -46,6 +46,14 @@
           <div 
             :style="{position:'absolute', top:'8px', display:isDisplayVisible, backgroundColor: '#FFF', width: '296px', height: '200px'}"
             >
+            <div v-if="showLogoutPopup" class="overlay"></div>
+            <div v-if="showLogoutPopup" class="cancel-popup">
+              <p class="cancel-popup__label">상환 내역 입력을 취소하시겠습니까?</p>
+              <div class="cancel-popup__container">
+                <button @click="displayVisibleCancle" class="cancel-popup__yes">네</button>
+                <button @click="toggleLogoutPopup" class="cancel-popup__no">아니오</button>
+              </div>
+            </div>
             <div style="background-color: #F3F3F3; border-radius: 10px; box-sizing: border-box;padding:8px;">
               <form>
                 <div style="display: flex; flex-direction: column; align-items:center; font-size: 14px; font-family: 'NanumSquareNeo_bold';">
@@ -54,7 +62,7 @@
                     <input 
                       type="number" 
                       style="text-align:right;margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" 
-                      v-model="currentRepayment.interestRate"
+                      v-model="inputInterestRate"
                       placeholder="0"
                       >
                     <span>%</span>
@@ -62,20 +70,31 @@
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
                     <span style="position:absolute;left:0;">이자</span>
                     <input 
-                      type="text" 
+                      type="number" 
                       style="text-align:right;margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" 
-                      v-model="currentRepayment.interestRate"
+                      v-model="inputInterestAmount"
+                      placeholder="0"
                       >
                     <span>원</span>
                   </div>
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
                     <span style="position:absolute;left:0;">원금</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <input 
+                      type="number" 
+                      style="text-align:right;margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" 
+                      v-model="inputPrincipal"
+                      placeholder="0"
+                      >
                     <span>원</span>
                   </div>
                   <div style="margin:4px auto 4px; position:relative;display: flex; justify-content: right; align-items: center; width: 100%">
                     <span style="position:absolute;left:0;">중도상환</span>
-                    <input type="text" style="margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" v-model="currentRepayment.interestRate">
+                    <input 
+                      type="number" 
+                      style="text-align:right;margin-right:4px;width: 180px; height: 30px; border: 1px solid #DBDDE2; border-radius: 8px; padding: 8px; box-sizing: border-box;" 
+                      v-model="inputRepayment"
+                      placeholder="0"
+                      >
                     <span>원</span>
                   </div>
                 </div>
@@ -83,7 +102,7 @@
             </div>
             <div style="display:flex; justify-content: right;box-sizing: border-box;">
               <button
-                @click="displayVisible"
+                @click="toggleLogoutPopup"
                 style="margin-right:8px;color:#898F9A;font-size:12px; font-family:'NanumSquareNeo_extrabold';width:62px;height:40px;border: 1px solid #898F9A;border-radius: 16px;"
                 >
                 취소
@@ -233,6 +252,15 @@
     "repaymentAmount2": 0,
     "repaymentAmount3": 0,
   });
+  const inputInterestRate = ref(null);
+  const inputInterestAmount = ref(null);
+  const inputPrincipal = ref(null);
+  const inputRepayment = ref(null);
+  const showLogoutPopup = ref(false);//취소 버튼 팝업창 전용
+  const toggleLogoutPopup = () => {
+    showLogoutPopup.value = !showLogoutPopup.value;
+  };
+
   const isRightArrow = ref(false);
   const isLeftArrow = ref(false);
   const isDisplayVisible = ref('none'); //상환세부내용 입력
@@ -243,6 +271,15 @@
       isDisplayVisible.value = 'none';
     }
   }
+  function displayVisibleCancle(){
+    if (isDisplayVisible.value == 'none'){
+      showLogoutPopup.value = !showLogoutPopup.value;
+      isDisplayVisible.value = 'block';
+    }else{
+      isDisplayVisible.value = 'none';
+    }
+  }
+
   // onMounted(async () => {
   //   loanId.value = router.currentRoute.value.query.id;
   //   console.log(loanId.value);
@@ -302,11 +339,11 @@
 
       //   // }
         loanId: router.currentRoute.value.query.id,
-        interestRates: 6.2,
-        repaymentAmount1: 100000,
-        repaymentAmount2: 100000,
-        repaymentAmount3: 200000,
-        historyDate: '2024-05-24',
+        interestRates: inputInterestRate.value,
+        repaymentAmount1: inputInterestAmount.value,
+        repaymentAmount2: inputPrincipal.value,
+        repaymentAmount3: inputRepayment.value,
+        historyDate: new Date(),
       });
 
       router.push("/home");
@@ -516,5 +553,47 @@
     color: $grey60;
     font-size: 16px;
     font-family: 'NanumSquareNeo_normal';
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    background-color: #1D2532;
+    opacity: 0.8;
+    z-index: 999; /* ensure the overlay is on top of other elements */
+  }
+  .cancel-popup{
+    width: 328px;
+    height: 160px;
+    position: absolute;
+    top: calc(50% - 80px);
+    left: calc(50% - 164px);
+    z-index: 1000;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__yes{
+      width: 144px;
+      height: 48px;
+      background-color: #EAF0FE;
+      border-radius: 8px;
+      color: #367BF9;
+    } 
+    &__no{
+      width: 144px;
+      height: 48px;
+      background-color: #2B66F5;
+      border-radius: 8px;
+      color: #FFF;
+    }
   }
 </style>
