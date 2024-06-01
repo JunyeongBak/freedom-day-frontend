@@ -1,4 +1,4 @@
-# freedom-day-frontend 개발 중...
+# freedom-day-frontend 베타 1.3.0
 
 ## Project setup
 ```
